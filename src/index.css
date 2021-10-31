@@ -1,0 +1,32 @@
+  /* font */
+  @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;700&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap");
+  
+* {
+  font-family: 'Red Hat Display', sans-serif;
+
+}
+
+/* Colours */
+:root {
+  --grayish-blue: hsl(237, 18%, 59%);
+  --soft-red: hsl(345, 95%, 68%);
+  --dark-desaturated-blue: hsl(236, 21%, 26%);
+  --very-dark-blue: hsl(235, 16%, 14%);
+  --very-dark-purple: hsl(234, 17%, 12%);
+  --white-text: hsl(0, 0%, 100%);
+  }
+  
+
+  
+  .font-RedHatText-400 {
+    font-family: 'Red Hat Text', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+  }
+  
+  .font-RedHatText-700 {
+    font-family: 'Red Hat Text', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+  }

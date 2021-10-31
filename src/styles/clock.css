@@ -21,8 +21,8 @@
   height: 150px;
   position: relative;
   overflow: hidden;
-  background-color: rgb(44, 45, 68);
-  color: rgb(213, 79, 112);
+  background-color: var(--dark-desaturated-blue);
+  color: var(--soft-red);
   border-radius: 5px;
   font-size: 6rem;
   line-height: 150px;
@@ -30,7 +30,7 @@
 }
 
 .clock-label {
-  color: rgb(127, 129, 164);
+  color: var(--grayish-blue);
   letter-spacing: 0.2rem;
 }
 
@@ -53,7 +53,7 @@
 .centre-line {
   width: 150px;
   height: 2px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 74px;
   left: 0;
