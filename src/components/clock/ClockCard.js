@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 
 
 export default function ClockCard({value, clock}) {
-  
+
   return (
-    <div>
+    <div className="clock-section">
       <div className="clock-card">
         <p>{clock[value]}</p>
         <div className="semi-circle left"></div>

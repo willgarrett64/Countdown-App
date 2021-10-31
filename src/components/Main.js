@@ -10,7 +10,6 @@ export default function Main () {
 
   return (
     <main className="content open">
-      <h1>Days Until {christmas.name}</h1>
       <Clock countdown={christmas} />
     </main>
   )

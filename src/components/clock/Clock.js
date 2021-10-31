@@ -39,11 +39,14 @@ export default function Clock({countdown}) {
   
   
   return (
-    <div>
-      <ClockCard value={'days'} clock={timeRemaining} />
-      <ClockCard value={'hours'} clock={timeRemaining} />
-      <ClockCard value={'minutes'} clock={timeRemaining} />
-      <ClockCard value={'seconds'} clock={timeRemaining} />
+    <div className="clock-wrapper">
+      <h1>DAYS UNTIL {countdown.name.toUpperCase()}</h1>
+      <div className="clock">
+        <ClockCard value={'days'} clock={timeRemaining} />
+        <ClockCard value={'hours'} clock={timeRemaining} />
+        <ClockCard value={'minutes'} clock={timeRemaining} />
+        <ClockCard value={'seconds'} clock={timeRemaining} />
+      </div>
     </div>
   )
 }
