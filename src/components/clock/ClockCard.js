@@ -1,6 +1,10 @@
 import '../../styles/clock.css'
 
+import React, { useState, useEffect } from 'react';
+
+
 export default function ClockCard({value, clock}) {
+  
   return (
     <div>
       <div className="clock-card">
