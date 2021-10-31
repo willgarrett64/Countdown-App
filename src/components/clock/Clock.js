@@ -28,16 +28,22 @@ export default function Clock({countdown}) {
   const [secondsRemaining, setSecondsRemaining] = useState(calculateTimeUntil(countdown))
   let timeRemaining = convertSecondsToDays(secondsRemaining);
 
-  const updateTime = () => {
+  const startclock = () => {
     setSecondsRemaining(calculateTimeUntil(countdown));
     timeRemaining = convertSecondsToDays(secondsRemaining);
   }
-  setInterval(updateTime, 1000);
-
-
 
   
+  useEffect(() => {
+    const myClock = setInterval(startclock, 1000);
+    return () => {
+      clearInterval(myClock);
+    }
+  }, [countdown])
+
   
+
+
   return (
     <div className="clock-wrapper">
       <h1>DAYS UNTIL {countdown.name.toUpperCase()}</h1>

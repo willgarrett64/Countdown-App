@@ -3,15 +3,15 @@ export default function SignUp() {
     <div className="content">
       <h2>Create a new account to access <strong>full features</strong></h2>
       <div className="input-label-pair">
-        <label for="username-signup">USERNAME</label>
+        <label htmlFor="username-signup">USERNAME</label>
         <input id="username-signup" />
       </div>
       <div className="input-label-pair">
-        <label for="password-signup">PASSWORD</label>
+        <label htmlFor="password-signup">PASSWORD</label>
         <input id="password-signup" type="password" />
       </div>
       <div className="input-label-pair">
-        <label for="verify-password-signup">VERIFY PASSWORD</label>
+        <label htmlFor="verify-password-signup">VERIFY PASSWORD</label>
         <input id="verify-password-signup" type="password" />
       </div>
       <button className="primary">SIGN UP</button>

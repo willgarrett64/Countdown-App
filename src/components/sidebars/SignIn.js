@@ -3,11 +3,11 @@ export default function SignIn() {
     <div className="content">
       <h2>Sign in to your account to access <strong>full features</strong></h2>
       <div className="input-label-pair">
-        <label for="username-signin">USERNAME</label>
+        <label htmlFor="username-signin">USERNAME</label>
         <input id="username-signin" />
       </div>
       <div className="input-label-pair">
-        <label for="password-signin">PASSWORD</label>
+        <label htmlFor="password-signin">PASSWORD</label>
         <input id="password-signin" type="password" />
       </div>
 
