@@ -12,6 +12,7 @@ export default function ClockCard({value, clock}) {
         <div className="semi-circle left"></div>
         <div className="semi-circle right"></div>
         <div className="centre-line"></div>
+        <div className="darker-overlay"></div>
       </div>
       <p className="clock-label">{value.toUpperCase()}</p>
     </div>

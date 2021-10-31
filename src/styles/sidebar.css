@@ -31,7 +31,7 @@ aside.open {
 
 aside .content {
   min-width: 35vw;
-  padding: 0px 90px;
+  padding: 0px 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,12 +84,16 @@ aside h2 {
 
 
 /*#region select countdown sidebar*/
+#countdown-list {
+  width: 100%;
+}
+
 .countdown-card {
   display: grid;
   grid-template-columns: repeat(2, 50%);
   grid-template-rows: repeat(2, 50%);
   height: 130px;
-  width: 100%;
+  width: 90%;
   margin: 20px auto;
   background-color: var(--light-desaturated-blue);
   border-radius: 10px;

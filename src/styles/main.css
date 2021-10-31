@@ -1,0 +1,10 @@
+main {
+  width: 100vw;
+  height: 100vh;
+  transition: 0.8s;
+  overflow-x: hidden;
+}
+
+main.open {
+  width: 65vw;
+}
