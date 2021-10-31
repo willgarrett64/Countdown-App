@@ -15,17 +15,3 @@
   --very-dark-purple: hsl(234, 17%, 12%);
   --white-text: hsl(0, 0%, 100%);
   }
-  
-
-  
-  .font-RedHatText-400 {
-    font-family: 'Red Hat Text', sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-  }
-  
-  .font-RedHatText-700 {
-    font-family: 'Red Hat Text', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-  }

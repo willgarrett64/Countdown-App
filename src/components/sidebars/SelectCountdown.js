@@ -1,3 +1,4 @@
+import AddNewCountdownCard from "./AddNewCountdownCard";
 import CountdownCard from "./CountdownCard";
 
 export default function SelectCountdown({myCountdowns, setActiveCountdown}) {
@@ -7,6 +8,7 @@ export default function SelectCountdown({myCountdowns, setActiveCountdown}) {
       
       <div id="countdown-list">
         {myCountdowns.map(countdown => <CountdownCard countdown={countdown} key={countdown.id} setActiveCountdown={setActiveCountdown} />)}
+        <AddNewCountdownCard />
       </div>
 
     </div>

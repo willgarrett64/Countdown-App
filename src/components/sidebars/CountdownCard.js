@@ -12,7 +12,7 @@ export default function CountdownCard({countdown, setActiveCountdown}) {
   }
 
   return (
-    <div className="countdown-card" onClick={changeCountdown} id={`countdown-${countdown.id}`}>
+    <div className="card countdown" onClick={changeCountdown} id={`countdown-${countdown.id}`}>
       <div className="info name">
         <p>{countdown.name}</p>
       </div>
