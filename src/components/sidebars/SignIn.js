@@ -1,18 +1,19 @@
 export default function SignIn() {
   return (
-    <div>
+    <div className="content">
       <h2>Sign in to your account to access <strong>full features</strong></h2>
-      <div>
+      <div className="input-label-pair">
         <label for="username-signin">USERNAME</label>
         <input id="username-signin" />
       </div>
-      <div>
+      <div className="input-label-pair">
         <label for="password-signin">PASSWORD</label>
-        <input id="password-signin" />
+        <input id="password-signin" type="password" />
       </div>
-      <button>SIGN IN</button>
-      <button>SIGN UP</button>
-      <p>CONTINUE AS GUEST</p>
+
+      <button className="primary">SIGN IN</button>
+      <button className="secondary">SIGN UP</button>
+      <p className="guest-btn">CONTINUE AS GUEST</p>
     </div>
   )
 }
