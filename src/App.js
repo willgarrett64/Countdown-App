@@ -5,9 +5,10 @@ import Main from './components/Main'
 //import images
 import dblRightChevron from './images/icon-dbl-right.svg'
 
+//import React hooks
 import React, { useState, useEffect } from 'react'
 
-
+//import styles
 import './App.css';
 
 function App() {

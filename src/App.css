@@ -37,7 +37,7 @@ main.open {
 }
 
 input {
-  background-color: var(--dark-desaturated-blue);
+  background-color: var(--light-desaturated-blue);
   color: var(--white-text);
   border: none;
   border-radius: 8px;
@@ -47,13 +47,22 @@ input {
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.3);
 }
 
+input:hover {
+  background-color: var(--dark-desaturated-blue);
+}
+
+input:focus {
+  outline: solid 1px var(--soft-red);
+  background-color: var(--dark-desaturated-blue);
+}
+
 label {
   color: var(--soft-red);
   letter-spacing: 0.4rem;
   font-size: 0.7rem;
   font-weight: bold;
   margin-left: 18px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 button {
@@ -74,13 +83,22 @@ button:hover {
   cursor: pointer;
 }
 
+
+
 button.primary {
   background-color: var(--soft-red);
+}
+button.primary:hover {
+  background-color: hsl(345, 88%, 61%);
 }
 
 button.secondary {
   border: solid 3px var(--soft-red);
   color: var(--soft-red);
+}
+button.secondary:hover {
+  background-color: rgb(37, 28, 44);
+
 }
 
 /*#endregion input bars and labels*/
