@@ -12,7 +12,7 @@
   height: 100vh;
   background-color: rgb(29, 23, 29);
   background-image: url("./images/bg-stars.svg");
-  color: white;
+  color: var(--white-text);
 }
 
 
@@ -25,4 +25,21 @@ main {
 
 main.open {
   width: 65vw;
+}
+
+
+
+input {
+  background-color: var(--dark-desaturated-blue);
+  color: var(--white-text);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  width: 300px;
+  padding: 10px 25px;
+}
+
+label {
+  color: var(--soft-red);
+  letter-spacing: 0.3rem;
 }
