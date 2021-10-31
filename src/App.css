@@ -84,3 +84,30 @@ button.secondary {
 }
 
 /*#endregion input bars and labels*/
+
+
+
+
+
+
+
+
+/*#region Mobile page layout*/
+@media screen and (max-width: 800px) {
+  aside.open {
+    width: 100vw;
+  }
+
+  aside .content {
+    min-width: 100vw;
+  }
+
+  main .content {
+    min-width: 100vw;
+  }
+
+  main.open {
+    width: 0vw;
+  }
+}
+/*#endregion*/

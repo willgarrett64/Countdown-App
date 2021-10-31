@@ -73,9 +73,10 @@ aside h2 {
 /* #endregion open and close sidebar buttons */
 
 .guest-btn {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   margin-top: 20px;
 }
 .guest-btn:hover {
   cursor: pointer;
+  text-decoration: underline;
 }
