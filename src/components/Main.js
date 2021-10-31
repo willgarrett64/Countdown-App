@@ -9,8 +9,10 @@ export default function Main () {
   }
 
   return (
-    <main className="content open">
-      <Clock countdown={christmas} />
+    <main className="open" id="main">
+      <div className="content">
+        <Clock countdown={christmas} />
+      </div>
     </main>
   )
 }

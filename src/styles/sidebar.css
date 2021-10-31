@@ -1,3 +1,18 @@
+/*Temporary buttons to change sidebar view*/
+.sidebar-btns {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar-btns button {
+  background: red;
+  color: white;
+  margin: 5px;
+}
+
+
+
 aside {
   width: 0vw;
   height: 100vh;
@@ -15,8 +30,6 @@ aside.open {
 aside .content {
   min-width: 35vw;
 }
-
-
 
 /* #region open and close sidebar buttons */
 .open-close-btn {
