@@ -11,7 +11,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css';
 
 function App() {
-  const [sidebarView, setSidebarView] = useState('signUp')
+  const [sidebarView, setSidebarView] = useState('signIn')
 
   return (
     <div className="App">
