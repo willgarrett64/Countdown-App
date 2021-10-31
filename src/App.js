@@ -20,10 +20,16 @@ const testCountdownList = [
     id: 1
   },
   {
-    name: 'My Birthday Party',
+    name: 'My Birthday',
     date: '28 Mar 2022',
-    time: '19:00',
+    time: '00:00',
     id: 2
+  },
+  {
+    name: 'Tati\'s Birthday',
+    date: '28 Apr 2022',
+    time: '00:00',
+    id: 3
   }
 ]
 
@@ -34,7 +40,7 @@ function App() {
   const [myCountdowns, setMyCountdowns] = useState(testCountdownList);
   const [activeCountdown, setActiveCountdown] = useState(2)
 
-  
+
   const toggleSidebarOpen = () => {
     document.getElementById('sidebar').classList.toggle("open");
     document.getElementById('main').classList.toggle("open");
