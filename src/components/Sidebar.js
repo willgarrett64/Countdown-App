@@ -9,7 +9,7 @@ import dblLeftChevron from '../images/icon-dbl-left.svg'
 //import styles
 import '../styles/sidebar.css'
 
-export default function Sidebar({sidebarView, setSidebarView, toggleSidebarOpen}) {
+export default function Sidebar({myCountdowns, setActiveCountdown, sidebarView, setSidebarView, toggleSidebarOpen}) {
   const changeSidebar = (e) => {
     setSidebarView(e.target.id)
   }
@@ -22,7 +22,7 @@ export default function Sidebar({sidebarView, setSidebarView, toggleSidebarOpen}
         : sidebarView === 'signUp'
         ? <SignUp />
         : sidebarView === 'selectCountdown'
-        ? <SelectCountdown />
+        ? <SelectCountdown myCountdowns={myCountdowns} setActiveCountdown={setActiveCountdown} />
         : null
       }
       <img src={dblLeftChevron} id="close-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
