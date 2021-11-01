@@ -1,4 +1,12 @@
-export default function CountdownCard({countdown, setActiveCountdown}) {  
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+
+
+export default function CountdownCard({countdown}) {  
+  const dispatch = useDispatch();
+
+
   const changeCountdown = (e) => {
     let id;
     let target = e.target;
@@ -7,8 +15,8 @@ export default function CountdownCard({countdown, setActiveCountdown}) {
       target = target.parentNode;
       id = target.id;
     }
-    const newActiveCountdown = id.slice(10)
-    setActiveCountdown(parseInt(newActiveCountdown))
+    const newLiveCountdown = parseInt(id.slice(10))
+    dispatch(setLiveCountdown(newLiveCountdown));
   }
 
   return (

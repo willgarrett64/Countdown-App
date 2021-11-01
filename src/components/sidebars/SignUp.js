@@ -1,11 +1,9 @@
-export default function SignUp({setSidebarView}) {
-  const setSelectCountdown = () => {
-    setSidebarView('selectCountdown')
-  } 
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setSidebarView } from '../../redux/features/sidebarViewSlice';
 
-  const setSignIn = () => {
-    setSidebarView('signIn')
-  } 
+export default function SignUp() {
+  const dispatch = useDispatch();
 
   return (
     <div className="content">
@@ -22,8 +20,8 @@ export default function SignUp({setSidebarView}) {
         <label htmlFor="verify-password-signup">VERIFY PASSWORD</label>
         <input id="verify-password-signup" type="password" />
       </div>
-      <button className="primary" onClick={setSelectCountdown} >SIGN UP</button>
-      <button className="secondary" onClick={setSignIn} >CANCEL</button>
+      <button className="primary" onClick={() => dispatch(setSidebarView('selectCountdown'))} >SIGN UP</button>
+      <button className="secondary" onClick={() => dispatch(setSidebarView('signIn'))} >CANCEL</button>
     </div>
   )
 }

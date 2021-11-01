@@ -1,11 +1,9 @@
-export default function SignIn({setSidebarView}) {
-  const setSelectCountdown = () => {
-    setSidebarView('selectCountdown')
-  } 
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setSidebarView } from '../../redux/features/sidebarViewSlice';
 
-  const setSignUp = () => {
-    setSidebarView('signUp')
-  } 
+export default function SignIn() {
+  const dispatch = useDispatch();
 
   return (
     <div className="content">
@@ -19,9 +17,9 @@ export default function SignIn({setSidebarView}) {
         <input id="password-signin" type="password" />
       </div>
 
-      <button className="primary" onClick={setSelectCountdown}>SIGN IN</button>
-      <button className="secondary" onClick={setSignUp} >SIGN UP</button>
-      <p className="guest-btn" onClick={setSelectCountdown} >CONTINUE AS GUEST</p>
+      <button className="primary" onClick={() => dispatch(setSidebarView('selectCountdown'))}>SIGN IN</button>
+      <button className="secondary" onClick={() => dispatch(setSidebarView('signUp'))}>SIGN UP</button>
+      <p className="guest-btn" onClick={() => dispatch(setSidebarView('selectCountdown'))} >CONTINUE AS GUEST</p>
     </div>
   )
 }

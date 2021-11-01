@@ -9,27 +9,32 @@ import dblLeftChevron from '../images/icon-dbl-left.svg'
 //import styles
 import '../styles/sidebar.css'
 
-export default function Sidebar({myCountdowns, setActiveCountdown, sidebarView, setSidebarView, toggleSidebarOpen}) {
-  const changeSidebar = (e) => {
-    setSidebarView(e.target.id)
-  }
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setSidebarView } from '../redux/features/sidebarViewSlice';
+
+
+export default function Sidebar({toggleSidebarOpen}) {
+
+  const sidebarView = useSelector((state) => state.sidebarView.value)
+  const dispatch = useDispatch();
   
   return (
     <aside className="open" id="sidebar">
       {
         sidebarView === 'signIn'
-        ? <SignIn setSidebarView={setSidebarView} />
+        ? <SignIn/>
         : sidebarView === 'signUp'
-        ? <SignUp setSidebarView={setSidebarView} />
+        ? <SignUp/>
         : sidebarView === 'selectCountdown'
-        ? <SelectCountdown myCountdowns={myCountdowns} setActiveCountdown={setActiveCountdown} setSidebarView={setSidebarView} />
+        ? <SelectCountdown />
         : null
       }
       <img src={dblLeftChevron} id="close-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
       <div className="sidebar-btns">
-        <button id="signIn" onClick={changeSidebar}>Sign In</button>
-        <button id="signUp" onClick={changeSidebar}>Sign Up</button>
-        <button id="selectCountdown" onClick={changeSidebar}>Select Countdown</button>
+        <button id="signIn" onClick={() => dispatch(setSidebarView('signIn'))}>Sign In</button>
+        <button id="signUp" onClick={() => dispatch(setSidebarView('signUp'))} >Sign Up</button>
+        <button id="selectCountdown" onClick={() => dispatch(setSidebarView('selectCountdown'))} >Select Countdown</button>
       </div>
     </aside>
   )
