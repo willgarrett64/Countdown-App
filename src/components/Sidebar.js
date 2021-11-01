@@ -18,11 +18,11 @@ export default function Sidebar({myCountdowns, setActiveCountdown, sidebarView, 
     <aside className="open" id="sidebar">
       {
         sidebarView === 'signIn'
-        ? <SignIn />
+        ? <SignIn setSidebarView={setSidebarView} />
         : sidebarView === 'signUp'
-        ? <SignUp />
+        ? <SignUp setSidebarView={setSidebarView} />
         : sidebarView === 'selectCountdown'
-        ? <SelectCountdown myCountdowns={myCountdowns} setActiveCountdown={setActiveCountdown} />
+        ? <SelectCountdown myCountdowns={myCountdowns} setActiveCountdown={setActiveCountdown} setSidebarView={setSidebarView} />
         : null
       }
       <img src={dblLeftChevron} id="close-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />

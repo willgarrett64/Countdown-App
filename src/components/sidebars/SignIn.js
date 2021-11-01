@@ -1,4 +1,12 @@
-export default function SignIn() {
+export default function SignIn({setSidebarView}) {
+  const setSelectCountdown = () => {
+    setSidebarView('selectCountdown')
+  } 
+
+  const setSignUp = () => {
+    setSidebarView('signUp')
+  } 
+
   return (
     <div className="content">
       <h2>Sign in to your account to access <strong>full features</strong></h2>
@@ -11,9 +19,9 @@ export default function SignIn() {
         <input id="password-signin" type="password" />
       </div>
 
-      <button className="primary">SIGN IN</button>
-      <button className="secondary">SIGN UP</button>
-      <p className="guest-btn">CONTINUE AS GUEST</p>
+      <button className="primary" onClick={setSelectCountdown}>SIGN IN</button>
+      <button className="secondary" onClick={setSignUp} >SIGN UP</button>
+      <p className="guest-btn" onClick={setSelectCountdown} >CONTINUE AS GUEST</p>
     </div>
   )
 }
