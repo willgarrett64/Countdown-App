@@ -4,8 +4,8 @@ export const sidebarViewSlice = createSlice({
   name: 'sidebarView',
   initialState: {value: 'signIn'},
   reducers: {
-    setSidebarView: (state, newSignIn) => {
-      state.value = newSignIn.payload;
+    setSidebarView: (state, newSidebarView) => {
+      state.value = newSidebarView.payload;
     },
   },
 })

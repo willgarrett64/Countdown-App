@@ -35,10 +35,7 @@ const testCountdownList = [
 
 
 function App() {
-  const [sidebarView, setSidebarView] = useState('signIn');
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [myCountdowns, setMyCountdowns] = useState(testCountdownList);
-  const [activeCountdown, setActiveCountdown] = useState(2)
 
 
   const toggleSidebarOpen = () => {
@@ -48,8 +45,8 @@ function App() {
 
   return (
     <div className="App">
-      <Sidebar myCountdowns={myCountdowns} setActiveCountdown={setActiveCountdown} sidebarView={sidebarView} setSidebarView={setSidebarView} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} toggleSidebarOpen={toggleSidebarOpen} />
-      <Main activeCountdown={activeCountdown} myCountdowns={myCountdowns} />
+      <Sidebar sidebarOpen={sidebarOpen} toggleSidebarOpen={toggleSidebarOpen} />
+      <Main />
       <img src={dblRightChevron} id="open-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
     </div>
   );

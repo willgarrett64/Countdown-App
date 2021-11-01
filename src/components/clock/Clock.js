@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { liveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+
 
 // functions - will eventually be separated into modules
 const calculateTimeUntil = (countdown) => {
@@ -31,10 +31,12 @@ const convertSecondsToDays = (seconds) => {
   return {days: days, hours: hours, minutes: mins, seconds: secs};
 }
 
-export default function Clock({myCountdowns}) {
+export default function Clock() {
   const liveCountdown = useSelector(state => state.liveCountdown.id);
+  const countdownList = useSelector(state => state.countdownList);
 
-  let countdown = myCountdowns.find(countdown => countdown.id == liveCountdown);
+
+  let countdown = countdownList.find(countdown => countdown.id == liveCountdown);
 
   const [secondsRemaining, setSecondsRemaining] = useState(calculateTimeUntil(countdown));
   

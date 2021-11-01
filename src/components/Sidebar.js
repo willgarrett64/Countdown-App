@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSidebarView } from '../redux/features/sidebarViewSlice';
 
 
-export default function Sidebar({myCountdowns, setActiveCountdown, toggleSidebarOpen}) {
+export default function Sidebar({toggleSidebarOpen}) {
 
   const sidebarView = useSelector((state) => state.sidebarView.value)
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export default function Sidebar({myCountdowns, setActiveCountdown, toggleSidebar
         : sidebarView === 'signUp'
         ? <SignUp/>
         : sidebarView === 'selectCountdown'
-        ? <SelectCountdown myCountdowns={myCountdowns} setActiveCountdown={setActiveCountdown} />
+        ? <SelectCountdown />
         : null
       }
       <img src={dblLeftChevron} id="close-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />

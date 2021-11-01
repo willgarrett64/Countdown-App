@@ -3,11 +3,12 @@ import CountdownCard from "./CountdownCard";
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { liveCountdown } from '../../redux/features/liveCountdownSlice';
 
 
-export default function SelectCountdown({myCountdowns}) {
-  const liveCountdown = useSelector((state) => state.liveCountdown.id)
+
+export default function SelectCountdown() {
+  const countdownList = useSelector((state) => state.countdownList)
+  const liveCountdown = useSelector((state) => state.liveCountdown.id);
   const dispatch = useDispatch();
 
   return (
@@ -15,7 +16,7 @@ export default function SelectCountdown({myCountdowns}) {
       <p>SELECT <strong>COUNTDOWN</strong></p>
       
       <div id="countdown-list">
-        {myCountdowns.map(countdown => <CountdownCard countdown={countdown} key={countdown.id} />)}
+        {countdownList.map(countdown => <CountdownCard countdown={countdown} key={countdown.id} />)}
         <AddNewCountdownCard />
       </div>
 

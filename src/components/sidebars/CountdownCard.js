@@ -1,10 +1,9 @@
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { liveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 
 export default function CountdownCard({countdown}) {  
-  const liveCountdown = useSelector((state) => state.liveCountdown.id)
   const dispatch = useDispatch();
 
 

@@ -9,7 +9,7 @@ import { setSidebarView } from '../redux/features/liveCountdownSlice';
 import '../styles/main.css'
 
 export default function Main ({myCountdowns}) {
-  const liveCountdown = useSelector(state => state.liveCountdown.id);
+  const liveCountdown = useSelector(state => state.liveCountdown);
 
   // const countdownToDisplay = myCountdowns.find(countdown => countdown.id == activeCountdown);
 
