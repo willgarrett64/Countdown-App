@@ -12,32 +12,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css';
 
 
-const testCountdownList = [
-  {
-    name: 'Christmas',
-    date: '25 Dec 2021',
-    time: '00:00',
-    id: 1
-  },
-  {
-    name: 'My Birthday',
-    date: '28 Mar 2022',
-    time: '00:00',
-    id: 2
-  },
-  {
-    name: 'Tati\'s Birthday',
-    date: '28 Apr 2022',
-    time: '00:00',
-    id: 3
-  }
-]
-
-
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-
-
   const toggleSidebarOpen = () => {
     document.getElementById('sidebar').classList.toggle("open");
     document.getElementById('main').classList.toggle("open");
@@ -45,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <Sidebar sidebarOpen={sidebarOpen} toggleSidebarOpen={toggleSidebarOpen} />
+      <Sidebar toggleSidebarOpen={toggleSidebarOpen} />
       <Main />
       <img src={dblRightChevron} id="open-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
     </div>
