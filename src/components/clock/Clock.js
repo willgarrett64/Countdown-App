@@ -1,7 +1,14 @@
+// import components 
 import ClockCard from "./ClockCard";
 
+// import hooks
 import React, { useState, useEffect } from 'react';
 
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { liveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+
+// functions - will eventually be separated into modules
 const calculateTimeUntil = (countdown) => {
   const currentDate = Date.now(); //get unix timestamp for current date/time)
   const countdownDate = Date.parse(countdown.date + ' ' + countdown.time) //get unix timestamp for countdown date/time
@@ -24,8 +31,13 @@ const convertSecondsToDays = (seconds) => {
   return {days: days, hours: hours, minutes: mins, seconds: secs};
 }
 
-export default function Clock({countdown}) {
-  const [secondsRemaining, setSecondsRemaining] = useState(calculateTimeUntil(countdown))
+export default function Clock({myCountdowns}) {
+  const liveCountdown = useSelector(state => state.liveCountdown.id);
+
+  let countdown = myCountdowns.find(countdown => countdown.id == liveCountdown);
+
+  const [secondsRemaining, setSecondsRemaining] = useState(calculateTimeUntil(countdown));
+  
   let timeRemaining = convertSecondsToDays(secondsRemaining);
 
   const startclock = () => {
@@ -39,7 +51,7 @@ export default function Clock({countdown}) {
     return () => {
       clearInterval(myClock);
     }
-  }, [countdown])
+  }, [liveCountdown])
 
   
 
