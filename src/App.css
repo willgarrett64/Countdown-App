@@ -97,6 +97,32 @@ button.secondary:hover {
 /*#endregion input bars and labels*/
 
 
+/*#region sign out button*/
+.signOut {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  text-align: right;
+}
+
+.signOut .username {
+  font-size: 1rem;
+  margin-bottom: 3px;
+}
+
+.signOut .btn {
+  color: var(--grayish-blue);
+  font-weight: bold;
+  font-size: 0.8rem;
+  letter-spacing: 0.2rem;
+}
+
+.signOut .btn:hover {
+  cursor: pointer;
+  color: var(--soft-red);
+}
+/*#endregion sign out button*/
+
 
 
 

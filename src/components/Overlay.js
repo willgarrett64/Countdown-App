@@ -5,7 +5,7 @@ export default function Overlay({toggleOverlayHidden}) {
 
 
   return (
-    <div id="overlay" className="none">
+    <div id="overlay" className="hidden">
       <EditCountdown toggleOverlayHidden={toggleOverlayHidden} />
     </div>
   )

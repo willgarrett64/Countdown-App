@@ -17,6 +17,7 @@ export default function Main ({myCountdowns}) {
     <main className="open" id="main">
       <div className="content">
         <Clock myCountdowns={myCountdowns} />
+        
       </div>
     </main>
   )
