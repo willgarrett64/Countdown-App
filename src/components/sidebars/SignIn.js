@@ -1,9 +1,36 @@
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { setSidebarView } from '../../redux/features/sidebarViewSlice';
+import { signIn } from '../../redux/features/signInSlice';
+import { setCountdownList } from '../../redux/features/countdownListSlice';
+
+
+
+//TESTING CLIENT SIDE LOGIN
+import users from '../../clientSideLogin/users';
 
 export default function SignIn() {
   const dispatch = useDispatch();
+
+  const handleSignIn = () => {
+    const username = document.getElementById('username-signin').value;
+    const password = document.getElementById('password-signin').value;
+    
+    if (!username || !password) {
+      alert('Please enter both a username and a password to log in')
+      return
+    }
+
+    const user = users.find(user => user.username === username && user.password === password);
+
+    if (user) {
+      dispatch(signIn(user))
+      dispatch(setCountdownList(user.countdownList));
+      dispatch(setSidebarView('selectCountdown'))
+    } else {
+      alert('No username and password match found')
+    }
+  }
 
   return (
     <div className="content">
@@ -17,7 +44,7 @@ export default function SignIn() {
         <input id="password-signin" type="password" />
       </div>
 
-      <button className="primary" onClick={() => dispatch(setSidebarView('selectCountdown'))}>SIGN IN</button>
+      <button className="primary" onClick={handleSignIn}>SIGN IN</button>
       <button className="secondary" onClick={() => dispatch(setSidebarView('signUp'))}>SIGN UP</button>
       <p className="guest-btn" onClick={() => dispatch(setSidebarView('selectCountdown'))} >CONTINUE AS GUEST</p>
     </div>

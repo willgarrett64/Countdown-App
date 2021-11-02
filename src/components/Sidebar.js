@@ -15,7 +15,6 @@ import { setSidebarView } from '../redux/features/sidebarViewSlice';
 
 
 export default function Sidebar({toggleSidebarOpen}) {
-
   const sidebarView = useSelector((state) => state.sidebarView.value)
   const dispatch = useDispatch();
   
@@ -31,11 +30,11 @@ export default function Sidebar({toggleSidebarOpen}) {
         : null
       }
       <img src={dblLeftChevron} id="close-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
-      <div className="sidebar-btns">
+      {/* <div className="sidebar-btns">
         <button id="signIn" onClick={() => dispatch(setSidebarView('signIn'))}>Sign In</button>
         <button id="signUp" onClick={() => dispatch(setSidebarView('signUp'))} >Sign Up</button>
         <button id="selectCountdown" onClick={() => dispatch(setSidebarView('selectCountdown'))} >Select Countdown</button>
-      </div>
+      </div> */}
     </aside>
   )
   

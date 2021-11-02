@@ -1,9 +1,21 @@
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setSidebarView } from '../redux/features/sidebarViewSlice';
+import { signOut } from '../redux/features/signInSlice';
 
-export default function SignOut({username, signOut}) {
+export default function SignOut() {
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.signIn.user)
+
+  const handleSignOut = () => {
+    dispatch(signOut())
+    dispatch(setSidebarView('signIn'))
+  }
+
   return (
     <div className="signOut">
-      <p className="username">{username}</p>
-      <p className="btn" onClick={signOut} >SIGN OUT</p>      
+      <p className="username">{user.username}</p>
+      <p className="btn" onClick={handleSignOut} >SIGN OUT</p>      
     </div>
   )
 }

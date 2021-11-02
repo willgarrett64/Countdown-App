@@ -10,19 +10,18 @@ import dblRightChevron from './images/icon-dbl-right.svg'
 //import React hooks
 import React, { useState, useEffect } from 'react'
 
+//redux
+import { useSelector, useDispatch } from 'react-redux';
+
+
 //import styles
 import './App.css';
 import './styles/overlay.css'
 
 
 function App() {
-  const [signedIn, setSignedIn] = useState(true);
-  const [username, setUsername] = useState('WillG-92');
-
-  const signOut = () => {
-    setSignedIn(false);
-    setUsername(null)
-  }
+  const dispatch = useDispatch()
+  const signedIn = useSelector(state => state.signIn.signedIn)
 
   const toggleSidebarOpen = () => {
     document.getElementById('sidebar').classList.toggle("open");
@@ -37,7 +36,7 @@ function App() {
     <div className="App">
       <Sidebar toggleSidebarOpen={toggleSidebarOpen} />
       <Main />
-      {signedIn && <SignOut username={username} signOut={signOut} />}
+      {signedIn && <SignOut />}
       <Overlay toggleOverlayHidden={toggleOverlayHidden} />
       <img src={dblRightChevron} id="open-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
     </div>

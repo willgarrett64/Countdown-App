@@ -5,10 +5,8 @@ import CountdownCard from "./CountdownCard";
 import { useSelector, useDispatch } from 'react-redux';
 
 
-
 export default function SelectCountdown() {
-  const countdownList = useSelector((state) => state.countdownList)
-  const liveCountdown = useSelector((state) => state.liveCountdown.id);
+  const countdownList = useSelector((state) => state.countdownList.list)
   const dispatch = useDispatch();
 
   return (
