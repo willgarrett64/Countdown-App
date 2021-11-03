@@ -17,6 +17,13 @@ export const countdownListSlice = createSlice({
       complete: false,
       id: 2
     },
+    {
+      name: 'Easter',
+      date: '17 Apr 2022',
+      time: '00:00',
+      complete: false,
+      id: 3
+    },
 
   ]},
   reducers: {
@@ -37,7 +44,14 @@ export const countdownListSlice = createSlice({
         time: '00:00',
         complete: false,
         id: 2
-      }]
+      },
+      {
+        name: 'Easter',
+        date: '17 Apr 2022',
+        time: '00:00',
+        complete: false,
+        id: 3
+      },]
     },
     addCountdown: (state, newCountdown) => {
       state = state.list.append(newCountdown.payload);

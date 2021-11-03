@@ -3,10 +3,11 @@ import CountdownCard from "./CountdownCard";
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-
+import { setSidebarView } from "../../redux/features/sidebarViewSlice";
 
 export default function SelectCountdown() {
-  const countdownList = useSelector((state) => state.countdownList.list)
+  const countdownList = useSelector((state) => state.countdownList.list);
+  const signedIn = useSelector(state => state.signIn.signedIn)
   const dispatch = useDispatch();
 
   return (
@@ -15,7 +16,8 @@ export default function SelectCountdown() {
       
       <div id="countdown-list">
         {countdownList.map(countdown => <CountdownCard countdown={countdown} key={countdown.id} />)}
-        <AddNewCountdownCard />
+        {signedIn && <AddNewCountdownCard />}
+        {!signedIn && <p class="back-to-signIn" onClick={() => dispatch(setSidebarView('signIn'))}><strong>SIGN IN</strong> FOR MORE FEATURES</p>}
       </div>
 
     </div>

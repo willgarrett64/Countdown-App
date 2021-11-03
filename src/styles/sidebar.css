@@ -150,4 +150,15 @@ aside h2 {
 .add-new:hover {
   background-color: var(--light-desaturated-blue);
 }
+
+.back-to-signIn {
+  text-align: center;
+  margin-top: 50px;
+  letter-spacing: 0.2rem;
+}
+
+.back-to-signIn:hover {
+  cursor: pointer;
+  color: var(--soft-red);
+}
 /*#region select countdown sidebar*/
