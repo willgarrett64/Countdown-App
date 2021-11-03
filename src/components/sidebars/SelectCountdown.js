@@ -7,7 +7,7 @@ import { setSidebarView } from "../../redux/features/sidebarViewSlice";
 
 export default function SelectCountdown() {
   const countdownList = useSelector((state) => state.countdownList.list);
-  const signedIn = useSelector(state => state.signIn.signedIn)
+  const signedIn = useSelector(state => state.authenticate.signedIn)
   const dispatch = useDispatch();
 
   return (

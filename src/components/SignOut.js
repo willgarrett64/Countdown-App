@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { resetToGuest } from '../redux/features/countdownListSlice';
 import { setLiveCountdown } from '../redux/features/liveCountdownSlice';
 import { setSidebarView } from '../redux/features/sidebarViewSlice';
-import { signOut } from '../redux/features/signInSlice';
+import { signOut } from '../redux/features/authenticateSlice';
 
 export default function SignOut() {
   const dispatch = useDispatch()
-  const user = useSelector(state => state.signIn.user)
+  const user = useSelector(state => state.authenticate.user)
 
   const handleSignOut = () => {
     dispatch(signOut())

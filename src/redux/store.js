@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import sidebarViewReducer from './features/sidebarViewSlice';
 import liveCountdownReducer from './features/liveCountdownSlice';
 import countdownListReducer from './features/countdownListSlice';
-import signInReducer from './features/signInSlice';
+import authenticateReducer from './features/authenticateSlice';
 
 
 
@@ -11,6 +11,6 @@ export default configureStore({
     sidebarView: sidebarViewReducer,
     liveCountdown: liveCountdownReducer,
     countdownList: countdownListReducer,
-    signIn: signInReducer,
+    authenticate: authenticateReducer,
   }
 })

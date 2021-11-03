@@ -1,7 +1,7 @@
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { setSidebarView } from '../../redux/features/sidebarViewSlice';
-import { signIn } from '../../redux/features/signInSlice';
+import { signIn } from '../../redux/features/authenticateSlice';
 import { setCountdownList } from '../../redux/features/countdownListSlice';
 
 

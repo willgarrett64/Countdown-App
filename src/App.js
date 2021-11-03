@@ -21,7 +21,7 @@ import './styles/overlay.css'
 
 function App() {
   const dispatch = useDispatch()
-  const signedIn = useSelector(state => state.signIn.signedIn)
+  const signedIn = useSelector(state => state.authenticate.signedIn)
 
   const toggleSidebarOpen = () => {
     document.getElementById('sidebar').classList.toggle("open");
