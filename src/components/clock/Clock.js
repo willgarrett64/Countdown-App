@@ -53,7 +53,7 @@ export default function Clock() {
     return () => {
       clearInterval(myClock);
     }
-  }, [liveCountdown])
+  }, [liveCountdown, countdownList])
 
   
 

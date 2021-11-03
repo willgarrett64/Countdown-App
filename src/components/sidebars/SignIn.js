@@ -27,6 +27,7 @@ export default function SignIn() {
       dispatch(signIn(user))
       dispatch(setCountdownList(user.countdownList));
       dispatch(setSidebarView('selectCountdown'))
+      dispatch(setCountdownList(user.countdownList))
     } else {
       alert('No username and password match found')
     }

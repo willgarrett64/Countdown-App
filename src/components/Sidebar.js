@@ -11,7 +11,6 @@ import '../styles/sidebar.css'
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setSidebarView } from '../redux/features/sidebarViewSlice';
 
 
 export default function Sidebar({toggleSidebarOpen}) {

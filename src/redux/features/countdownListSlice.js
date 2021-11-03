@@ -11,7 +11,7 @@ export const countdownListSlice = createSlice({
       id: 1
     },
     {
-      name: 'New Year 2022',
+      name: 'New Year',
       date: '01 Jan 2022',
       time: '00:00',
       complete: false,
@@ -23,6 +23,22 @@ export const countdownListSlice = createSlice({
     setCountdownList: (state, newList) => {
       state.list = newList.payload;
     },
+    resetToGuest: (state) => {
+      state.list = [{
+        name: 'Christmas',
+        date: '25 Dec 2021',
+        time: '00:00',
+        complete: false,
+        id: 1
+      },
+      {
+        name: 'New Year',
+        date: '01 Jan 2022',
+        time: '00:00',
+        complete: false,
+        id: 2
+      }]
+    },
     addCountdown: (state, newCountdown) => {
       state = state.list.append(newCountdown.payload);
     },
@@ -33,6 +49,6 @@ export const countdownListSlice = createSlice({
   },
 })
 
-export const { setCountdownList, addCountdown, deleteCountdown } = countdownListSlice.actions;
+export const { setCountdownList, resetToGuest, addCountdown, deleteCountdown } = countdownListSlice.actions;
 
 export default countdownListSlice.reducer

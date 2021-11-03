@@ -69,21 +69,21 @@ const users = [
     countdownList: [
       {
         name: 'Xixi na rua',
-        date: '03 Nov 2021',
+        date: '10 Nov 2021',
         time: '12:00',
         complete: false,
         id: 1
       },
       {
         name: 'Lavar o pezinho',
-        date: '03 Nov 2021',
+        date: '10 Nov 2021',
         time: '12:30',
         complete: false,
         id: 2
       },
       {
         name: 'Biscoito!!',
-        date: '03 Nov 2021',
+        date: '10 Nov 2021',
         time: '12:35',
         complete: false,
         id: 3
