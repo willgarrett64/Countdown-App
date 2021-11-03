@@ -148,6 +148,7 @@ aside h2 {
 }
 
 .add-new:hover {
+  cursor: pointer;
   background-color: var(--light-desaturated-blue);
 }
 

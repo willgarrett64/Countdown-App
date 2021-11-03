@@ -34,7 +34,7 @@ function App() {
 
   return (
     <div className="App">
-      <Sidebar toggleSidebarOpen={toggleSidebarOpen} />
+      <Sidebar toggleSidebarOpen={toggleSidebarOpen} toggleOverlayHidden={toggleOverlayHidden} />
       <Main />
       {signedIn && <SignOut />}
       <Overlay toggleOverlayHidden={toggleOverlayHidden} />

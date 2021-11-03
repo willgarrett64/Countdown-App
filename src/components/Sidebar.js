@@ -13,7 +13,7 @@ import '../styles/sidebar.css'
 import { useSelector, useDispatch } from 'react-redux';
 
 
-export default function Sidebar({toggleSidebarOpen}) {
+export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
   const sidebarView = useSelector((state) => state.sidebarView.value)
   const dispatch = useDispatch();
   
@@ -25,7 +25,7 @@ export default function Sidebar({toggleSidebarOpen}) {
         : sidebarView === 'signUp'
         ? <SignUp/>
         : sidebarView === 'selectCountdown'
-        ? <SelectCountdown />
+        ? <SelectCountdown toggleOverlayHidden={toggleOverlayHidden} />
         : null
       }
       <img src={dblLeftChevron} id="close-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
