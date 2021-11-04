@@ -5,21 +5,21 @@ export const countdownListSlice = createSlice({
   initialState: {list: [
     {
       name: 'Christmas',
-      date: '25 Dec 2021',
+      date: '2021-12-25',
       time: '00:00',
       complete: false,
       id: 1
     },
     {
       name: 'New Year',
-      date: '01 Jan 2022',
+      date: '2022-01-01',
       time: '00:00',
       complete: false,
       id: 2
     },
     {
       name: 'Easter',
-      date: '17 Apr 2022',
+      date: '2022-04-17',
       time: '00:00',
       complete: false,
       id: 3
@@ -33,32 +33,37 @@ export const countdownListSlice = createSlice({
     resetToGuest: (state) => {
       state.list = [{
         name: 'Christmas',
-        date: '25 Dec 2021',
+        date: '2021-12-25',
         time: '00:00',
         complete: false,
         id: 1
       },
       {
         name: 'New Year',
-        date: '01 Jan 2022',
+        date: '2022-01-01',
         time: '00:00',
         complete: false,
         id: 2
       },
       {
         name: 'Easter',
-        date: '17 Apr 2022',
+        date: '2022-04-17',
         time: '00:00',
         complete: false,
         id: 3
       },]
     },
     addCountdown: (state, newCountdown) => {
-      state = state.list.append(newCountdown.payload);
+      const countdown = newCountdown.payload;
+      countdown.id = (state.list[state.list.length - 1].id) + 1;
+      state.list = [...state.list, countdown];
     },
     deleteCountdown: (state, id) => {
       const i = state.list.findIndex(el => el.id === id.payload);
-      state.splice(i, 1);
+      state.list.splice(i, 1);
+    }, 
+    editCountdown: (state, id) => {
+
     }
   },
 })

@@ -6,21 +6,21 @@ const users = [
     countdownList: [
       {
         name: 'Christmas',
-        date: '25 Dec 2021',
+        date: '2021-12-25',
         time: '00:00',
         complete: false,
         id: 1
       },
       {
         name: 'My Birthday',
-        date: '28 Mar 2022',
+        date: '2022-03-28',
         time: '00:00',
         complete: false,
         id: 2
       },
       {
         name: 'Tati\'s Birthday',
-        date: '28 Apr 2022',
+        date: '2022-04-28',
         time: '00:00',
         complete: false,
         id: 3
@@ -34,28 +34,28 @@ const users = [
     countdownList: [
       {
         name: 'Christmas',
-        date: '25 Dec 2021',
+        date: '2021-12-25',
         time: '00:00',
         complete: false,
         id: 1
       },
       {
         name: 'My Birthday',
-        date: '28 Apr 2022',
+        date: '2022-12-28',
         time: '00:00',
         complete: false,
         id: 2
       },
       {
         name: 'Germany Trip',
-        date: '24 Dec 2021',
+        date: '2021-12-22',
         time: '15:30',
         complete: false,
         id: 3
       },
       {
         name: 'Amy Vaccine',
-        date: '11 Nov 2021',
+        date: '2021-11-11',
         time: '18:00',
         complete: false,
         id: 4
@@ -69,21 +69,21 @@ const users = [
     countdownList: [
       {
         name: 'Xixi na rua',
-        date: '10 Nov 2021',
+        date: '2021-11-10',
         time: '12:00',
         complete: false,
         id: 1
       },
       {
         name: 'Lavar o pezinho',
-        date: '10 Nov 2021',
+        date: '2021-11-10',
         time: '12:30',
         complete: false,
         id: 2
       },
       {
         name: 'Biscoito!!',
-        date: '10 Nov 2021',
+        date: '2021-11-10',
         time: '12:35',
         complete: false,
         id: 3

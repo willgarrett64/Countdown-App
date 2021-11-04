@@ -19,6 +19,11 @@ export default function CountdownCard({countdown}) {
     dispatch(setLiveCountdown(newLiveCountdown));
   }
 
+  const reorderDate = (date) => {
+    const dateArray = date.split('-');
+    return dateArray[2] + '/' + dateArray[1] +'/' + dateArray[0].substring(2);
+  }
+
   return (
     <div className="card countdown" onClick={changeCountdown} id={`countdown-${countdown.id}`}>
       <div className="info name">
@@ -26,7 +31,7 @@ export default function CountdownCard({countdown}) {
       </div>
       <div className="info date">
         <h3>DATE</h3>
-        <p>{countdown.date}</p>
+        <p>{reorderDate(countdown.date)}</p>
       </div>
       <div className="info time">
         <h3>TIME</h3>
