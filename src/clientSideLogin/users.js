@@ -3,7 +3,7 @@ const users = [
     id: 1,
     username: 'WillG-92',
     password: 'test',
-    countdownList: [
+    countdowns: [
       {
         name: 'Christmas',
         date: '2021-12-25',
@@ -31,7 +31,7 @@ const users = [
     id: 2,
     username: 'tati.sales',
     password: '1Tatiane1',
-    countdownList: [
+    countdowns: [
       {
         name: 'Christmas',
         date: '2021-12-25',
@@ -66,7 +66,7 @@ const users = [
     id: 3,
     username: 'ximbica',
     password: 'coxinhadefrango',
-    countdownList: [
+    countdowns: [
       {
         name: 'Xixi na rua',
         date: '2021-11-10',

@@ -18,7 +18,8 @@ export default function EditCountdown({toggleOverlayHidden}) {
     let time = document.getElementById('new-countdown-time').value;
 
     if (!name || !date || !time) {
-      alert('Please enter a name, date and time')
+      alert('Please enter a name, date and time');
+      return
     }
 
     const newCountdown = {

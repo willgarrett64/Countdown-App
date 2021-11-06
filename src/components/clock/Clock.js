@@ -35,7 +35,6 @@ export default function Clock() {
   const liveCountdown = useSelector(state => state.liveCountdown.id);
   const countdownList = useSelector(state => state.countdownList.list);
 
-
   let countdown = countdownList.find(countdown => countdown.id == liveCountdown);
 
   const [secondsRemaining, setSecondsRemaining] = useState(calculateTimeUntil(countdown));

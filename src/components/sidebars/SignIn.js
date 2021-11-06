@@ -24,10 +24,9 @@ export default function SignIn() {
     const user = users.find(user => user.username === username && user.password === password);
 
     if (user) {
-      dispatch(signIn(user))
-      dispatch(setCountdownList(user.countdownList));
+      dispatch(signIn(user));
+      dispatch(setCountdownList(user.countdowns));
       dispatch(setSidebarView('selectCountdown'))
-      dispatch(setCountdownList(user.countdownList))
     } else {
       alert('No username and password match found')
     }
