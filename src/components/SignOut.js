@@ -1,7 +1,7 @@
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { resetToGuest } from '../redux/features/countdownListSlice';
-import { setLiveCountdown } from '../redux/features/liveCountdownSlice';
+import { resetLiveCountdown } from '../redux/features/liveCountdownSlice';
 import { setSidebarView } from '../redux/features/sidebarViewSlice';
 import { signOut } from '../redux/features/authenticateSlice';
 
@@ -13,7 +13,7 @@ export default function SignOut() {
     dispatch(signOut())
     dispatch(setSidebarView('signIn'))
     dispatch(resetToGuest())
-    dispatch(setLiveCountdown(1))
+    dispatch(resetLiveCountdown())
   }
 
   return (

@@ -8,6 +8,7 @@ import { setCountdownList } from '../../redux/features/countdownListSlice';
 
 //TESTING CLIENT SIDE LOGIN
 import users from '../../clientSideLogin/users';
+import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ export default function SignIn() {
     if (user) {
       dispatch(signIn(user));
       dispatch(setCountdownList(user.countdowns));
+      dispatch(setLiveCountdown(user.countdowns[0]))
       dispatch(setSidebarView('selectCountdown'))
     } else {
       alert('No username and password match found')

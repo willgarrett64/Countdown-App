@@ -32,17 +32,16 @@ const convertSecondsToDays = (seconds) => {
 }
 
 export default function Clock() {
-  const liveCountdown = useSelector(state => state.liveCountdown.id);
+  const liveCountdown = useSelector(state => state.liveCountdown.countdown);
   const countdownList = useSelector(state => state.countdownList.list);
 
-  let countdown = countdownList.find(countdown => countdown.id == liveCountdown);
 
-  const [secondsRemaining, setSecondsRemaining] = useState(calculateTimeUntil(countdown));
+  const [secondsRemaining, setSecondsRemaining] = useState(calculateTimeUntil(liveCountdown));
   
   let timeRemaining = convertSecondsToDays(secondsRemaining);
 
   const startclock = () => {
-    setSecondsRemaining(calculateTimeUntil(countdown));
+    setSecondsRemaining(calculateTimeUntil(liveCountdown));
     timeRemaining = convertSecondsToDays(secondsRemaining);
   }
 
@@ -59,7 +58,7 @@ export default function Clock() {
 
   return (
     <div className="clock-wrapper">
-      <h1>DAYS UNTIL {countdown.name.toUpperCase()}</h1>
+      <h1>DAYS UNTIL {liveCountdown.name.toUpperCase()}</h1>
       <div className="clock">
         <ClockCard value={'days'} clock={timeRemaining} />
         <ClockCard value={'hours'} clock={timeRemaining} />

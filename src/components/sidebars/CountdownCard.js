@@ -5,6 +5,7 @@ import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 export default function CountdownCard({countdown}) {  
   const dispatch = useDispatch();
+  const countdownList = useSelector(state => state.countdownList)
 
   const changeCountdown = (e) => {
     let id;
@@ -14,7 +15,9 @@ export default function CountdownCard({countdown}) {
       target = target.parentNode;
       id = target.id;
     }
-    const newLiveCountdown = parseInt(id.slice(10))
+    
+    const newLiveCountdown = countdownList.find(countdown => countdown.id == parseInt(id.slice(10)));
+
     dispatch(setLiveCountdown(newLiveCountdown));
   }
 
