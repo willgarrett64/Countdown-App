@@ -2,6 +2,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
+// import images
+import deleteIcon from '../../images/icon-delete.svg';
+import editIcon from '../../images/icon-edit.svg';
+
+
 
 export default function CountdownCard({countdown}) {  
   const dispatch = useDispatch();
@@ -11,7 +16,7 @@ export default function CountdownCard({countdown}) {
     let id;
     let target = e.target;
     id = target.id;
-    while (!id) {
+    while (id[0] != 'c') {
       target = target.parentNode;
       id = target.id;
     }
@@ -39,6 +44,8 @@ export default function CountdownCard({countdown}) {
         <h3>TIME</h3>
         <p>{countdown.time}</p>
       </div>
+      <img src={deleteIcon} class="edit-delete" id="delete-icon" />
+      <img src={editIcon} class="edit-delete" id="edit-icon" />
     </div>
   )
 }

@@ -94,6 +94,7 @@ aside h2 {
 }
 
 .card {
+  position: relative;
   height: 130px;
   width: 90%;
   margin: 20px auto;
@@ -133,6 +134,29 @@ aside h2 {
   align-self: center;
   grid-column: 2 / span 1;
   grid-row: 2 / span 1;
+}
+
+.edit-delete {
+  position: absolute;
+  right: 20px;
+}
+#delete-icon {
+  bottom: 20px;
+  height: 24px;
+}
+#delete-icon:hover {
+  height: 28px;
+  right: 18px;
+  bottom: 18px;
+}
+#edit-icon {
+  top: 20px;
+  height: 20px;
+}
+#edit-icon:hover {
+  height: 24px;
+  right: 18px;
+  top: 18px;
 }
 
 .add-new {
