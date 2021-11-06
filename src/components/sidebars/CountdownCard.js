@@ -16,7 +16,7 @@ export default function CountdownCard({countdown}) {
     let id;
     let target = e.target;
     id = target.id;
-    while (id[0] != 'c') {
+    while (id.slice(0, 9) != 'countdown') {
       target = target.parentNode;
       id = target.id;
     }
