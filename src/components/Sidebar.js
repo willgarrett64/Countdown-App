@@ -3,9 +3,6 @@ import SignIn from "./sidebars/SignIn";
 import SignUp from "./sidebars/SignUp";
 import SelectCountdown from "./sidebars/SelectCountdown";
 
-//import images
-import dblLeftChevron from '../images/icon-dbl-left.svg'
-
 //import styles
 import '../styles/sidebar.css'
 
@@ -25,10 +22,9 @@ export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
         : sidebarView === 'signUp'
         ? <SignUp/>
         : sidebarView === 'selectCountdown'
-        ? <SelectCountdown toggleOverlayHidden={toggleOverlayHidden} />
+        ? <SelectCountdown toggleOverlayHidden={toggleOverlayHidden} toggleSidebarOpen={toggleSidebarOpen} />
         : null
       }
-      <img src={dblLeftChevron} id="close-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
     </aside>
   )
   
