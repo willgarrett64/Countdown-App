@@ -18,7 +18,7 @@ export default function SelectCountdown({toggleOverlayHidden, toggleSidebarOpen}
       <p>SELECT <strong>COUNTDOWN</strong></p>
       
       <div id="countdown-list">
-        {countdownList.map(countdown => <CountdownCard countdown={countdown} key={countdown.id} />)}
+        {countdownList.map(countdown => <CountdownCard countdown={countdown} key={countdown.id} toggleOverlayHidden={toggleOverlayHidden} />)}
         {signedIn && <AddNewCountdownCard toggleOverlayHidden={toggleOverlayHidden} />}
         {!signedIn && <p className="back-to-signIn" onClick={() => dispatch(setSidebarView('signIn'))}><strong>SIGN IN</strong> FOR MORE FEATURES</p>}
       </div>

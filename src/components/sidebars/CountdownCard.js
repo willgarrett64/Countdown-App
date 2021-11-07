@@ -8,7 +8,7 @@ import editIcon from '../../images/icon-edit.svg';
 
 
 
-export default function CountdownCard({countdown}) {  
+export default function CountdownCard({countdown, toggleOverlayHidden}) {  
   const dispatch = useDispatch();
   const countdownList = useSelector(state => state.countdownList.list);
 
@@ -44,8 +44,8 @@ export default function CountdownCard({countdown}) {
         <h3>TIME</h3>
         <p>{countdown.time}</p>
       </div>
+      <img src={editIcon} class="edit-delete" id="edit-icon" onClick={toggleOverlayHidden} />
       <img src={deleteIcon} class="edit-delete" id="delete-icon" />
-      <img src={editIcon} class="edit-delete" id="edit-icon" />
     </div>
   )
 }
