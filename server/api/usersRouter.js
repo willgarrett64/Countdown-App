@@ -1,29 +1,36 @@
 const express = require('express');
 
+//middleware
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const md5 = require('md5'); //md5 to hash passwords
+const bodyParser = require('body-parser');
+
 // connect to SQLite database
 const db = require('../database/db')
 
 
 const usersRouter = express.Router();
 
-usersRouter.use('/', (req, res, next) => {
-  const sql = "select * from users";
-  const params = [];
-  db.all(sql, params, (err, rows) => {
-    if (err) {
-      res.status(400).json({"error":err.message});
-      return;
-    }
-    res.json({
-        "message":"success",
-        "data":rows
-    })
-  });
-})
+// return all users
+// usersRouter.use('/', (req, res, next) => {
+//   const sql = "select * from users";
+//   const params = [];
+//   db.all(sql, params, (err, rows) => {
+//     if (err) {
+//       res.status(400).json({"error":err.message});
+//       return;
+//     }
+//     res.json({
+//         "message":"success",
+//         "data":rows
+//     })
+//   });
+// })
 
 
-//add new user
-usersRouter.post("/", (req, res, next) => {
+// add new user
+usersRouter.post("/signup", (req, res, next) => {
   const errors=[]
   if (!req.body.password){
       errors.push("No password specified");
@@ -39,9 +46,9 @@ usersRouter.post("/", (req, res, next) => {
       username: req.body.username,
       password : md5(req.body.password)
   }
-  const sql ='INSERT INTO users (username, password) VALUES (?,?)'
+  const query ='INSERT INTO users (username, password) VALUES (?,?)'
   const params =[data.username, data.password]
-  db.run(sql, params, function (err, result) {
+  db.run(query, params, function (err, result) {
       if (err){
           res.status(400).json({"error": err.message})
           return;
@@ -49,7 +56,7 @@ usersRouter.post("/", (req, res, next) => {
       res.json({
           "message": "success",
           "data": data,
-          "id" : this.lastID
+          "id": this.lastID
       })
   });
 })
@@ -58,14 +65,14 @@ usersRouter.post("/", (req, res, next) => {
 //authenticate and issue token
 const secret = 'mysecretsshhh'; //temporary token string - WILL NEED TO HIDE
 
-usersRouter.get("/", (req, res, next) => {
+usersRouter.get("/signin", (req, res, next) => {
   const data = {
     username: req.body.username,
     password : md5(req.body.password)
   }
-  const sql = "select * from users where username = ? and password = ?"
+  const query = "select * from users where username = ? and password = ?"
   const params =[data.username, data.password];
-  db.get(sql, params, (err, row) => {
+  db.get(query, params, (err, row) => {
       if (err) {
         res.status(400).json({"error":err.message});
         return;
