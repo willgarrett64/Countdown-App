@@ -1,51 +1,29 @@
 const express = require('express');
-const app = express();
 
-const cors = require('cors');
-app.use(cors());
-
-const jwt = require('jsonwebtoken');
-const md5 = require('md5'); //md5 to hash passwords
-
-// body parser
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
+// connect to SQLite database
+const db = require('../database/db')
 
 
-// //connect to SQLite database
-// const sqlite = require('sqlite3').verbose();
-// const db = new sqlite.Database("./database/user-countdowns.db", function (err) {  
-//   if (err) {  
-//     return console.error(err);  
-//   } else {  
-//     console.log("Connected to the sqlite-db.");  
-//   }
-// });
+const usersRouter = express.Router();
 
-
-const PORT = process.env.PORT || 4001;
-
-//Mount the api router at the '/api' path (CURRENTLY NOT WORKING DUE TO ACCESSING SQLite DB FROM ROUTE FILES)
-const apiRouter = require('./api/apiRouter');
-app.use('/api', apiRouter);
-
-app.get('/', (req, res) => {
-  const sql = 'select * from users';
+usersRouter.use('/', (req, res, next) => {
+  const sql = "select * from users";
   const params = [];
-  db.all(sql, params, (err, result) => {
-    if (err){
-      res.status(400).json({"error": err.message})
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({"error":err.message});
       return;
     }
     res.json({
-      "message": "success",
-      "data": result,
+        "message":"success",
+        "data":rows
     })
-  })
+  });
 })
 
+
 //add new user
-app.post("/api/user", (req, res, next) => {
+usersRouter.post("/", (req, res, next) => {
   const errors=[]
   if (!req.body.password){
       errors.push("No password specified");
@@ -78,16 +56,15 @@ app.post("/api/user", (req, res, next) => {
 
 
 //authenticate and issue token
+const secret = 'mysecretsshhh'; //temporary token string - WILL NEED TO HIDE
 
-const secret = 'mysecretsshhh'; //temporary token string
-
-app.get("/api/user", (req, res, next) => {
+usersRouter.get("/", (req, res, next) => {
   const data = {
     username: req.body.username,
     password : md5(req.body.password)
   }
   const sql = "select * from users where username = ? and password = ?"
-  const params =[data.username, data.password]
+  const params =[data.username, data.password];
   db.get(sql, params, (err, row) => {
       if (err) {
         res.status(400).json({"error":err.message});
@@ -107,4 +84,4 @@ app.get("/api/user", (req, res, next) => {
 });
 
 
-app.listen(PORT, () => console.log((`Countdown app server is listening on port ${PORT}`)));
+module.exports = usersRouter;
