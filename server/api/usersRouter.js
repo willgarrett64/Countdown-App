@@ -65,7 +65,7 @@ usersRouter.post("/signup", (req, res, next) => {
 //authenticate and issue token
 const secret = 'mysecretsshhh'; //temporary token string - WILL NEED TO HIDE
 
-usersRouter.get("/signin", (req, res, next) => {
+usersRouter.get("/signing", (req, res, next) => {
   const data = {
     username: req.body.username,
     password : md5(req.body.password)

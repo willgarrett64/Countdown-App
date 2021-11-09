@@ -7,10 +7,60 @@ const db = require('../database/db')
 
 const countdownsRouter = express.Router();
 
-
-countdownsRouter.use('/', (req, res, next) => {
+// get all countdowns
+countdownsRouter.get('/all', (req, res, next) => {
   const sql = "select * from countdowns";
   const params = [];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({"error":err.message});
+      return;
+    }
+    res.json({
+        "message":"success",
+        "data":rows
+    })
+  });
+})
+
+// get all guest countdowns
+countdownsRouter.get('/guest', (req, res, next) => {
+  const sql = "select * from countdowns where user_id is NULL";
+  const params = [];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({"error":err.message});
+      return;
+    }
+    res.json({
+        "message":"success",
+        "data":rows
+    })
+  });
+})
+
+// get a users countdowns
+countdownsRouter.get('/user/:id', (req, res, next) => {
+  const userId = req.params.id;
+  const sql = "select * from countdowns where user_id = ?";
+  const params = [userId];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({"error":err.message});
+      return;
+    }
+    res.json({
+        "message":"success",
+        "data":rows
+    })
+  });
+})
+
+// get specific countdown by ID
+countdownsRouter.get('/:id', (req, res, next) => {
+  const countdownId = req.params.id;
+  const sql = "select * from countdowns where id = ?";
+  const params = [countdownId];
   db.all(sql, params, (err, rows) => {
     if (err) {
       res.status(400).json({"error":err.message});
