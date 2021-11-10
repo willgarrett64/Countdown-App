@@ -62,10 +62,10 @@ usersRouter.post("/signup", (req, res, next) => {
 })
 
 
-//authenticate and issue token
+// issue token
 const secret = 'mysecretsshhh'; //temporary token string - WILL NEED TO HIDE
 
-usersRouter.get("/signing", (req, res, next) => {
+usersRouter.post("/signin", (req, res, next) => {
   const data = {
     username: req.body.username,
     password : md5(req.body.password)
@@ -87,8 +87,31 @@ usersRouter.get("/signing", (req, res, next) => {
         expiresIn: '1h'
       });
       res.cookie('token', token, { httpOnly: true }).sendStatus(200);
+      
     });
 });
+
+
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, secret, (err, user) => {
+    console.log(err)
+
+    if (err) return res.sendStatus(403)
+
+    req.user = user
+
+    next()
+  })
+}
+
+usersRouter.get("/userarea", authenticateToken, (req, res, next) => {
+  console.log("I'm logged in!! Hurrah!");
+})
 
 
 module.exports = usersRouter;
