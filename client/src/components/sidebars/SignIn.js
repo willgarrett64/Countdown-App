@@ -48,7 +48,7 @@ export default function SignIn() {
       // handle blank password
       return
     } else {
-      const url = 'http://localhost:4001/api/users/signin';
+      const url = 'http://localhost:3000/api/users/signin';
       const headers = {
         "Content-Type": "application/json"
       };
@@ -58,18 +58,31 @@ export default function SignIn() {
       });
       const requestOptions = {
         method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
         headers: headers,
         body: body, 
       }
 
       fetch(url, requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
+        .then(res => {
+          if (res.status === (200)) {
+            console.log('Logged in successfully');
+          } else {
+            const error = new Error(res.error);
+            throw error;
+          }
+        })
         .catch(error => console.log('error', error));
     }
 
   }
 
+  const checkToken = () => {
+    const url = 'http://localhost:3000/api/users/userarea';
+    fetch(url)
+      .then(res => console.log("I'm in!!!!"))
+  }
 
   return (
     <div className="content">
@@ -85,7 +98,7 @@ export default function SignIn() {
 
       <button className="primary" onClick={handleSubmit}>SIGN IN</button>
       <button className="secondary" onClick={() => dispatch(setSidebarView('signUp'))}>SIGN UP</button>
-      <p className="guest-btn" onClick={() => dispatch(setSidebarView('selectCountdown'))} >CONTINUE AS GUEST</p>
+      <p className="guest-btn" onClick={checkToken} >CONTINUE AS GUEST</p>
     </div>
   )
 }

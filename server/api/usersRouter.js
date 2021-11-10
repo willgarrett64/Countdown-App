@@ -1,10 +1,8 @@
 const express = require('express');
 
 //middleware
-const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const md5 = require('md5'); //md5 to hash passwords
-const bodyParser = require('body-parser');
 
 // connect to SQLite database
 const db = require('../database/db')
@@ -87,30 +85,28 @@ usersRouter.post("/signin", (req, res, next) => {
         expiresIn: '1h'
       });
       res.cookie('token', token, { httpOnly: true }).sendStatus(200);
-      
     });
 });
 
 
-const authenticateToken = (req, res, next) => {
-  const authHeader = req.headers['authorization']
-  const token = authHeader && authHeader.split(' ')[1]
-
-  if (token == null) return res.sendStatus(401)
-
-  jwt.verify(token, secret, (err, user) => {
-    console.log(err)
-
-    if (err) return res.sendStatus(403)
-
-    req.user = user
-
-    next()
-  })
+const withAuth = function(req, res, next) {
+  const token = req.cookies.token;
+  if (!token) {
+    res.status(401).send('Unauthorized: No token provided');
+  } else {
+    jwt.verify(token, secret, function(err, decoded) {
+      if (err) {
+        res.status(401).send('Unauthorized: Invalid token');
+      } else {
+        req.username = decoded.username;
+        next();
+      }
+    });
+  }
 }
 
-usersRouter.get("/userarea", authenticateToken, (req, res, next) => {
-  console.log("I'm logged in!! Hurrah!");
+usersRouter.get("/userarea", withAuth, (req, res, next) => {
+  res.sendStatus(200);
 })
 
 
