@@ -3,6 +3,8 @@ const express = require('express');
 // connect to SQLite database
 const db = require('../database/db')
 
+//middleware
+const {verifyToken} = require('../utils/verification');
 
 
 const countdownsRouter = express.Router();
@@ -40,8 +42,8 @@ countdownsRouter.get('/guest', (req, res, next) => {
 })
 
 // get a users countdowns
-countdownsRouter.get('/user/:id', (req, res, next) => {
-  const userId = req.params.id;
+countdownsRouter.get('/mycountdowns', verifyToken, (req, res, next) => {
+  const userId = req.userId;
   const sql = "select * from countdowns where user_id = ?";
   const params = [userId];
   db.all(sql, params, (err, rows) => {
