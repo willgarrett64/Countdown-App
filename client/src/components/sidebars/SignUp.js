@@ -16,10 +16,16 @@ export default function SignUp() {
 
     if (!username) {
       // handle blank username
+      alert('Please enter a username');
+      return;
     } else if (!password) {
       // handle blank password
+      alert('Please enter a password');
+      return;
     } else if (password != veryifyPassword) {
       // handle mis-matching passwords
+      alert('Passwords don\'t match');
+      return;
     } else {
       const url = 'http://localhost:4001/api/users/signup';
       const headers = {

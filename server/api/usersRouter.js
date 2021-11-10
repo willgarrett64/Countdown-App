@@ -80,16 +80,21 @@ usersRouter.post("/signin", (req, res, next) => {
         return
       }
       // Issue token
-      const payload = { username: data.username };
+      const payload = { username: data.username, id: row.id };
       const token = jwt.sign(payload, secret, {
         expiresIn: '1h'
       });
+      console.log(`${data.username} signed in: id: ${row.id}`); //inform of user signed in
       res.cookie('token', token, { httpOnly: true }).sendStatus(200);
     });
 });
 
+usersRouter.post("/signout", (req, res, next) => {
+  res.status(202).clearCookie('token').send('cookie cleared')
+})
 
-const withAuth = function(req, res, next) {
+
+const verifyToken = function(req, res, next) {
   const token = req.cookies.token;
   if (!token) {
     res.status(401).send('Unauthorized: No token provided');
@@ -105,9 +110,9 @@ const withAuth = function(req, res, next) {
   }
 }
 
-usersRouter.get("/userarea", withAuth, (req, res, next) => {
-  res.sendStatus(200);
-})
+// usersRouter.get("/userarea", verifyToken, (req, res, next) => {
+//   res.sendStatus(200);
+// })
 
 
 module.exports = usersRouter;

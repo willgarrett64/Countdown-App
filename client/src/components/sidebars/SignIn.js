@@ -18,6 +18,7 @@ export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  //OLD SIGN IN USING CLIENT SIDE SIGN IN
   // const handleSignIn = () => {
   //   const username = document.getElementById('username-signin').value;
   //   const password = document.getElementById('password-signin').value;
@@ -38,6 +39,7 @@ export default function SignIn() {
   //     alert('No username and password match found')
   //   }
   // }
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -58,7 +60,6 @@ export default function SignIn() {
       });
       const requestOptions = {
         method: 'POST',
-        mode: 'cors',
         credentials: 'include',
         headers: headers,
         body: body, 
@@ -78,12 +79,6 @@ export default function SignIn() {
 
   }
 
-  const checkToken = () => {
-    const url = 'http://localhost:3000/api/users/userarea';
-    fetch(url)
-      .then(res => console.log("I'm in!!!!"))
-  }
-
   return (
     <div className="content">
       <h2>Sign in to your account to access <strong>full features</strong></h2>
@@ -98,7 +93,7 @@ export default function SignIn() {
 
       <button className="primary" onClick={handleSubmit}>SIGN IN</button>
       <button className="secondary" onClick={() => dispatch(setSidebarView('signUp'))}>SIGN UP</button>
-      <p className="guest-btn" onClick={checkToken} >CONTINUE AS GUEST</p>
+      <p className="guest-btn" onClick={() => dispatch(setSidebarView('selectCountdown'))} >CONTINUE AS GUEST</p>
     </div>
   )
 }
