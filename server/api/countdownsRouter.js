@@ -53,7 +53,9 @@ countdownsRouter.get('/mycountdowns', verifyToken, (req, res, next) => {
     }
     res.json({
         "message":"success",
-        "data":rows
+        "data":rows,
+        "username": req.username
+
     })
   });
 })
@@ -70,7 +72,7 @@ countdownsRouter.get('/:id', (req, res, next) => {
     }
     res.json({
         "message":"success",
-        "data":rows
+        "data":rows,
     })
   });
 })

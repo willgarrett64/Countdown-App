@@ -18,26 +18,17 @@ export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  //OLD SIGN IN USING CLIENT SIDE SIGN IN
-  // const handleSignIn = () => {
-  //   const username = document.getElementById('username-signin').value;
-  //   const password = document.getElementById('password-signin').value;
-    
-  //   if (!username || !password) {
-  //     alert('Please enter both a username and a password to log in');
-  //     return
-  //   }
-
-  //   const user = users.find(user => user.username === username && user.password === password);
-
-  //   if (user) {
-  //     dispatch(signIn(user));
-  //     dispatch(setCountdownList(user.countdowns));
-  //     dispatch(setLiveCountdown(user.countdowns[0]))
+  // const signIn = () => {
+  //   fetch('http://localhost:3000/api/countdowns/mycountdowns')
+  //   .then(res => res.json())
+  //   .then(res => {
+  //     const username = res.username;
+  //     const countdowns = res.data;
+  //     dispatch(signIn(username));
+  //     dispatch(setCountdownList(countdowns))
+  //     dispatch(setLiveCountdown(countdowns[0]))
   //     dispatch(setSidebarView('selectCountdown'))
-  //   } else {
-  //     alert('No username and password match found')
-  //   }
+  //   });
   // }
 
   const handleSubmit = e => {
@@ -65,18 +56,30 @@ export default function SignIn() {
         body: body, 
       }
 
+      // authenticate 
       fetch(url, requestOptions)
-        .then(res => {
-          if (res.status === (200)) {
-            console.log('Logged in successfully');
-          } else {
-            const error = new Error(res.error);
-            throw error;
-          }
-        })
-        .catch(error => console.log('error', error));
-    }
+      .then(res => {
+        if (res.status === (200)) {
+          console.log('Logged in successfully');
+        } else {
+          const error = new Error(res.error);
+          throw error;
+        }
+      })
+      .catch(error => console.log('error', error))
 
+      // after user has logged in, get countdown data
+      fetch('http://localhost:3000/api/countdowns/mycountdowns')
+      .then(res => res.json())
+      .then(res => {
+        const username = res.username;
+        const countdowns = res.data;
+        dispatch(signIn(username))
+        dispatch(setCountdownList(countdowns))
+        dispatch(setLiveCountdown(countdowns[0]))
+        dispatch(setSidebarView('selectCountdown'))
+      });
+    }
   }
 
   return (

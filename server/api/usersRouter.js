@@ -3,6 +3,7 @@ const express = require('express');
 //middleware
 const jwt = require('jsonwebtoken');
 const md5 = require('md5'); //md5 to hash passwords
+const {verifyUser, verifyToken} = require('../utils/verification');
 
 // connect to SQLite database
 const db = require('../database/db')
@@ -63,33 +64,17 @@ usersRouter.post("/signup", (req, res, next) => {
 // issue token
 const secret = 'mysecretsshhh'; //temporary token string - WILL NEED TO HIDE
 
-usersRouter.post("/signin", (req, res, next) => {
-  const data = {
-    username: req.body.username,
-    password : md5(req.body.password)
-  }
-  const query = "select * from users where username = ? and password = ?"
-  const params =[data.username, data.password];
-  db.get(query, params, (err, row) => {
-      if (err) {
-        res.status(400).json({"error":err.message});
-        return;
-      }
-      if (!row) {
-        res.status(401).json({"error": 'Incorrect email or password'});
-        return
-      }
-      // Issue token
-      const payload = { username: data.username, userId: row.id };
-      const token = jwt.sign(payload, secret, {
-        expiresIn: '1h'
-      });
-      console.log(`${data.username} signed in: id: ${row.id}`); //inform of user signed in
-      res.cookie('token', token, { httpOnly: true }).sendStatus(200);
-    });
+usersRouter.post("/signin", verifyUser, (req, res, next) => {
+  // Issue token
+  const payload = { username: req.username, userId: req.userId };
+  const token = jwt.sign(payload, secret, {
+    expiresIn: '1h'
+  });
+  console.log(`${req.username} signed in: id: ${req.userId}`); //inform of user signed in
+  res.cookie('token', token, { httpOnly: true }).sendStatus(200);
 });
 
-usersRouter.post("/signout", (req, res, next) => {
+usersRouter.get("/signout", (req, res, next) => {
   res.status(202).clearCookie('token').send('cookie cleared')
 })
 

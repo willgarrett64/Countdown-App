@@ -10,15 +10,27 @@ export default function SignOut() {
   const user = useSelector(state => state.authenticate.user)
 
   const handleSignOut = () => {
-    dispatch(signOut())
-    dispatch(setSidebarView('signIn'))
-    dispatch(resetToGuest())
-    dispatch(resetLiveCountdown())
+    const url = 'http://localhost:3000/api/users/signout';
+    fetch(url)
+    .then(res => {
+      if (res.status === (202)) {
+        console.log('Logged out successfully');
+        dispatch(signOut())
+        dispatch(setSidebarView('signIn'))
+        dispatch(resetToGuest())
+        dispatch(resetLiveCountdown())
+      } else {
+        const error = new Error(res.error);
+        throw error;
+      }
+    })
+    .catch(error => console.log('error', error))
+    
   }
 
   return (
     <div className="signOut">
-      <p className="username">{user.username}</p>
+      <p className="username">{user}</p>
       <p className="btn" onClick={handleSignOut} >SIGN OUT</p>      
     </div>
   )
