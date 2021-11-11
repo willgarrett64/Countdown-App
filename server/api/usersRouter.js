@@ -63,7 +63,7 @@ usersRouter.get("/signout", (req, res, next) => {
   res.status(202).clearCookie('token').send('cookie cleared')
 })
 
-usersRouter.get("/checktoken", verifyToken, (req, res, next) => {
+usersRouter.get("/userinfo", verifyToken, (req, res, next) => {
   const user = {
     "username": req.username,
     "userId": req.userId

@@ -16,44 +16,26 @@ import { setCountdownList } from '../redux/features/countdownListSlice';
 import { setLiveCountdown } from "../redux/features/liveCountdownSlice";
 
 
+import { getUserData, getCountdowns } from "../utils/utils";
+
 
 export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
-  //TESTING
-  const getCountdowns = () => {
-    fetch('http://localhost:3000/api/countdowns/mycountdowns')
-    .then(res => res.json())
-    .then(res => {
-      const countdowns = res.data;
-      dispatch(setCountdownList(countdowns));
-      dispatch(setLiveCountdown(countdowns[0]));
-      dispatch(setSidebarView('selectCountdown'));
-    })
-  }
-
-  const getUserData = async () => {
-    fetch('http://localhost:3000/api/users/checktoken')
-    .then(res => {
-      if (res.status === 200) {
-        return res.json();
-      } else {
-        const error = new Error(res.error);
-        throw error;
-      }
-    })
-    .then(res => {
-      dispatch(signIn(res.data));
-      getCountdowns();
-    })
-    .catch(error => console.log('error', error))
-  }
-  
-  
   const dispatch = useDispatch();
   const sidebarView = useSelector((state) => state.sidebarView.value);
     
   // check if user already has a valid token
   useEffect(() => {
-    getUserData()
+    Promise.all([getUserData(), getCountdowns()])
+    .then(([userData, countdowns]) => {
+      if(userData) {
+        dispatch(signIn(userData));
+        dispatch(setSidebarView('selectCountdown'));
+      }
+      if (countdowns) {
+        dispatch(setCountdownList(countdowns));
+        dispatch(setLiveCountdown(countdowns[0]));
+      }
+    })
   }, [])
 
   return (
