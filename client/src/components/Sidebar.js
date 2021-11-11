@@ -24,18 +24,33 @@ export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
   const sidebarView = useSelector((state) => state.sidebarView.value);
     
   // check if user already has a valid token
-  useEffect(() => {
-    Promise.all([getUserData(), getCountdowns()])
-    .then(([userData, countdowns]) => {
-      if(userData) {
-        dispatch(signIn(userData));
-        dispatch(setSidebarView('selectCountdown'));
-      }
+  useEffect(async () => {
+    const userData = await getUserData();
+    if (userData) {
+      const countdowns = await getCountdowns('mycountdowns');
+      dispatch(signIn(userData));
+      dispatch(setSidebarView('selectCountdown'));
       if (countdowns) {
         dispatch(setCountdownList(countdowns));
         dispatch(setLiveCountdown(countdowns[0]));
       }
-    })
+    } else {
+      const countdowns = await getCountdowns('guest');
+      dispatch(setCountdownList(countdowns));
+      dispatch(setLiveCountdown(countdowns[0]));
+    }
+    
+    // Promise.all([getUserData(), getCountdowns()])
+    // .then(([userData, countdowns]) => {
+    //   if(userData) {
+    //     dispatch(signIn(userData));
+    //     dispatch(setSidebarView('selectCountdown'));
+    //   }
+    //   if (countdowns) {
+    //     dispatch(setCountdownList(countdowns));
+    //     dispatch(setLiveCountdown(countdowns[0]));
+    //   }
+    // })
   }, [])
 
   return (

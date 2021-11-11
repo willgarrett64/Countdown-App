@@ -57,7 +57,7 @@ export default function SignIn() {
         }
       })
       .then(res => {
-        Promise.all([getUserData(), getCountdowns()])
+        Promise.all([getUserData(), getCountdowns('mycountdowns')])
         .then(([userData, countdowns]) => {
           if(userData) {
             dispatch(signIn(userData));
