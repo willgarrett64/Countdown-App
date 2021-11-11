@@ -5,12 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSidebarView } from '../../redux/features/sidebarViewSlice';
 import { signIn } from '../../redux/features/authenticateSlice';
 import { setCountdownList } from '../../redux/features/countdownListSlice';
-
-
-
-//TESTING CLIENT SIDE LOGIN
-import users from '../../clientSideLogin/users';
 import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+
+
+
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -18,18 +16,39 @@ export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  // const signIn = () => {
-  //   fetch('http://localhost:3000/api/countdowns/mycountdowns')
-  //   .then(res => res.json())
-  //   .then(res => {
-  //     const username = res.username;
-  //     const countdowns = res.data;
-  //     dispatch(signIn(username));
-  //     dispatch(setCountdownList(countdowns))
-  //     dispatch(setLiveCountdown(countdowns[0]))
-  //     dispatch(setSidebarView('selectCountdown'))
-  //   });
-  // }
+
+
+  //TESTING
+  const getCountdowns = async () => {
+    fetch('http://localhost:3000/api/countdowns/mycountdowns')
+    .then(res => res.json())
+    .then(res => {
+      const countdowns = res.data;
+      dispatch(setCountdownList(countdowns));
+      dispatch(setLiveCountdown(countdowns[0]));
+      dispatch(setSidebarView('selectCountdown'));
+  
+    })
+  }
+  
+  const getUserData = async () => {
+    fetch('http://localhost:3000/api/users/checktoken')
+    .then(res => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        const error = new Error(res.error);
+        throw error;
+      }
+    })
+    .then(res => {
+      dispatch(signIn(res.data));
+      getCountdowns();
+    })
+    .catch(error => console.log('error', error))
+  }
+
+
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -61,24 +80,20 @@ export default function SignIn() {
       .then(res => {
         if (res.status === (200)) {
           console.log('Logged in successfully');
+          return res;
         } else {
           const error = new Error(res.error);
           throw error;
         }
       })
+      .then(res => {
+        getUserData();
+        setSidebarView('selectCountdown');
+      })
       .catch(error => console.log('error', error))
 
       // after user has logged in, get countdown data
-      fetch('http://localhost:3000/api/countdowns/mycountdowns')
-      .then(res => res.json())
-      .then(res => {
-        const username = res.username;
-        const countdowns = res.data;
-        dispatch(signIn(username))
-        dispatch(setCountdownList(countdowns))
-        dispatch(setLiveCountdown(countdowns[0]))
-        dispatch(setSidebarView('selectCountdown'))
-      });
+      
     }
   }
 

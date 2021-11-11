@@ -11,21 +11,6 @@ const db = require('../database/db')
 
 const usersRouter = express.Router();
 
-// return all users
-// usersRouter.use('/', (req, res, next) => {
-//   const sql = "select * from users";
-//   const params = [];
-//   db.all(sql, params, (err, rows) => {
-//     if (err) {
-//       res.status(400).json({"error":err.message});
-//       return;
-//     }
-//     res.json({
-//         "message":"success",
-//         "data":rows
-//     })
-//   });
-// })
 
 
 // add new user
@@ -70,18 +55,25 @@ usersRouter.post("/signin", verifyUser, (req, res, next) => {
   const token = jwt.sign(payload, secret, {
     expiresIn: '1h'
   });
-  console.log(`${req.username} signed in: id: ${req.userId}`); //inform of user signed in
   res.cookie('token', token, { httpOnly: true }).sendStatus(200);
 });
+
 
 usersRouter.get("/signout", (req, res, next) => {
   res.status(202).clearCookie('token').send('cookie cleared')
 })
 
-
-// usersRouter.get("/userarea", verifyToken, (req, res, next) => {
-//   res.sendStatus(200);
-// })
+usersRouter.get("/checktoken", verifyToken, (req, res, next) => {
+  const user = {
+    "username": req.username,
+    "userId": req.userId
+  };
+  
+  res.json({
+    "message":"success",
+    "data":user,
+  });
+})
 
 
 module.exports = usersRouter;

@@ -44,8 +44,8 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
         <h3>TIME</h3>
         <p>{countdown.time}</p>
       </div>
-      <img src={editIcon} class="edit-delete" id="edit-icon" onClick={toggleOverlayHidden} />
-      <img src={deleteIcon} class="edit-delete" id="delete-icon" />
+      <img src={editIcon} className="edit-delete" id="edit-icon" onClick={toggleOverlayHidden} />
+      <img src={deleteIcon} className="edit-delete" id="delete-icon" />
     </div>
   )
 }

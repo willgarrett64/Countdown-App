@@ -30,7 +30,7 @@ export default function SignOut() {
 
   return (
     <div className="signOut">
-      <p className="username">{user}</p>
+      <p className="username">{user.username}</p>
       <p className="btn" onClick={handleSignOut} >SIGN OUT</p>      
     </div>
   )
