@@ -12,6 +12,7 @@ import editIcon from '../../images/icon-edit.svg';
 
 export default function CountdownCard({countdown, toggleOverlayHidden}) {  
   const dispatch = useDispatch();
+  const liveCountdown = useSelector(state => state.liveCountdown.countdown)
   const countdownList = useSelector(state => state.countdownList.list);
 
   const changeCountdown = (e) => {
@@ -61,8 +62,11 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
       }
     })
     .then(res => {
-      console.log(res.data);
-      dispatch(deleteCountdown(res.data));
+      dispatch(deleteCountdown(res.data));      
+      // if countdown being deleted was set as liveCountdown, update liveCountdown
+      if(liveCountdown.id == id) {
+        dispatch(setLiveCountdown(countdownList[0]))
+      }
     })
     .catch(error => console.log('error', error)) 
 
