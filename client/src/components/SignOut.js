@@ -1,9 +1,10 @@
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { resetToGuest } from '../redux/features/countdownListSlice';
-import { resetLiveCountdown } from '../redux/features/liveCountdownSlice';
+import { setCountdownList } from '../redux/features/countdownListSlice';
+import { setLiveCountdown } from '../redux/features/liveCountdownSlice';
 import { setSidebarView } from '../redux/features/sidebarViewSlice';
 import { signOut } from '../redux/features/authenticateSlice';
+import { getCountdowns } from '../utils/utils';
 
 export default function SignOut() {
   const dispatch = useDispatch()
@@ -14,15 +15,18 @@ export default function SignOut() {
     fetch(url)
     .then(res => {
       if (res.status === (202)) {
-        console.log('Logged out successfully');
+        console.log('Signed out successfully');
         dispatch(signOut())
         dispatch(setSidebarView('signIn'))
-        dispatch(resetToGuest())
-        dispatch(resetLiveCountdown())
+        return getCountdowns('guest');
       } else {
         const error = new Error(res.error);
         throw error;
       }
+    })
+    .then(res => {
+        dispatch(setCountdownList(res))
+        dispatch(setLiveCountdown(res[0]))
     })
     .catch(error => console.log('error', error))
     
