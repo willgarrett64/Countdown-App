@@ -77,4 +77,40 @@ countdownsRouter.get('/:id', (req, res, next) => {
   });
 })
 
+// create new countdown
+countdownsRouter.post('/', verifyToken, (req, res, next) => {
+  const userId = req.userId;
+  const countdown = req.body;
+  
+  const errors=[]
+  if (!countdown.name){
+      errors.push("No countdown name specified");
+  }
+  if (!countdown.date){
+      errors.push("No countdown date specified");
+  }
+  if (!countdown.time){
+    errors.push("No countdown time specified");
+}
+  if (errors.length){
+      res.status(400).json({"error":errors.join(",")});
+      return;
+  }
+
+  const sql = "INSERT INTO countdowns (user_id, name, date, time) VALUES (?, ?, ?, ?)";
+  const params = [userId, countdown.name, countdown.date, countdown.time];
+  db.run(sql, params, function(err) {
+    if (err) {
+      res.status(400).json({"error":err.message});
+      return;
+    }
+
+    res.json({
+        "message":"success",
+        "data":countdown,
+        "id":this.lastID,
+    })
+  });
+})
+
 module.exports = countdownsRouter;

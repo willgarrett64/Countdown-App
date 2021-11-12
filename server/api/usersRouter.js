@@ -30,9 +30,9 @@ usersRouter.post("/signup", (req, res, next) => {
       username: req.body.username,
       password : md5(req.body.password)
   }
-  const query ='INSERT INTO users (username, password) VALUES (?,?)'
+  const sql ='INSERT INTO users (username, password) VALUES (?,?)'
   const params =[data.username, data.password]
-  db.run(query, params, function (err, result) {
+  db.run(sql, params, function (err) {
       if (err){
           res.status(400).json({"error": err.message})
           return;
