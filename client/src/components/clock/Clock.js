@@ -33,8 +33,6 @@ const convertSecondsToDays = (seconds) => {
 
 export default function Clock() {
   const liveCountdown = useSelector(state => state.liveCountdown.countdown);
-  const countdownList = useSelector(state => state.countdownList.list);
-
 
   const [secondsRemaining, setSecondsRemaining] = useState(calculateTimeUntil(liveCountdown));
   
@@ -51,7 +49,7 @@ export default function Clock() {
     return () => {
       clearInterval(myClock);
     }
-  }, [liveCountdown, countdownList])
+  }, [liveCountdown])
 
   
 

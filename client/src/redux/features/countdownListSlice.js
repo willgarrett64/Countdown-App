@@ -44,12 +44,17 @@ export const countdownListSlice = createSlice({
       const countdownId = id.payload;
       state.list = state.list.filter(el => el.id != countdownId)
     }, 
-    editCountdown: (state, id) => {
-
+    editCountdown: (state, newCountdown) => {
+       state.list = state.list.map(el => {
+         if (el.id == newCountdown.payload.id) {
+           el = newCountdown.payload;
+         }
+         return el;
+       })
     }
   },
 })
 
-export const { setCountdownList, setEditCountdown, resetToGuest, addCountdown, deleteCountdown } = countdownListSlice.actions;
+export const { setCountdownList, setEditCountdown,  addCountdown, deleteCountdown, editCountdown } = countdownListSlice.actions;
 
 export default countdownListSlice.reducer

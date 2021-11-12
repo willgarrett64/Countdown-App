@@ -35,12 +35,15 @@ export default function EditCountdown({toggleOverlayHidden}) {
     }
     const res = await updateCountdownRequest(newCountdown);
     if (res) {
-      // dispatch(deleteCountdown(deletedId));      
+      dispatch(editCountdown(newCountdown));  
+      
+      // CURRENTLY AN ONCLICK ISSUE - clicking the edit button on the CountdownCard also fires the changeCountdown onclick event, so sets the liveCountdown to the countdown being edited, meaning liveCountdown.id always == res.id
       // if countdown being updated was set as liveCountdown, update liveCountdown
       if(liveCountdown.id == res.id) {
-        dispatch(setLiveCountdown(countdownList[0]));
-        toggleOverlayHidden();
+        dispatch(setLiveCountdown(newCountdown));
       }
+
+      toggleOverlayHidden();
     }
 
   }
