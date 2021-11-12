@@ -8,6 +8,7 @@ import users from '../../clientSideLogin/users';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { addCountdown, deleteCountdown, editCountdown, setCountdownList } from '../../redux/features/countdownListSlice';
+import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 export default function CreateCountdown({toggleOverlayHidden}) {
   const dispatch = useDispatch();
@@ -57,7 +58,9 @@ export default function CreateCountdown({toggleOverlayHidden}) {
       }
     })
     .then(res => {
-      dispatch(addCountdown({...res.data.countdown, id: res.id}));
+      const newCountdown = {...res.data.countdown, id: res.id};
+      dispatch(addCountdown(newCountdown));
+      dispatch(setLiveCountdown(newCountdown));
       toggleOverlayHidden();
       resetInputs();
     })
@@ -89,10 +92,6 @@ export default function CreateCountdown({toggleOverlayHidden}) {
       <div>
         <button className="secondary" onClick={handleCancel} >CANCEL</button>
         <button className="primary" onClick={handleAddNewCountdown}>SAVE</button>
-      </div>
-      <div className="deleteIcon">
-        <img src={deleteIcon} />
-        <p>delete</p>
       </div>
     </div>
   )
