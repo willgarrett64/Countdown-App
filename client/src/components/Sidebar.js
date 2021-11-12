@@ -36,21 +36,10 @@ export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
       }
     } else {
       const countdowns = await getCountdowns('guest');
+      dispatch(setSidebarView('signIn'));
       dispatch(setCountdownList(countdowns));
       dispatch(setLiveCountdown(countdowns[0]));
     }
-    
-    // Promise.all([getUserData(), getCountdowns()])
-    // .then(([userData, countdowns]) => {
-    //   if(userData) {
-    //     dispatch(signIn(userData));
-    //     dispatch(setSidebarView('selectCountdown'));
-    //   }
-    //   if (countdowns) {
-    //     dispatch(setCountdownList(countdowns));
-    //     dispatch(setLiveCountdown(countdowns[0]));
-    //   }
-    // })
   }, [])
 
   return (

@@ -18,8 +18,6 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
 
 
-
-
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -69,10 +67,7 @@ export default function SignIn() {
           }
         })
       })
-      .catch(error => console.log('error', error))
-
-      // after user has logged in, get countdown data
-      
+      .catch(error => console.log('error', error))      
     }
   }
 

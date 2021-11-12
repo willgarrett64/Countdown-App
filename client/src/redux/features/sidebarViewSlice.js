@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const sidebarViewSlice = createSlice({
   name: 'sidebarView',
-  initialState: {value: 'signIn'},
+  initialState: {value: ''},
   reducers: {
     setSidebarView: (state, newSidebarView) => {
       state.value = newSidebarView.payload;

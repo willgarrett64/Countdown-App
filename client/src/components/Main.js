@@ -4,12 +4,16 @@ import Clock from "./clock/Clock";
 // import styles
 import '../styles/main.css'
 
-export default function Main ({myCountdowns}) {
+//redux
+import { useSelector } from "react-redux";
+
+export default function Main () {
+  const liveCountdown = useSelector(state => state.liveCountdown.countdown);
+
   return (
     <main className="open" id="main">
       <div className="content">
-        <Clock myCountdowns={myCountdowns} />
-
+        {liveCountdown ? <Clock /> : <h2>Select a countdown to start the timer</h2>}
       </div>
     </main>
   )
