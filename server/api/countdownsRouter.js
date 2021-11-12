@@ -132,4 +132,24 @@ countdownsRouter.delete('/', verifyToken, (req, res, next) => {
   })
 })
 
+// edit countdown by ID
+countdownsRouter.put('/', verifyToken, (req, res, next) => {
+  const userId = req.userId;
+  const updatedCountdown = req.body;
+  
+  const sql = "UPDATE countdowns SET name = ?,  date = ?, time = ? WHERE id = ? AND user_id = ?";
+  const params = [updatedCountdown.name, updatedCountdown.date, updatedCountdown.time, updatedCountdown.id, userId];
+
+  db.run(sql, params, function(err) {
+    if (err) {
+      res.status(400).json({"error":err.message});
+      return;
+    }
+    res.json({
+      "message": "success",
+      "data": updatedCountdown
+    })
+  })
+})
+
 module.exports = countdownsRouter;

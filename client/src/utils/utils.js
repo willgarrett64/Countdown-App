@@ -21,7 +21,7 @@ const getUserData = async () => {
 
 // delete a countdown by ID
 const deleteCountdownRequest = async (id) => {
-  const url = `http://localhost:3000/api/countdowns/?id=${id}`;
+  const url = `http://localhost:3000/api/countdowns/`;
     const headers = {
       "Content-Type": "application/json"
     };
@@ -41,5 +41,26 @@ const deleteCountdownRequest = async (id) => {
     }
 }
 
+// update a countdown by ID
+const updateCountdownRequest = async (newCountdown) => {
+  const url = `http://localhost:3000/api/countdowns/`;
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    const body = JSON.stringify(newCountdown);
+    const requestOptions = {
+      method: 'PUT',
+      credentials: 'include',
+      headers: headers,
+      body: body, 
+    }
 
-module.exports = {getUserData, getCountdowns, deleteCountdownRequest}
+    const res = await fetch(url, requestOptions);
+    if(res.ok) {
+      console.log('Countdown updated successfully');
+      const jsonRes = await res.json();
+      return jsonRes.data
+    }
+}
+
+module.exports = {getUserData, getCountdowns, deleteCountdownRequest, updateCountdownRequest}
