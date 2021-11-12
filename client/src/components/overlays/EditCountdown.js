@@ -12,6 +12,12 @@ import { addCountdown, deleteCountdown, editCountdown, setCountdownList } from '
 export default function EditCountdown({toggleOverlayHidden}) {
   const dispatch = useDispatch();
   
+  const resetInputs = () => {
+    document.getElementById('new-countdown-name').value = '';
+    document.getElementById('new-countdown-date').value = '';
+    document.getElementById('new-countdown-time').value = '';
+  }
+
   const handleAddNewCountdown = () => {
     let name = document.getElementById('new-countdown-name').value;
     let date = document.getElementById('new-countdown-date').value;
@@ -52,9 +58,16 @@ export default function EditCountdown({toggleOverlayHidden}) {
     })
     .then(res => {
       dispatch(addCountdown(res.data));
+      toggleOverlayHidden();
+      resetInputs();
     })
     .catch(error => console.log('error', error))      
     
+  }
+
+  const handleCancel = () => {
+    toggleOverlayHidden();
+    resetInputs();
   }
   
   return (
@@ -74,7 +87,7 @@ export default function EditCountdown({toggleOverlayHidden}) {
         <input className="rounded" id="new-countdown-time" type="time" />
       </div>
       <div>
-        <button className="secondary" onClick={toggleOverlayHidden} >CANCEL</button>
+        <button className="secondary" onClick={handleCancel} >CANCEL</button>
         <button className="primary" onClick={handleAddNewCountdown}>SAVE</button>
       </div>
       <div className="deleteIcon">
