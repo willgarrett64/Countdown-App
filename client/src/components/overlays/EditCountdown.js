@@ -26,10 +26,35 @@ export default function EditCountdown({toggleOverlayHidden}) {
       name: name,
       date: date,
       time: time,
-      complete: false,
     }
 
-    dispatch(addCountdown(newCountdown));
+    const url = 'http://localhost:3000/api/countdowns';
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    const body = JSON.stringify(newCountdown);
+    const requestOptions = {
+      method: 'POST',
+      credentials: 'include',
+      headers: headers,
+      body: body, 
+    }
+
+    fetch(url, requestOptions)
+    .then(res => {
+      if (res.status === (200)) {
+        console.log('New countdown created successfully');
+        return res.json();
+      } else {
+        const error = new Error(res.error);
+        throw error;
+      }
+    })
+    .then(res => {
+      dispatch(addCountdown(res.data));
+    })
+    .catch(error => console.log('error', error))      
+    
   }
   
   return (
