@@ -35,12 +35,11 @@ export const countdownListSlice = createSlice({
     },
     addCountdown: (state, newCountdown) => {
       const countdown = newCountdown.payload;
-      countdown.id = (state.list[state.list.length - 1].id) + 1;
       state.list = [...state.list, countdown];
     },
     deleteCountdown: (state, id) => {
-      const i = state.list.findIndex(el => el.id === id.payload);
-      state.list.splice(i, 1);
+      const countdownId = id.payload;
+      state.list = state.list.filter(el => el.id != countdownId)
     }, 
     editCountdown: (state, id) => {
 

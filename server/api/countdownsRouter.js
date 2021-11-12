@@ -60,7 +60,7 @@ countdownsRouter.get('/mycountdowns', verifyToken, (req, res, next) => {
   });
 })
 
-// get specific countdown by ID
+// get countdown by ID
 countdownsRouter.get('/:id', (req, res, next) => {
   const countdownId = req.params.id;
   const sql = "select * from countdowns where id = ?";
@@ -107,10 +107,29 @@ countdownsRouter.post('/', verifyToken, (req, res, next) => {
 
     res.json({
         "message":"success",
-        "data":countdown,
+        "data":{countdown},
         "id":this.lastID,
     })
   });
+})
+
+// delete countdown by ID
+countdownsRouter.delete('/', verifyToken, (req, res, next) => {
+  const countdownId = req.body.id;
+  const userId = req.userId;
+
+  const sql = "DELETE FROM countdowns WHERE id = ? AND user_id = ?";
+  const params = [countdownId, userId];
+  db.run(sql, params, function(err) {
+    if (err) {
+      res.status(400).json({"error":err.message});
+      return;
+    }
+    res.json({
+      "message": "success",
+      "data": countdownId
+    })
+  })
 })
 
 module.exports = countdownsRouter;

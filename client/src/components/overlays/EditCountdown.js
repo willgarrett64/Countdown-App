@@ -57,7 +57,7 @@ export default function EditCountdown({toggleOverlayHidden}) {
       }
     })
     .then(res => {
-      dispatch(addCountdown(res.data));
+      dispatch(addCountdown({...res.data, id: res.id}));
       toggleOverlayHidden();
       resetInputs();
     })
