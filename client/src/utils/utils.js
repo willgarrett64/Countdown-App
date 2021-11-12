@@ -19,5 +19,27 @@ const getUserData = async () => {
   }
 }
 
+// delete a countdown by ID
+const deleteCountdownRequest = async (id) => {
+  const url = `http://localhost:3000/api/countdowns/?id=${id}`;
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    const body = JSON.stringify({id});
+    const requestOptions = {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: headers,
+      body: body, 
+    }
 
-module.exports = {getUserData, getCountdowns}
+    const res = await fetch(url, requestOptions);
+    if(res.ok) {
+      console.log('Countdown deleted successfully');
+      const jsonRes = await res.json();
+      return jsonRes.data
+    }
+}
+
+
+module.exports = {getUserData, getCountdowns, deleteCountdownRequest}

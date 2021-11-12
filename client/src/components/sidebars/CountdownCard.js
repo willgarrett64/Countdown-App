@@ -9,6 +9,8 @@ import deleteIcon from '../../images/icon-delete.svg';
 import editIcon from '../../images/icon-edit.svg';
 
 
+import { deleteCountdownRequest } from '../../utils/utils';
+
 
 export default function CountdownCard({countdown, toggleOverlayHidden}) {  
   const dispatch = useDispatch();
@@ -30,7 +32,7 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
     dispatch(setLiveCountdown(newLiveCountdown));
   }
 
-  const handleDelete = (e) => {
+  const handleDeleteCountdown = async (e) => {
     let id;
     let target = e.target;
     id = target.id;
@@ -40,37 +42,14 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
     }
     id = id.slice(10);
 
-    const url = `http://localhost:3000/api/countdowns/?id=${id}`;
-    const headers = {
-      "Content-Type": "application/json"
-    };
-    const body = JSON.stringify({id: id});
-    const requestOptions = {
-      method: 'DELETE',
-      credentials: 'include',
-      headers: headers,
-      body: body, 
-    }
-
-    fetch(url, requestOptions)
-    .then(res => {
-      if (res.status === (200)) {
-        console.log('Countdown deleted successfully');
-        return res.json();
-      } else {
-        const error = new Error(res.error);
-        throw error;
-      }
-    })
-    .then(res => {
-      dispatch(deleteCountdown(res.data));      
+    const deletedId = await deleteCountdownRequest(id);
+    if (deletedId) {
+      dispatch(deleteCountdown(deletedId));      
       // if countdown being deleted was set as liveCountdown, update liveCountdown
       if(liveCountdown.id == id) {
         dispatch(setLiveCountdown(countdownList[0]))
       }
-    })
-    .catch(error => console.log('error', error)) 
-
+    }
   }
 
   const reorderDate = (date) => {
@@ -98,7 +77,7 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
         <p>{countdown.time}</p>
       </div>
       {signedIn && <img src={editIcon} className="edit-delete" id="edit-icon" onClick={openEditCountdown} />}
-      {signedIn && <img src={deleteIcon} className="edit-delete" id="delete-icon" onClick={handleDelete} />}
+      {signedIn && <img src={deleteIcon} className="edit-delete" id="delete-icon" onClick={handleDeleteCountdown} />}
     </div>
   )
 }

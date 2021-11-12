@@ -14,11 +14,6 @@ export default function SelectCountdown({toggleOverlayHidden, toggleSidebarOpen}
   const signedIn = useSelector(state => state.authenticate.signedIn)
   const dispatch = useDispatch();
 
-  const openCreateCountdown = () => {
-    dispatch(setOverlayView('createCountdown'));
-    toggleOverlayHidden();
-  }
-
   return (
     <div className="content">
       <p>SELECT <strong>COUNTDOWN</strong></p>
