@@ -4,6 +4,7 @@ import CountdownCard from "./CountdownCard";
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { setSidebarView } from "../../redux/features/sidebarViewSlice";
+import { setOverlayView } from "../../redux/features/overlayViewSlice";
 
 //import images
 import dblLeftChevron from '../../images/icon-dbl-left.svg'
@@ -12,6 +13,11 @@ export default function SelectCountdown({toggleOverlayHidden, toggleSidebarOpen}
   const countdownList = useSelector((state) => state.countdownList.list);
   const signedIn = useSelector(state => state.authenticate.signedIn)
   const dispatch = useDispatch();
+
+  const openCreateCountdown = () => {
+    dispatch(setOverlayView('createCountdown'));
+    toggleOverlayHidden();
+  }
 
   return (
     <div className="content">

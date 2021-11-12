@@ -25,13 +25,16 @@ const guestCountdowns = [{
 
 export const countdownListSlice = createSlice({
   name: 'countdownList',
-  initialState: {list: guestCountdowns},
+  initialState: {
+    list: guestCountdowns,
+    editing: {}
+  },
   reducers: {
     setCountdownList: (state, newList) => {
       state.list = newList.payload;
     },
-    resetToGuest: (state) => {
-      state.list = guestCountdowns
+    setEditCountdown: (state, countdown) => {
+      state.editing = countdown.payload;
     },
     addCountdown: (state, newCountdown) => {
       const countdown = newCountdown.payload;
@@ -47,6 +50,6 @@ export const countdownListSlice = createSlice({
   },
 })
 
-export const { setCountdownList, resetToGuest, addCountdown, deleteCountdown } = countdownListSlice.actions;
+export const { setCountdownList, setEditCountdown, resetToGuest, addCountdown, deleteCountdown } = countdownListSlice.actions;
 
 export default countdownListSlice.reducer

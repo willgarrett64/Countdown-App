@@ -1,8 +1,8 @@
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
-import { deleteCountdown } from '../../redux/features/countdownListSlice';
-
+import { deleteCountdown, setEditCountdown } from '../../redux/features/countdownListSlice';
+import { setOverlayView } from '../../redux/features/overlayViewSlice';
 
 // import images
 import deleteIcon from '../../images/icon-delete.svg';
@@ -78,6 +78,12 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
     return dateArray[2] + '/' + dateArray[1] +'/' + dateArray[0].substring(2);
   }
 
+  const openEditCountdown = () => {
+    dispatch(setOverlayView('editCountdown'));
+    dispatch(setEditCountdown(countdown));
+    toggleOverlayHidden();
+  }
+
   return (
     <div className="card countdown" onClick={changeCountdown} id={`countdown-${countdown.id}`}>
       <div className="info name">
@@ -91,7 +97,7 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
         <h3>TIME</h3>
         <p>{countdown.time}</p>
       </div>
-      {signedIn && <img src={editIcon} className="edit-delete" id="edit-icon" onClick={toggleOverlayHidden} />}
+      {signedIn && <img src={editIcon} className="edit-delete" id="edit-icon" onClick={openEditCountdown} />}
       {signedIn && <img src={deleteIcon} className="edit-delete" id="delete-icon" onClick={handleDelete} />}
     </div>
   )
