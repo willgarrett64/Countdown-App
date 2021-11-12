@@ -14,6 +14,7 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
   const dispatch = useDispatch();
   const liveCountdown = useSelector(state => state.liveCountdown.countdown)
   const countdownList = useSelector(state => state.countdownList.list);
+  const signedIn = useSelector(state => state.authenticate.signedIn)
 
   const changeCountdown = (e) => {
     let id;
@@ -90,8 +91,8 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
         <h3>TIME</h3>
         <p>{countdown.time}</p>
       </div>
-      <img src={editIcon} className="edit-delete" id="edit-icon" onClick={toggleOverlayHidden} />
-      <img src={deleteIcon} className="edit-delete" id="delete-icon" onClick={handleDelete} />
+      {signedIn && <img src={editIcon} className="edit-delete" id="edit-icon" onClick={toggleOverlayHidden} />}
+      {signedIn && <img src={deleteIcon} className="edit-delete" id="delete-icon" onClick={handleDelete} />}
     </div>
   )
 }
