@@ -38,7 +38,6 @@ export default function SignIn() {
       });
       const requestOptions = {
         method: 'POST',
-        credentials: 'include',
         headers: headers,
         body: body, 
       }

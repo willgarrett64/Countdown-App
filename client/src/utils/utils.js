@@ -28,7 +28,6 @@ const deleteCountdownRequest = async (id) => {
     const body = JSON.stringify({id});
     const requestOptions = {
       method: 'DELETE',
-      credentials: 'include',
       headers: headers,
       body: body, 
     }
@@ -50,7 +49,6 @@ const updateCountdownRequest = async (newCountdown) => {
     const body = JSON.stringify(newCountdown);
     const requestOptions = {
       method: 'PUT',
-      credentials: 'include',
       headers: headers,
       body: body, 
     }

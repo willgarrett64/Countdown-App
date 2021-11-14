@@ -42,7 +42,6 @@ export default function CreateCountdown({toggleOverlayHidden}) {
     const body = JSON.stringify(newCountdown);
     const requestOptions = {
       method: 'POST',
-      credentials: 'include',
       headers: headers,
       body: body, 
     }
