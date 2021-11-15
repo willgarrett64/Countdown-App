@@ -18,7 +18,7 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
 
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (!username) {
@@ -28,45 +28,18 @@ export default function SignIn() {
       // handle blank password
       return
     } else {
-      const url = 'http://localhost:3000/api/users/signin';
-      const headers = {
-        "Content-Type": "application/json"
-      };
-      const body = JSON.stringify({
-        "username": username,
-        "password": password
-      });
-      const requestOptions = {
-        method: 'POST',
-        headers: headers,
-        body: body, 
-      }
+      const signInOk = await apiRequest.signIn(username, password); 
+      if (signInOk) {
+        const userData = await apiRequest.getUserData();
+        const countdowns = await apiRequest.getCountdowns('myCountdowns');
 
-      // authenticate 
-      fetch(url, requestOptions)
-      .then(res => {
-        if (res.status === (200)) {
-          console.log('Logged in successfully');
-          return res;
-        } else {
-          const error = new Error(res.error);
-          throw error;
+        dispatch(signIn(userData));
+        if (countdowns) {
+          dispatch(setCountdownList(countdowns));
+          dispatch(setLiveCountdown(countdowns[0]));
         }
-      })
-      .then(res => {
-        Promise.all([apiRequest.getUserData(), apiRequest.getCountdowns('mycountdowns')])
-        .then(([userData, countdowns]) => {
-          if(userData) {
-            dispatch(signIn(userData));
-            dispatch(setSidebarView('selectCountdown'));
-          }
-          if (countdowns) {
-            dispatch(setCountdownList(countdowns));
-            dispatch(setLiveCountdown(countdowns[0]));
-          }
-        })
-      })
-      .catch(error => console.log('error', error))      
+        dispatch(setSidebarView('selectCountdown'));
+      }
     }
   }
 
