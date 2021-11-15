@@ -9,7 +9,7 @@ import deleteIcon from '../../images/icon-delete.svg';
 import editIcon from '../../images/icon-edit.svg';
 
 
-import { deleteCountdownRequest } from '../../utils/utils';
+import { apiRequest } from '../../utils/apiRequests';
 
 
 export default function CountdownCard({countdown, toggleOverlayHidden}) {  
@@ -42,7 +42,7 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
     }
     id = id.slice(10);
 
-    const deletedId = await deleteCountdownRequest(id);
+    const deletedId = await apiRequest.deleteCountdown(id);
     if (deletedId) {
       dispatch(deleteCountdown(deletedId));      
       // if countdown being deleted was set as liveCountdown, update liveCountdown

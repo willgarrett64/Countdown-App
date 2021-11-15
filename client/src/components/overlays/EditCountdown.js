@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteCountdown, editCountdown, setCountdownList } from '../../redux/features/countdownListSlice';
 import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
-import { deleteCountdownRequest, updateCountdownRequest } from '../../utils/utils'; 
+import { apiRequest } from '../../utils/apiRequests'; 
 
 export default function EditCountdown({toggleOverlayHidden}) {
   const dispatch = useDispatch();
@@ -33,10 +33,10 @@ export default function EditCountdown({toggleOverlayHidden}) {
       id: countdown.id,
       name, date, time
     }
-    const res = await updateCountdownRequest(newCountdown);
+    const res = await apiRequest.updateCountdown(newCountdown);
     if (res) {
       dispatch(editCountdown(newCountdown));  
-      
+      console.log('Countdown updated successfully');
       // CURRENTLY AN ONCLICK ISSUE - clicking the edit button on the CountdownCard also fires the changeCountdown onclick event, so sets the liveCountdown to the countdown being edited, meaning liveCountdown.id always == res.id
       // if countdown being updated was set as liveCountdown, update liveCountdown
       if(liveCountdown.id == res.id) {
@@ -49,7 +49,7 @@ export default function EditCountdown({toggleOverlayHidden}) {
   }
 
   const handleDeleteCountdown = async () => {
-    const deletedId = await deleteCountdownRequest(countdown.id);
+    const deletedId = await apiRequest.deleteCountdown(countdown.id);
     if (deletedId) {
       dispatch(deleteCountdown(deletedId));      
       // if countdown being deleted was set as liveCountdown, update liveCountdown

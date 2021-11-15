@@ -16,7 +16,7 @@ import { setCountdownList } from '../redux/features/countdownListSlice';
 import { setLiveCountdown } from "../redux/features/liveCountdownSlice";
 
 
-import { getUserData, getCountdowns } from "../utils/utils";
+import { apiRequest } from "../utils/apiRequests";
 
 
 export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
@@ -25,9 +25,9 @@ export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
     
   // check if user already has a valid token
   useEffect(async () => {
-    const userData = await getUserData();
+    const userData = await apiRequest.getUserData();
     if (userData) {
-      const countdowns = await getCountdowns('mycountdowns');
+      const countdowns = await apiRequest.getCountdowns('mycountdowns');
       dispatch(signIn(userData));
       dispatch(setSidebarView('selectCountdown'));
       if (countdowns) {
@@ -35,7 +35,7 @@ export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
         dispatch(setLiveCountdown(countdowns[0]));
       }
     } else {
-      const countdowns = await getCountdowns('guest');
+      const countdowns = await apiRequest.getCountdowns('guest');
       dispatch(setSidebarView('signIn'));
       dispatch(setCountdownList(countdowns));
       dispatch(setLiveCountdown(countdowns[0]));

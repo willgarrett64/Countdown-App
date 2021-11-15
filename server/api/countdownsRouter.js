@@ -107,8 +107,7 @@ countdownsRouter.post('/', verifyToken, (req, res, next) => {
 
     res.json({
         "message":"success",
-        "data":{countdown},
-        "id":this.lastID,
+        "data":{...countdown, id: this.lastID},
     })
   });
 })

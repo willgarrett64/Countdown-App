@@ -1,14 +1,13 @@
-// import images
+// images
 import closeIcon from '../../images/close-icon.svg'
-import deleteIcon from '../../images/icon-delete.svg'
-
-// TEST - client side log in
-import users from '../../clientSideLogin/users';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { addCountdown, deleteCountdown, editCountdown, setCountdownList } from '../../redux/features/countdownListSlice';
 import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+
+// utils
+import { apiRequest } from '../../utils/apiRequests';
 
 export default function CreateCountdown({toggleOverlayHidden}) {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ export default function CreateCountdown({toggleOverlayHidden}) {
     document.getElementById('new-countdown-time').value = '';
   }
 
-  const handleAddNewCountdown = () => {
+  const handleAddNewCountdown = async () => {
     let name = document.getElementById('new-countdown-name').value;
     let date = document.getElementById('new-countdown-date').value;
     let time = document.getElementById('new-countdown-time').value;
@@ -29,42 +28,18 @@ export default function CreateCountdown({toggleOverlayHidden}) {
       return
     }
 
-    const newCountdown = {
+    const newCountdownObject = {
       name: name,
       date: date,
       time: time,
     }
 
-    const url = 'http://localhost:3000/api/countdowns';
-    const headers = {
-      "Content-Type": "application/json"
-    };
-    const body = JSON.stringify(newCountdown);
-    const requestOptions = {
-      method: 'POST',
-      headers: headers,
-      body: body, 
-    }
+    const data = await apiRequest.createNewCountdown(newCountdownObject);
 
-    fetch(url, requestOptions)
-    .then(res => {
-      if (res.status === (200)) {
-        console.log('New countdown created successfully');
-        return res.json();
-      } else {
-        const error = new Error(res.error);
-        throw error;
-      }
-    })
-    .then(res => {
-      const newCountdown = {...res.data.countdown, id: res.id};
-      dispatch(addCountdown(newCountdown));
-      dispatch(setLiveCountdown(newCountdown));
-      toggleOverlayHidden();
-      resetInputs();
-    })
-    .catch(error => console.log('error', error))      
-    
+    dispatch(addCountdown(data));
+    dispatch(setLiveCountdown(data));
+    toggleOverlayHidden();
+    resetInputs();
   }
 
   const handleCancel = () => {

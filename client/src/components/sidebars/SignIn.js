@@ -8,7 +8,7 @@ import { setCountdownList } from '../../redux/features/countdownListSlice';
 import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 
-import { getUserData, getCountdowns } from '../../utils/utils';
+import { apiRequest } from '../../utils/apiRequests';
 
 
 export default function SignIn() {
@@ -54,7 +54,7 @@ export default function SignIn() {
         }
       })
       .then(res => {
-        Promise.all([getUserData(), getCountdowns('mycountdowns')])
+        Promise.all([apiRequest.getUserData(), apiRequest.getCountdowns('mycountdowns')])
         .then(([userData, countdowns]) => {
           if(userData) {
             dispatch(signIn(userData));
