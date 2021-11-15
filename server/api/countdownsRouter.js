@@ -18,7 +18,7 @@ countdownsRouter.get('/all', (req, res, next) => {
       res.status(400).json({"error":err.message});
       return;
     }
-    res.json({
+    res.status(200).json({
         "message":"success",
         "data":rows
     })
@@ -34,7 +34,7 @@ countdownsRouter.get('/guest', (req, res, next) => {
       res.status(400).json({"error":err.message});
       return;
     }
-    res.json({
+    res.status(200).json({
         "message":"success",
         "data":rows
     })
@@ -51,7 +51,7 @@ countdownsRouter.get('/mycountdowns', verifyToken, (req, res, next) => {
       res.status(400).json({"error":err.message});
       return;
     }
-    res.json({
+    res.status(200).json({
         "message":"success",
         "data":rows,
         "username": req.username
@@ -70,7 +70,7 @@ countdownsRouter.get('/:id', (req, res, next) => {
       res.status(400).json({"error":err.message});
       return;
     }
-    res.json({
+    res.status(200).json({
         "message":"success",
         "data":rows,
     })
@@ -105,7 +105,7 @@ countdownsRouter.post('/', verifyToken, (req, res, next) => {
       return;
     }
 
-    res.json({
+    res.status(201).json({
         "message":"success",
         "data":{...countdown, id: this.lastID},
     })
@@ -124,7 +124,7 @@ countdownsRouter.delete('/', verifyToken, (req, res, next) => {
       res.status(400).json({"error":err.message});
       return;
     }
-    res.json({
+    res.status(200).json({
       "message": "success",
       "data": countdownId
     })
@@ -144,7 +144,7 @@ countdownsRouter.put('/', verifyToken, (req, res, next) => {
       res.status(400).json({"error":err.message});
       return;
     }
-    res.json({
+    res.status(200).json({
       "message": "success",
       "data": updatedCountdown
     })

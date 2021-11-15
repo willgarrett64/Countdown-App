@@ -44,7 +44,7 @@ const signIn = async (username, password) => {
 const signOut = async () => {
   try {
   const response = await fetch(apiUrl+'/users/signout');
-    if (response.status === 202) {
+    if (response.status === 200) {
       console.log('Signed out succesfully');
       return true;
     }

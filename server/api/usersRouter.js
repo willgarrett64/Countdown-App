@@ -11,9 +11,10 @@ const db = require('../database/db')
 
 const usersRouter = express.Router();
 
+// TOKEN SECRET - WILL CHANGE AND HIDE
+const secret = 'mysecretsshhh'; //temporary token string - WILL NEED TO HIDE
 
-
-// add new user
+// create a new user account
 usersRouter.post("/signup", (req, res, next) => {
   const errors=[]
   if (!req.body.password){
@@ -37,7 +38,7 @@ usersRouter.post("/signup", (req, res, next) => {
           res.status(400).json({"error": err.message})
           return;
       }
-      res.json({
+      res.status(201).json({
           "message": "success",
           "data": data,
           "id": this.lastID
@@ -45,10 +46,7 @@ usersRouter.post("/signup", (req, res, next) => {
   });
 })
 
-
-// issue token
-const secret = 'mysecretsshhh'; //temporary token string - WILL NEED TO HIDE
-
+// sign in and issue token
 usersRouter.post("/signin", verifyUser, (req, res, next) => {
   // Issue token
   const payload = { username: req.username, userId: req.userId };
@@ -58,18 +56,19 @@ usersRouter.post("/signin", verifyUser, (req, res, next) => {
   res.cookie('token', token, { httpOnly: true }).sendStatus(200);
 });
 
-
+// sign out and clear token
 usersRouter.get("/signout", (req, res, next) => {
-  res.status(202).clearCookie('token').send('cookie cleared')
+  res.status(200).clearCookie('token').send('cookie cleared')
 })
 
+// return user info
 usersRouter.get("/userinfo", verifyToken, (req, res, next) => {
   const user = {
     "username": req.username,
     "userId": req.userId
   };
   
-  res.json({
+  res.status(200).json({
     "message":"success",
     "data":user,
   });
