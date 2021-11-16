@@ -4,6 +4,9 @@ import react, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSidebarView } from '../../redux/features/sidebarViewSlice';
 
+// utils
+import { apiRequest } from '../../utils/apiRequests';
+
 export default function SignUp() {
   const dispatch = useDispatch();
 
@@ -11,7 +14,7 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [veryifyPassword, setVerifyPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit =  async e => {
     e.preventDefault();
 
     if (!username) {
@@ -27,29 +30,11 @@ export default function SignUp() {
       alert('Passwords don\'t match');
       return;
     } else {
-      const url = 'http://localhost:4001/api/users/signup';
-      const headers = {
-        "Content-Type": "application/json"
-      };
-      const body = JSON.stringify({
-        "username": username,
-        "password": password
-      });
-      const requestOptions = {
-        method: 'POST',
-        headers: headers,
-        body: body, 
-      }
 
-      fetch(url, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          console.log(result);
-          if (result.message == 'success') {
-            dispatch(setSidebarView('signIn'));
-          } 
-        })
-        .catch(error => console.log('error', error));
+      const signUpOk = await apiRequest.signUp(username, password);
+      if (signUpOk) {
+        dispatch(setSidebarView('signIn'));
+      } 
     }
   }
 
@@ -58,15 +43,15 @@ export default function SignUp() {
       <h2>Create a new account to access <strong>full features</strong></h2>
       <div className="input-label-pair">
         <label htmlFor="username-signup">USERNAME</label>
-        <input id="username-signup" onChange={e => setUsername(e.target.value)} />
+        <input id="username-signup" required onChange={e => setUsername(e.target.value)} />
       </div>
       <div className="input-label-pair">
         <label htmlFor="password-signup">PASSWORD</label>
-        <input id="password-signup" type="password" onChange={e => setPassword(e.target.value)} />
+        <input id="password-signup" type="password" required onChange={e => setPassword(e.target.value)} />
       </div>
       <div className="input-label-pair">
         <label htmlFor="verify-password-signup">VERIFY PASSWORD</label>
-        <input id="verify-password-signup" type="password" onChange={e => setVerifyPassword(e.target.value)} />
+        <input id="verify-password-signup" required type="password" onChange={e => setVerifyPassword(e.target.value)} />
       </div>
       <button className="primary" onClick={handleSubmit} >SIGN UP</button>
       <button className="secondary" onClick={() => dispatch(setSidebarView('signIn'))} >CANCEL</button>

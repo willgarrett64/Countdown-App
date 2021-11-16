@@ -3,7 +3,7 @@ const express = require('express');
 //middleware
 const jwt = require('jsonwebtoken');
 const md5 = require('md5'); //md5 to hash passwords
-const {verifyUser, verifyToken} = require('../utils/verification');
+const {checkSignUpDetails, verifyUserCredentials, verifyToken} = require('../utils/verification');
 
 // connect to SQLite database
 const db = require('../database/db')
@@ -12,21 +12,10 @@ const db = require('../database/db')
 const usersRouter = express.Router();
 
 // TOKEN SECRET - WILL CHANGE AND HIDE
-const secret = 'mysecretsshhh'; //temporary token string - WILL NEED TO HIDE
+const secret = 'mysecretsshhh';
 
 // create a new user account
-usersRouter.post("/signup", (req, res, next) => {
-  const errors=[]
-  if (!req.body.password){
-      errors.push("No password specified");
-  }
-  if (!req.body.username){
-      errors.push("No username specified");
-  }
-  if (errors.length){
-      res.status(400).json({"error":errors.join(",")});
-      return;
-  }
+usersRouter.post("/signup", checkSignUpDetails, (req, res, next) => {
   const data = {
       username: req.body.username,
       password : md5(req.body.password)
@@ -47,7 +36,7 @@ usersRouter.post("/signup", (req, res, next) => {
 })
 
 // sign in and issue token
-usersRouter.post("/signin", verifyUser, (req, res, next) => {
+usersRouter.post("/signin", verifyUserCredentials, (req, res, next) => {
   // Issue token
   const payload = { username: req.username, userId: req.userId };
   const token = jwt.sign(payload, secret, {

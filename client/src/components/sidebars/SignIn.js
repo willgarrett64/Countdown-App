@@ -21,11 +21,12 @@ export default function SignIn() {
   const handleSubmit = async e => {
     e.preventDefault();
 
+    //CURRENTLY FORM VALIDATION NOT COMPLETE
     if (!username) {
-      // handle blank username
+      alert('Please enter a username');
       return
     } else if (!password) {
-      // handle blank password
+      alert('Please enter a password');
       return
     } else {
       const signInOk = await apiRequest.signIn(username, password); 
@@ -48,11 +49,11 @@ export default function SignIn() {
       <h2>Sign in to your account to access <strong>full features</strong></h2>
       <div className="input-label-pair">
         <label htmlFor="username-signin">USERNAME</label>
-        <input id="username-signin" onChange={e => setUsername(e.target.value)} />
+        <input id="username-signin" required onChange={e => setUsername(e.target.value)} />
       </div>
       <div className="input-label-pair">
         <label htmlFor="password-signin">PASSWORD</label>
-        <input id="password-signin" type="password" onChange={e => setPassword(e.target.value)} />
+        <input id="password-signin" type="password" required onChange={e => setPassword(e.target.value)} />
       </div>
 
       <button className="primary" onClick={handleSubmit}>SIGN IN</button>

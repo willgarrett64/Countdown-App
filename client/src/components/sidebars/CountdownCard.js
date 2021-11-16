@@ -18,7 +18,7 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
   const countdownList = useSelector(state => state.countdownList.list);
   const signedIn = useSelector(state => state.authenticate.signedIn)
 
-  const changeCountdown = (e) => {
+  const changeLiveCountdown = (e) => {
     let id;
     let target = e.target;
     id = target.id;
@@ -64,7 +64,7 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
   }
 
   return (
-    <div className="card countdown" onClick={changeCountdown} id={`countdown-${countdown.id}`}>
+    <div className="card countdown" onClick={changeLiveCountdown} id={`countdown-${countdown.id}`}>
       <div className="info name">
         <p>{countdown.name}</p>
       </div>

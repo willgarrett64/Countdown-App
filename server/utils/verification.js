@@ -2,8 +2,40 @@ const md5 = require('md5'); //md5 to hash passwords
 const jwt = require('jsonwebtoken');
 const db = require('../database/db');
 
+// check if user with entered username already exists - used when creating a new account
+const checkSignUpDetails = (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
 
-const verifyUser = (req, res, next) => {
+  // check if username and passwords were entered and are valid lengths (4-30 char)
+  if (!username) {
+    res.status(400).json({"error": 'No username entered'});
+  } else if (username.length < 4 || username.length > 30) {
+    res.status(400).json({"error": 'Please enter a username between 4 and 30 characters long'})
+  } else if (!password) {
+    res.status(400).json({"error": 'No password entered'});
+  } else if (password.length < 4 || password.length > 30) {
+    res.status(400).json({"error": 'Please enter a password between 4 and 30 characters long'})
+  } 
+  // check if an existing account already has that username
+  else {
+    const sql = 'SELECT * FROM users WHERE username = ? LIMIT 1';
+    const params = [req.body.username];
+    db.get(sql, params, (err, row) => {
+      if (err) {
+        res.status(400).json({"error": err.message});
+      } else if (row) {
+        res.status(400).json({"error": 'Username already exists'});
+      } else {
+        next();
+      }
+    })
+  }
+}
+
+
+// check if the username and password combination matches an existing user account - used when signing in
+const verifyUserCredentials = (req, res, next) => {
   const data = {
     username: req.body.username,
     password : md5(req.body.password)
@@ -14,7 +46,7 @@ const verifyUser = (req, res, next) => {
 
   db.get(query, params, (err, row) => {
     if (err) {
-      res.status(400).json({"error":err.message});
+      res.status(400).json({"error": err.message});
     } else if (!row) {
       res.status(401).json({"error": 'Incorrect email or password'});
     } else {
@@ -28,6 +60,8 @@ const verifyUser = (req, res, next) => {
 
 
 const secret = 'mysecretsshhh'; //temporary token string - WILL NEED TO HIDE
+
+// check if the user holds a valid json web token (issued when signing in successfully)
 const verifyToken = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
@@ -45,4 +79,4 @@ const verifyToken = (req, res, next) => {
   }
 }
 
-module.exports = {verifyUser, verifyToken}
+module.exports = {checkSignUpDetails, verifyUserCredentials, verifyToken}

@@ -53,6 +53,24 @@ const signOut = async () => {
   }
 }
 
+// create a new user account - return true if successful
+const signUp = async (username, password) => {
+  const headers = {"Content-Type": "application/json"};
+  const body = JSON.stringify({username, password});
+  try {
+    const response = await fetch(apiUrl+'/users/signup', {method: 'POST', headers, body});
+    if (response.status === 200) {
+      console.log('New account created succesfully');
+      return true;
+    } else {
+      const jsonResponse = await response.json();
+      alert(jsonResponse.error);
+    }
+  } catch (err) {
+    console.log(err);
+  } 
+}
+
 // if user has a valid token, this will return their username and id in the response
 const getUserData = async () => {
   const data = await apiFetchRequest('GET', '/users/userinfo');
@@ -72,7 +90,8 @@ const getCountdowns = async (endpoint) => {
 const createNewCountdown = async (newCountdownObject) => {
   const headers = {"Content-Type": "application/json"};
   const body = JSON.stringify(newCountdownObject);
-  const data = await apiFetchRequest('POST', '/countdowns', headers, body)  
+  const data = await apiFetchRequest('POST', '/countdowns', headers, body);
+  console.log('Countdown created successfully');
   return data;
 }
 
@@ -80,7 +99,8 @@ const createNewCountdown = async (newCountdownObject) => {
 const deleteCountdown = async (countdownId) => {
   const headers = {"Content-Type": "application/json"};
   const body = JSON.stringify({id: countdownId});
-  const data = await apiFetchRequest('DELETE', '/countdowns', headers, body)
+  const data = await apiFetchRequest('DELETE', '/countdowns', headers, body);
+  console.log('Countdown deleted successfully');
   return data;
 }
 
@@ -88,13 +108,15 @@ const deleteCountdown = async (countdownId) => {
 const updateCountdown = async (updatedCountdownObject) => {
   const headers = {"Content-Type": "application/json"};
   const body = JSON.stringify(updatedCountdownObject);
-  const data = await apiFetchRequest('PUT', '/countdowns', headers, body)  
+  const data = await apiFetchRequest('PUT', '/countdowns', headers, body);
+  console.log('Countdown updated successfully');
   return data;
 }
 
 const apiRequest = {
   signIn, 
   signOut,
+  signUp,
   getUserData, 
   getCountdowns, 
   createNewCountdown,
