@@ -18,11 +18,15 @@ export default function EditCountdown({toggleOverlayHidden}) {
   const countdownList = useSelector(state => state.countdownList.list);
 
 
-  const [name, setName] = useState(countdown.name);
-  const [date, setDate] = useState(countdown.date);
-  const [time, setTime] = useState(countdown.time);
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
 
   useEffect(() => {
+    setName(countdown.name);
+    setDate(countdown.date);
+    setTime(countdown.time);
+
     document.getElementById('edit-countdown-name').value = countdown.name;
     document.getElementById('edit-countdown-date').value = countdown.date;
     document.getElementById('edit-countdown-time').value = countdown.time;
