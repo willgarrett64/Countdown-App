@@ -59,7 +59,7 @@ const signUp = async (username, password) => {
   const body = JSON.stringify({username, password});
   try {
     const response = await fetch(apiUrl+'/users/signup', {method: 'POST', headers, body});
-    if (response.status === 200) {
+    if (response.status === 201) {
       console.log('New account created succesfully');
       return true;
     } else {
