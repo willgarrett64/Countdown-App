@@ -13,6 +13,6 @@ export const liveCountdownSlice = createSlice({
   },
 })
 
-export const { setLiveCountdown, resetLiveCountdown, removeLiveCountdown } = liveCountdownSlice.actions;
+export const { setLiveCountdown, removeLiveCountdown } = liveCountdownSlice.actions;
 
 export default liveCountdownSlice.reducer
