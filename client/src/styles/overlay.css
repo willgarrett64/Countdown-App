@@ -11,10 +11,6 @@
   z-index: 10;
 }
 
-#overlay.hidden {
-  display: none;
-}
-
 
 /*#region edit countdown overlay*/
 #edit-countdown-overlay {

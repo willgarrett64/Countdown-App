@@ -8,25 +8,26 @@ import deleteIcon from '../../images/icon-delete.svg'
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteCountdown, editCountdown, setCountdownList } from '../../redux/features/countdownListSlice';
 import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+import { closeOverlay } from '../../redux/features/overlayViewSlice';
 
+// utils
 import { apiRequest } from '../../utils/apiRequests'; 
 
-export default function EditCountdown({toggleOverlayHidden}) {
+export default function EditCountdown() {
   const dispatch = useDispatch();
   const countdown = useSelector(state => state.countdownList.editing);
   const liveCountdown = useSelector(state => state.liveCountdown.countdown);
   const countdownList = useSelector(state => state.countdownList.list);
 
+  const close = () => {
+    dispatch(closeOverlay());
+  }
 
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [name, setName] = useState(countdown.name);
+  const [date, setDate] = useState(countdown.date);
+  const [time, setTime] = useState(countdown.time);
 
   useEffect(() => {
-    setName(countdown.name);
-    setDate(countdown.date);
-    setTime(countdown.time);
-
     document.getElementById('edit-countdown-name').value = countdown.name;
     document.getElementById('edit-countdown-date').value = countdown.date;
     document.getElementById('edit-countdown-time').value = countdown.time;
@@ -46,8 +47,7 @@ export default function EditCountdown({toggleOverlayHidden}) {
       if(liveCountdown.id == res.id) {
         dispatch(setLiveCountdown(newCountdown));
       }
-
-      toggleOverlayHidden();
+      close();
     }
 
   }
@@ -59,18 +59,14 @@ export default function EditCountdown({toggleOverlayHidden}) {
       // if countdown being deleted was set as liveCountdown, update liveCountdown
       if(liveCountdown.id == countdown.id) {
         dispatch(setLiveCountdown(countdownList[0]));
-        toggleOverlayHidden();
+        close();
       }
     }
   }
 
-  const handleCancel = () => {
-    toggleOverlayHidden();
-  }
-
   return (
     <div id="edit-countdown-overlay">
-      <img src={closeIcon} className="closeIcon" onClick={toggleOverlayHidden} />
+      <img src={closeIcon} className="closeIcon" onClick={close} />
       <h2><strong>EDIT</strong> COUNTDOWN</h2>
       <div className="input-label-pair">
         <label htmlFor="edit-countdown-name">COUNTDOWN NAME</label>
@@ -85,7 +81,7 @@ export default function EditCountdown({toggleOverlayHidden}) {
         <input className="rounded" id="edit-countdown-time" type="time" onChange={e => setTime(e.target.value)} />
       </div>
       <div>
-        <button className="secondary" onClick={handleCancel} >CANCEL</button>
+        <button className="secondary" onClick={close} >CANCEL</button>
         <button className="primary" onClick={handleUpdateCountdown}>SAVE</button>
       </div>
       <div className="deleteIcon" onClick={handleDeleteCountdown}>

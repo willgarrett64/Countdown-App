@@ -1,14 +1,14 @@
 import react, {useState} from 'react';
 
 // redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setOverlayView } from '../../redux/features/overlayViewSlice';
 import { setSidebarView } from '../../redux/features/sidebarViewSlice';
 
 // utils
 import { apiRequest } from '../../utils/apiRequests';
 
-export default function SignUp({toggleOverlayHidden}) {
+export default function SignUp() {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState('');
@@ -35,7 +35,7 @@ export default function SignUp({toggleOverlayHidden}) {
       const signUpOk = await apiRequest.signUp(username, password);
       if (signUpOk) {
         dispatch(setSidebarView('signIn'));
-        toggleOverlayHidden();
+        setOverlayView('accountCreated');
         dispatch(setOverlayView('accountCreated'));
       } 
     }

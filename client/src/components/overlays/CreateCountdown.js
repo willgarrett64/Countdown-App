@@ -4,29 +4,23 @@ import closeIcon from '../../images/close-icon.svg'
 // redux
 import { useDispatch } from 'react-redux';
 import { addCountdown, deleteCountdown, editCountdown, setCountdownList } from '../../redux/features/countdownListSlice';
+import { closeOverlay } from '../../redux/features/overlayViewSlice';
 import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 // utils
 import { apiRequest } from '../../utils/apiRequests';
 
-export default function CreateCountdown({toggleOverlayHidden}) {
+export default function CreateCountdown() {
   const dispatch = useDispatch();
   
-  // form elements
-  const nameInput = document.getElementById('new-countdown-name')
-  const dateInput = document.getElementById('new-countdown-date')
-  const timeInput = document.getElementById('new-countdown-time')
-
-  const resetInputs = () => {
-    nameInput.value = '';
-    dateInput.value = '';
-    timeInput.value = '';
+  const close = () => {
+    dispatch(closeOverlay());
   }
 
   const handleAddNewCountdown = async () => {
-    let name = nameInput.value;
-    let date = dateInput.value;
-    let time = timeInput.value;
+    let name = document.getElementById('new-countdown-name').value;
+    let date = document.getElementById('new-countdown-date').value;
+    let time = document.getElementById('new-countdown-time').value;
 
     // NEED TO IMPROVE FORM VALIDATION
     if (!name || !date || !time) {
@@ -40,18 +34,12 @@ export default function CreateCountdown({toggleOverlayHidden}) {
 
     dispatch(addCountdown(newCountdownResponse));
     dispatch(setLiveCountdown(newCountdownResponse));
-    toggleOverlayHidden();
-    resetInputs();
-  }
-
-  const handleCancel = () => {
-    toggleOverlayHidden();
-    resetInputs();
+    close();
   }
   
   return (
     <div id="edit-countdown-overlay">
-      <img src={closeIcon} className="closeIcon" onClick={toggleOverlayHidden} />
+      <img src={closeIcon} className="closeIcon" onClick={close} />
       <h2><strong>CREATE</strong> COUNTDOWN</h2>
       <div className="input-label-pair">
         <label htmlFor="new-countdown-name">COUNTDOWN NAME</label>
@@ -66,7 +54,7 @@ export default function CreateCountdown({toggleOverlayHidden}) {
         <input className="rounded" id="new-countdown-time" type="time" />
       </div>
       <div>
-        <button className="secondary" onClick={handleCancel} >CANCEL</button>
+        <button className="secondary" onClick={close} >CANCEL</button>
         <button className="primary" onClick={handleAddNewCountdown}>SAVE</button>
       </div>
     </div>

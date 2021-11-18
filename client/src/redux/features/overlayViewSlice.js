@@ -7,9 +7,12 @@ export const overlayViewSlice = createSlice({
     setOverlayView: (state, newOverlayView) => {
       state.value = newOverlayView.payload;
     },
+    closeOverlay: (state) => {
+      state.value = '';
+    }
   },
 })
 
-export const { setOverlayView } = overlayViewSlice.actions;
+export const { setOverlayView, closeOverlay } = overlayViewSlice.actions;
 
 export default overlayViewSlice.reducer

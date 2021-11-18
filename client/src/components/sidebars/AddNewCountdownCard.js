@@ -5,7 +5,6 @@ export default function AddNewCountdownCard({toggleOverlayHidden}) {
   const dispatch = useDispatch()
   const openCreateCountdown = () => {
     dispatch(setOverlayView('createCountdown'));
-    toggleOverlayHidden();
   }
   
   return (

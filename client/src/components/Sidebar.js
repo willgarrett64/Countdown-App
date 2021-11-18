@@ -19,7 +19,7 @@ import { setLiveCountdown } from "../redux/features/liveCountdownSlice";
 import { apiRequest } from "../utils/apiRequests";
 
 
-export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
+export default function Sidebar({toggleSidebarOpen}) {
   const dispatch = useDispatch();
   const sidebarView = useSelector((state) => state.sidebarView.value);
     
@@ -48,9 +48,9 @@ export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
         sidebarView === 'signIn'
         ? <SignIn/>
         : sidebarView === 'signUp'
-        ? <SignUp toggleOverlayHidden={toggleOverlayHidden} />
+        ? <SignUp />
         : sidebarView === 'selectCountdown'
-        ? <SelectCountdown toggleOverlayHidden={toggleOverlayHidden} toggleSidebarOpen={toggleSidebarOpen} />
+        ? <SelectCountdown toggleSidebarOpen={toggleSidebarOpen} />
         : null
       }
     </aside>

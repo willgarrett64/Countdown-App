@@ -6,15 +6,19 @@ import closeIcon from '../../images/close-icon.svg';
 
 // redux
 import { useDispatch } from 'react-redux';
+import { closeOverlay } from '../../redux/features/overlayViewSlice';
 
-export default function AccountCreated({toggleOverlayHidden}) {
+export default function AccountCreated() {
   const dispatch = useDispatch();
 
-
+  const close = () => {
+    dispatch(closeOverlay());
+  }
+  
   useEffect(() => {
     const closeTimeout = setTimeout(() => {
-      toggleOverlayHidden()
-    }, 4000);
+      close()
+    }, 5000);
     return () => {
       clearTimeout(closeTimeout)
     }
@@ -22,10 +26,10 @@ export default function AccountCreated({toggleOverlayHidden}) {
 
   return (
     <div id="account-created-overlay">
-      <img src={closeIcon} className="closeIcon" onClick={toggleOverlayHidden} />
+      <img src={closeIcon} className="closeIcon" onClick={close} />
       <img src={successIcon} className="successIcon" />
       <h3>ACCOUNT CREATED SUCCESSFULLY</h3>
-      <p onClick={toggleOverlayHidden}>RETURN TO SIGN IN</p>
+      <p onClick={close}>RETURN TO SIGN IN</p>
     </div>
   )
 }

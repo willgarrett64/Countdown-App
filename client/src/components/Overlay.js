@@ -7,18 +7,18 @@ import AccountCreated from './overlays/AccountCreated';
 
 //redux
 
-export default function Overlay({toggleOverlayHidden}) {
+export default function Overlay() {
   const overlayView = useSelector((state) => state.overlayView.value);
 
   return (
-    <div id="overlay" className="hidden">
+    <div id="overlay">
       {
         overlayView === 'editCountdown'
-        ? <EditCountdown toggleOverlayHidden={toggleOverlayHidden} />
+        ? <EditCountdown />
         : overlayView === 'createCountdown'
-        ? <CreateCountdown toggleOverlayHidden={toggleOverlayHidden} />
+        ? <CreateCountdown />
         : overlayView === 'accountCreated'
-        ? <AccountCreated toggleOverlayHidden={toggleOverlayHidden} />
+        ? <AccountCreated />
         : null
       }
     </div>

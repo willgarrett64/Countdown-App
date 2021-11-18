@@ -8,11 +8,11 @@ import { setOverlayView } from '../../redux/features/overlayViewSlice';
 import deleteIcon from '../../images/icon-delete.svg';
 import editIcon from '../../images/icon-edit.svg';
 
-
+// utils
 import { apiRequest } from '../../utils/apiRequests';
 
 
-export default function CountdownCard({countdown, toggleOverlayHidden}) {  
+export default function CountdownCard({countdown}) {  
   const dispatch = useDispatch();
   const liveCountdown = useSelector(state => state.liveCountdown.countdown)
   const countdownList = useSelector(state => state.countdownList.list);
@@ -60,7 +60,6 @@ export default function CountdownCard({countdown, toggleOverlayHidden}) {
   const openEditCountdown = () => {
     dispatch(setOverlayView('editCountdown'));
     dispatch(setEditCountdown(countdown));
-    toggleOverlayHidden();
   }
 
   return (

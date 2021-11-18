@@ -22,22 +22,19 @@ import './styles/overlay.css'
 function App() {
   const dispatch = useDispatch()
   const signedIn = useSelector(state => state.authenticate.signedIn)
+  const overlayView = useSelector(state => state.overlayView.value);
 
   const toggleSidebarOpen = () => {
     document.getElementById('sidebar').classList.toggle("open");
     document.getElementById('main').classList.toggle("open");
   }
 
-  const toggleOverlayHidden = () => {
-    document.getElementById('overlay').classList.toggle("hidden")
-  }
-
   return (
     <div className="App">
-      <Sidebar toggleSidebarOpen={toggleSidebarOpen} toggleOverlayHidden={toggleOverlayHidden} />
+      <Sidebar toggleSidebarOpen={toggleSidebarOpen} />
       <Main />
       {signedIn && <SignOut />}
-      <Overlay toggleOverlayHidden={toggleOverlayHidden} />
+      {overlayView && <Overlay />}
       <img src={dblRightChevron} id="open-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
     </div>
   );
