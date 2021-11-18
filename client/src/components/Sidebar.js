@@ -25,19 +25,22 @@ export default function Sidebar({toggleSidebarOpen}) {
   const sidebarView = useSelector((state) => state.sidebarView.value);
     
   // check if user already has a valid token
-  useEffect(async () => {
-    const userData = await apiRequest.getUserData();
-    if (userData) {
-      const countdowns = await apiRequest.getCountdowns('mycountdowns');
-      dispatch(signIn(userData));
-      if (countdowns) {
-        dispatch(setCountdownList(countdowns));
-        dispatch(setLiveCountdown(countdowns[0]));
+  useEffect(() => { 
+    const autoLogIn = async () => {
+      const userData = await apiRequest.getUserData();
+      if (userData) {
+        const countdowns = await apiRequest.getCountdowns('mycountdowns');
+        dispatch(signIn(userData));
+        if (countdowns) {
+          dispatch(setCountdownList(countdowns));
+          dispatch(setLiveCountdown(countdowns[0]));
+        }
+        dispatch(setSidebarView('selectCountdown'));
+      } else {
+        dispatch(setSidebarView('signIn'));
       }
-      dispatch(setSidebarView('selectCountdown'));
-    } else {
-      dispatch(setSidebarView('signIn'));
     }
+    autoLogIn()
   }, [])
 
   return (
