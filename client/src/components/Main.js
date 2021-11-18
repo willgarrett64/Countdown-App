@@ -1,10 +1,10 @@
-// import componenets
+// componenets
 import Clock from "./clock/Clock";
 
-// import styles
+// styles
 import '../styles/main.css'
 
-//redux
+// redux
 import { useSelector } from "react-redux";
 
 export default function Main () {

@@ -1,12 +1,13 @@
+// react hooks
 import { useState, useEffect } from 'react';
 
-// import images
+// images
 import closeIcon from '../../images/close-icon.svg'
 import deleteIcon from '../../images/icon-delete.svg'
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteCountdown, editCountdown, setCountdownList } from '../../redux/features/countdownListSlice';
+import { deleteCountdown, editCountdown } from '../../redux/features/countdownListSlice';
 import { removeLiveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 import { closeOverlay } from '../../redux/features/overlayViewSlice';
 
@@ -69,7 +70,7 @@ export default function EditCountdown() {
 
   return (
     <div id="edit-countdown-overlay">
-      <img src={closeIcon} className="closeIcon" onClick={close} />
+      <img src={closeIcon} className="closeIcon" onClick={close} alt="close icon" />
       <h2><strong>EDIT</strong> COUNTDOWN</h2>
       <div className="input-label-pair">
         <label htmlFor="edit-countdown-name">COUNTDOWN NAME</label>

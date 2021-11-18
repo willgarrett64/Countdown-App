@@ -1,7 +1,7 @@
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { resetCountdownList, setCountdownList } from '../redux/features/countdownListSlice';
-import { removeLiveCountdown, setLiveCountdown } from '../redux/features/liveCountdownSlice';
+import { resetCountdownList } from '../redux/features/countdownListSlice';
+import { removeLiveCountdown } from '../redux/features/liveCountdownSlice';
 import { setSidebarView } from '../redux/features/sidebarViewSlice';
 import { signOut } from '../redux/features/authenticateSlice';
 

@@ -1,26 +1,21 @@
-//import components
+// components
 import Sidebar from './components/Sidebar';
 import Main from './components/Main';
 import Overlay from './components/Overlay';
 import SignOut from './components/SignOut';
 
-//import images
+// images
 import dblRightChevron from './images/icon-dbl-right.svg'
 
-//import React hooks
-import React, { useState, useEffect } from 'react'
+// redux
+import { useSelector } from 'react-redux';
 
-//redux
-import { useSelector, useDispatch } from 'react-redux';
-
-
-//import styles
+// styles
 import './App.css';
 import './styles/overlay.css'
 
 
 function App() {
-  const dispatch = useDispatch()
   const signedIn = useSelector(state => state.authenticate.signedIn)
   const overlayView = useSelector(state => state.overlayView.value);
 
@@ -35,7 +30,7 @@ function App() {
       <Main />
       {signedIn && <SignOut />}
       {overlayView && <Overlay />}
-      <img src={dblRightChevron} id="open-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
+      <img src={dblRightChevron} id="open-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} alt="open sidebar icon" />
     </div>
   );
 }

@@ -1,11 +1,12 @@
+// react hooks
 import { useEffect } from "react";
 
-//import components
+// components
 import SignIn from "./sidebars/SignIn";
 import SignUp from "./sidebars/SignUp";
 import SelectCountdown from "./sidebars/SelectCountdown";
 
-//import styles
+// styles
 import '../styles/sidebar.css'
 
 // redux
@@ -15,7 +16,7 @@ import { signIn } from '../redux/features/authenticateSlice';
 import { setCountdownList } from '../redux/features/countdownListSlice';
 import { setLiveCountdown } from "../redux/features/liveCountdownSlice";
 
-
+// utils
 import { apiRequest } from "../utils/apiRequests";
 
 

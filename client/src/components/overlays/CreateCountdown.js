@@ -3,7 +3,7 @@ import closeIcon from '../../images/close-icon.svg'
 
 // redux
 import { useDispatch } from 'react-redux';
-import { addCountdown, deleteCountdown, editCountdown, setCountdownList } from '../../redux/features/countdownListSlice';
+import { addCountdown } from '../../redux/features/countdownListSlice';
 import { closeOverlay } from '../../redux/features/overlayViewSlice';
 import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
@@ -39,7 +39,7 @@ export default function CreateCountdown() {
   
   return (
     <div id="edit-countdown-overlay">
-      <img src={closeIcon} className="closeIcon" onClick={close} />
+      <img src={closeIcon} className="closeIcon" onClick={close} alt="close icon" />
       <h2><strong>CREATE</strong> COUNTDOWN</h2>
       <div className="input-label-pair">
         <label htmlFor="new-countdown-name">COUNTDOWN NAME</label>

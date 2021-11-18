@@ -1,13 +1,13 @@
-import react, {useState} from 'react';
+import {useState} from 'react';
 
 // redux
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setSidebarView } from '../../redux/features/sidebarViewSlice';
 import { signIn } from '../../redux/features/authenticateSlice';
 import { setCountdownList } from '../../redux/features/countdownListSlice';
 import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
-
+// utils
 import { apiRequest } from '../../utils/apiRequests';
 
 

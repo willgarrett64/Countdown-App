@@ -1,10 +1,7 @@
+// styles
 import '../../styles/clock.css'
 
-import React, { useState, useEffect } from 'react';
-
-
 export default function ClockCard({value, clock}) {
-
   return (
     <div className="clock-section">
       <div className="clock-card">

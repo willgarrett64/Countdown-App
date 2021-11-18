@@ -1,11 +1,10 @@
-// import components
-import { useSelector } from 'react-redux';
+// components
 import CreateCountdown from './overlays/CreateCountdown';
 import EditCountdown from './overlays/EditCountdown';
 import AccountCreated from './overlays/AccountCreated';
 
-
-//redux
+// redux
+import { useSelector } from 'react-redux';
 
 export default function Overlay() {
   const overlayView = useSelector((state) => state.overlayView.value);

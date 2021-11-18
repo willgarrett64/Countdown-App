@@ -1,3 +1,4 @@
+//components
 import AddNewCountdownCard from "./AddNewCountdownCard";
 import CountdownCard from "./CountdownCard";
 
@@ -5,7 +6,7 @@ import CountdownCard from "./CountdownCard";
 import { useSelector, useDispatch } from 'react-redux';
 import { setSidebarView } from "../../redux/features/sidebarViewSlice";
 
-//import images
+// images
 import dblLeftChevron from '../../images/icon-dbl-left.svg'
 
 export default function SelectCountdown({toggleSidebarOpen}) {
@@ -22,7 +23,7 @@ export default function SelectCountdown({toggleSidebarOpen}) {
         {signedIn && <AddNewCountdownCard />}
         {!signedIn && <p className="back-to-signIn" onClick={() => dispatch(setSidebarView('signIn'))}><strong>SIGN IN</strong> FOR MORE FEATURES</p>}
       </div>
-      <img src={dblLeftChevron} id="close-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} />
+      <img src={dblLeftChevron} id="close-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} alt="close sidebar icon" />
     </div>
   )
 }

@@ -1,3 +1,4 @@
+// react hooks
 import { useEffect } from 'react';
 
 // images
@@ -26,8 +27,8 @@ export default function AccountCreated() {
 
   return (
     <div id="account-created-overlay">
-      <img src={closeIcon} className="closeIcon" onClick={close} />
-      <img src={successIcon} className="successIcon" />
+      <img src={closeIcon} className="closeIcon" onClick={close} alt="close icon" />
+      <img src={successIcon} className="successIcon" alt="success icon" />
       <h3>ACCOUNT CREATED SUCCESSFULLY</h3>
       <p onClick={close}>RETURN TO SIGN IN</p>
     </div>

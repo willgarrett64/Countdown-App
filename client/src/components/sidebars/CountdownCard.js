@@ -4,7 +4,7 @@ import { removeLiveCountdown, setLiveCountdown } from '../../redux/features/live
 import { deleteCountdown, setEditCountdown } from '../../redux/features/countdownListSlice';
 import { setOverlayView } from '../../redux/features/overlayViewSlice';
 
-// import images
+// images
 import deleteIcon from '../../images/icon-delete.svg';
 import editIcon from '../../images/icon-edit.svg';
 
@@ -78,8 +78,8 @@ export default function CountdownCard({countdown}) {
         <h3>TIME</h3>
         <p>{countdown.time}</p>
       </div>
-      {signedIn && <img src={editIcon} className="edit-delete" id="edit-icon" onClick={openEditCountdown} />}
-      {signedIn && <img src={deleteIcon} className="edit-delete" id="delete-icon" onClick={handleDeleteCountdown} />}
+      {signedIn && <img src={editIcon} className="edit-delete" id="edit-icon" onClick={openEditCountdown} alt="edit icon" />}
+      {signedIn && <img src={deleteIcon} className="edit-delete" id="delete-icon" onClick={handleDeleteCountdown} alt="delete icon" />}
     </div>
   )
 }
