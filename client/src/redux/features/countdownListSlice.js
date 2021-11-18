@@ -1,32 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import users from '../../clientSideLogin/users';
-
-const guestCountdowns = [{
-  name: 'Christmas',
-  date: '2021-12-25',
-  time: '00:00',
-  complete: false,
-  id: 1
-},
-{
-  name: 'New Year',
-  date: '2022-01-01',
-  time: '00:00',
-  complete: false,
-  id: 2
-},
-{
-  name: 'Easter',
-  date: '2022-04-17',
-  time: '00:00',
-  complete: false,
-  id: 3
-},]
 
 export const countdownListSlice = createSlice({
   name: 'countdownList',
   initialState: {
-    list: guestCountdowns,
+    list: null,
     editing: {}
   },
   reducers: {
@@ -51,10 +28,13 @@ export const countdownListSlice = createSlice({
          }
          return el;
        })
+    },
+    resetCountdownList: (state) => {
+      state.list = [];
     }
   },
 })
 
-export const { setCountdownList, setEditCountdown,  addCountdown, deleteCountdown, editCountdown } = countdownListSlice.actions;
+export const { setCountdownList, setEditCountdown,  addCountdown, deleteCountdown, editCountdown, resetCountdownList } = countdownListSlice.actions;
 
 export default countdownListSlice.reducer

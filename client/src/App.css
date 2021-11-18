@@ -18,6 +18,23 @@
 
 
 
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex.column {
+  flex-direction: column;
+}
+
+.flex.row {
+  flex-direction: row;
+}
+
+
+
 /*#region input bars, labels and buttons*/
 .input-label-pair {
   display: flex;

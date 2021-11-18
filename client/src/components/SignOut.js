@@ -1,7 +1,7 @@
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setCountdownList } from '../redux/features/countdownListSlice';
-import { setLiveCountdown } from '../redux/features/liveCountdownSlice';
+import { resetCountdownList, setCountdownList } from '../redux/features/countdownListSlice';
+import { removeLiveCountdown, setLiveCountdown } from '../redux/features/liveCountdownSlice';
 import { setSidebarView } from '../redux/features/sidebarViewSlice';
 import { signOut } from '../redux/features/authenticateSlice';
 
@@ -15,12 +15,10 @@ export default function SignOut() {
   const handleSignOut = async () => {
     const signOutOk = await apiRequest.signOut(); 
     if (signOutOk) {
-      dispatch(signOut());
+      dispatch(signOut());      
+      dispatch(resetCountdownList());
+      dispatch(removeLiveCountdown());
       dispatch(setSidebarView('signIn'));
-      
-      const guestCountdowns = await apiRequest.getCountdowns('guest');
-      dispatch(setCountdownList(guestCountdowns))
-      dispatch(setLiveCountdown(guestCountdowns[0]))
     } 
   }
 

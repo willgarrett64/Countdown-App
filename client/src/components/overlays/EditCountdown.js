@@ -7,7 +7,7 @@ import deleteIcon from '../../images/icon-delete.svg'
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteCountdown, editCountdown, setCountdownList } from '../../redux/features/countdownListSlice';
-import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+import { removeLiveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 import { closeOverlay } from '../../redux/features/overlayViewSlice';
 
 // utils
@@ -55,12 +55,15 @@ export default function EditCountdown() {
   const handleDeleteCountdown = async () => {
     const deletedId = await apiRequest.deleteCountdown(countdown.id);
     if (deletedId) {
-      dispatch(deleteCountdown(deletedId));      
-      // if countdown being deleted was set as liveCountdown, update liveCountdown
-      if(liveCountdown.id == countdown.id) {
+      dispatch(deleteCountdown(deletedId));     
+      // if deleting only countdown, set liveCountdown to empty object
+      // if deleting current live countdown, change to first in list
+      if(countdownList.length === 1) {
+        dispatch(removeLiveCountdown())
+      } else if (liveCountdown.id == countdown.id) {
         dispatch(setLiveCountdown(countdownList[0]));
-        close();
       }
+      close();
     }
   }
 

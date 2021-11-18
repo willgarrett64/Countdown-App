@@ -1,6 +1,6 @@
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+import { removeLiveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 import { deleteCountdown, setEditCountdown } from '../../redux/features/countdownListSlice';
 import { setOverlayView } from '../../redux/features/overlayViewSlice';
 
@@ -44,10 +44,13 @@ export default function CountdownCard({countdown}) {
 
     const deletedId = await apiRequest.deleteCountdown(id);
     if (deletedId) {
-      dispatch(deleteCountdown(deletedId));      
-      // if countdown being deleted was set as liveCountdown, update liveCountdown
-      if(liveCountdown.id == id) {
-        dispatch(setLiveCountdown(countdownList[0]))
+      dispatch(deleteCountdown(deletedId));  
+      // if deleting only countdown, set liveCountdown to empty object
+      // if deleting current live countdown, change to first in list
+      if (countdownList.length === 1) {
+        dispatch(removeLiveCountdown())
+      } else if (liveCountdown.id == id) {
+        dispatch(setLiveCountdown(countdownList[0]));
       }
     }
   }

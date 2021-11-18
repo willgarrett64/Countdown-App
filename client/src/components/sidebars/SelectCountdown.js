@@ -4,7 +4,6 @@ import CountdownCard from "./CountdownCard";
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { setSidebarView } from "../../redux/features/sidebarViewSlice";
-import { setOverlayView, closeOverlay } from "../../redux/features/overlayViewSlice";
 
 //import images
 import dblLeftChevron from '../../images/icon-dbl-left.svg'
@@ -16,7 +15,7 @@ export default function SelectCountdown({toggleSidebarOpen}) {
 
   return (
     <div className="content">
-      <p>SELECT <strong>COUNTDOWN</strong></p>
+      <h2>SELECT <strong>COUNTDOWN</strong></h2>
       
       <div id="countdown-list">
         {countdownList.map(countdown => <CountdownCard countdown={countdown} key={countdown.id} />)}

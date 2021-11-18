@@ -17,10 +17,13 @@ export const liveCountdownSlice = createSlice({
     },
     resetLiveCountdown: (state) => {
       state.countdown = defaultLiveCountdown;
+    },
+    removeLiveCountdown: (state) => {
+      state.countdown = null;
     }
   },
 })
 
-export const { setLiveCountdown, resetLiveCountdown } = liveCountdownSlice.actions;
+export const { setLiveCountdown, resetLiveCountdown, removeLiveCountdown } = liveCountdownSlice.actions;
 
 export default liveCountdownSlice.reducer

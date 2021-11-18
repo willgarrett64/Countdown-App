@@ -18,7 +18,7 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
 
 
-  const handleSubmit = async e => {
+  const handleSignIn = async e => {
     e.preventDefault();
 
     //CURRENTLY FORM VALIDATION NOT COMPLETE
@@ -44,6 +44,13 @@ export default function SignIn() {
     }
   }
 
+  const handleContAsGuest = async () => {
+    const countdowns = await apiRequest.getCountdowns('guest');
+    dispatch(setCountdownList(countdowns));
+    dispatch(setLiveCountdown(countdowns[0]));
+    dispatch(setSidebarView('selectCountdown'));
+  }
+
   return (
     <div className="content">
       <h2>Sign in to your account to access <strong>full features</strong></h2>
@@ -56,9 +63,9 @@ export default function SignIn() {
         <input id="password-signin" type="password" required onChange={e => setPassword(e.target.value)} />
       </div>
 
-      <button className="primary" onClick={handleSubmit}>SIGN IN</button>
+      <button className="primary" onClick={handleSignIn}>SIGN IN</button>
       <button className="secondary" onClick={() => dispatch(setSidebarView('signUp'))}>SIGN UP</button>
-      <p className="guest-btn" onClick={() => dispatch(setSidebarView('selectCountdown'))} >CONTINUE AS GUEST</p>
+      <p className="guest-btn" onClick={handleContAsGuest} >CONTINUE AS GUEST</p>
     </div>
   )
 }

@@ -29,16 +29,13 @@ export default function Sidebar({toggleSidebarOpen}) {
     if (userData) {
       const countdowns = await apiRequest.getCountdowns('mycountdowns');
       dispatch(signIn(userData));
-      dispatch(setSidebarView('selectCountdown'));
       if (countdowns) {
         dispatch(setCountdownList(countdowns));
         dispatch(setLiveCountdown(countdowns[0]));
       }
+      dispatch(setSidebarView('selectCountdown'));
     } else {
-      const countdowns = await apiRequest.getCountdowns('guest');
       dispatch(setSidebarView('signIn'));
-      dispatch(setCountdownList(countdowns));
-      dispatch(setLiveCountdown(countdowns[0]));
     }
   }, [])
 
