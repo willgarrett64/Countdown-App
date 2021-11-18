@@ -65,3 +65,45 @@
 }
 
 /*#endregion edit countdown overlay*/
+
+
+/*#region account created successfully overlay*/
+#account-created-overlay {
+  width: 350px;
+  height: 150px;
+  border-radius: 8px;
+  background-color: var(--light-desaturated-blue);
+  text-align: center;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#account-created-overlay h3 {
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+
+#account-created-overlay p {
+  font-size: 0.7rem;
+  margin-top: 10px;
+}
+
+#account-created-overlay p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#account-created-overlay .closeIcon {
+  top: 5px;
+  right: 5px;
+}
+
+#account-created-overlay .closeIcon:hover {
+  top: 3px;
+  right: 3px;
+}
+/*#endregion account created successfully overlay*/

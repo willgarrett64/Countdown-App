@@ -48,7 +48,7 @@ export default function Sidebar({toggleSidebarOpen, toggleOverlayHidden}) {
         sidebarView === 'signIn'
         ? <SignIn/>
         : sidebarView === 'signUp'
-        ? <SignUp/>
+        ? <SignUp toggleOverlayHidden={toggleOverlayHidden} />
         : sidebarView === 'selectCountdown'
         ? <SelectCountdown toggleOverlayHidden={toggleOverlayHidden} toggleSidebarOpen={toggleSidebarOpen} />
         : null
