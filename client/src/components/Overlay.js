@@ -1,6 +1,7 @@
 // components
 import CreateCountdown from './overlays/CreateCountdown';
 import EditCountdown from './overlays/EditCountdown';
+import CountdownForm from './overlays/CountdownForm';
 import AccountCreated from './overlays/AccountCreated';
 
 // redux
@@ -13,9 +14,9 @@ export default function Overlay() {
     <div id="overlay">
       {
         overlayView === 'editCountdown'
-        ? <EditCountdown />
+        ? <CountdownForm type="edit" />
         : overlayView === 'createCountdown'
-        ? <CreateCountdown />
+        ? <CountdownForm type="create" />
         : overlayView === 'accountCreated'
         ? <AccountCreated />
         : null

@@ -9,6 +9,7 @@ import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 // utils
 import { apiRequest } from '../../utils/apiRequests';
+import { countdownIsValid } from '../../utils/formValidation';
 
 export default function CreateCountdown() {
   const dispatch = useDispatch();
@@ -22,19 +23,15 @@ export default function CreateCountdown() {
     let date = document.getElementById('new-countdown-date').value;
     let time = document.getElementById('new-countdown-time').value;
 
-    // NEED TO IMPROVE FORM VALIDATION
-    if (!name || !date || !time) {
-      alert('Please enter a name, date and time');
-      return
-    }
-
     const newCountdownObject = {name, date, time};
 
-    const newCountdownResponse = await apiRequest.createNewCountdown(newCountdownObject);
+    if (countdownIsValid(newCountdownObject)) {
+      const newCountdownResponse = await apiRequest.createNewCountdown(newCountdownObject);
 
-    dispatch(addCountdown(newCountdownResponse));
-    dispatch(setLiveCountdown(newCountdownResponse));
-    close();
+      dispatch(addCountdown(newCountdownResponse));
+      dispatch(setLiveCountdown(newCountdownResponse));
+      close();
+    }  
   }
   
   return (

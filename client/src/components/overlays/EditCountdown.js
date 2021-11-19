@@ -13,6 +13,7 @@ import { closeOverlay } from '../../redux/features/overlayViewSlice';
 
 // utils
 import { apiRequest } from '../../utils/apiRequests'; 
+import { countdownIsValid } from '../../utils/formValidation';
 
 export default function EditCountdown() {
   const dispatch = useDispatch();
@@ -32,25 +33,27 @@ export default function EditCountdown() {
     document.getElementById('edit-countdown-name').value = countdown.name;
     document.getElementById('edit-countdown-date').value = countdown.date;
     document.getElementById('edit-countdown-time').value = countdown.time;
-  }, [countdown])
+  }, [])
 
   const handleUpdateCountdown = async () => {
     const newCountdown = {
       id: countdown.id,
       name, date, time
     }
-    const res = await apiRequest.updateCountdown(newCountdown);
-    if (res) {
-      dispatch(editCountdown(newCountdown));  
-      console.log('Countdown updated successfully');
-      // CURRENTLY AN ONCLICK ISSUE - clicking the edit button on the CountdownCard also fires the changeCountdown onclick event, so sets the liveCountdown to the countdown being edited, meaning liveCountdown.id always == res.id
-      // if countdown being updated was set as liveCountdown, update liveCountdown
-      if(liveCountdown.id == res.id) {
-        dispatch(setLiveCountdown(newCountdown));
-      }
-      close();
-    }
 
+    if (countdownIsValid(newCountdown)) {
+      const res = await apiRequest.updateCountdown(newCountdown);
+      if (res) {
+        dispatch(editCountdown(newCountdown));  
+        console.log('Countdown updated successfully');
+        // CURRENTLY AN ONCLICK ISSUE - clicking the edit button on the CountdownCard also fires the changeCountdown onclick event, so sets the liveCountdown to the countdown being edited, meaning liveCountdown.id always == res.id
+        // if countdown being updated was set as liveCountdown, update liveCountdown
+        if(liveCountdown.id == res.id) {
+          dispatch(setLiveCountdown(newCountdown));
+        }
+        close();
+      }
+    }
   }
 
   const handleDeleteCountdown = async () => {
@@ -74,15 +77,15 @@ export default function EditCountdown() {
       <h2><strong>EDIT</strong> COUNTDOWN</h2>
       <div className="input-label-pair">
         <label htmlFor="edit-countdown-name">COUNTDOWN NAME</label>
-        <input className="rounded" id="edit-countdown-name" onChange={e => setName(e.target.value)} />
+        <input className="rounded" id="edit-countdown-name" onChange={e => setName(e.target.value)} maxLength="35" required />
       </div>
       <div className="input-label-pair">
         <label htmlFor="edit-countdown-date">COUNTDOWN DATE</label>
-        <input className="rounded" id="edit-countdown-date" type="date" onChange={e => setDate(e.target.value)} />
+        <input className="rounded" id="edit-countdown-date" type="date" onChange={e => setDate(e.target.value)} required />
       </div>
       <div className="input-label-pair">
         <label htmlFor="edit-countdown-time">COUNTDOWN TIME</label>
-        <input className="rounded" id="edit-countdown-time" type="time" onChange={e => setTime(e.target.value)} />
+        <input className="rounded" id="edit-countdown-time" type="time" onChange={e => setTime(e.target.value)} required />
       </div>
       <div>
         <button className="secondary" onClick={close} >CANCEL</button>
