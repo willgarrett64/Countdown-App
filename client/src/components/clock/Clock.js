@@ -5,10 +5,15 @@ import ClockCard from "./ClockCard";
 import { useState, useEffect } from 'react';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteCountdown } from '../../redux/features/countdownListSlice';
+import { removeLiveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+import { setOverlayView } from '../../redux/features/overlayViewSlice';
 
+// utils
+import { apiRequest } from '../../utils/apiRequests'; 
 
-// functions - will eventually be separated into modules
+// functions - will eventually be separated into utils modules
 const calculateTimeUntil = (countdown) => {
   const currentDate = Date.now(); //get unix timestamp for current date/time)
   const countdownDate = Date.parse(countdown.date + ' ' + countdown.time) //get unix timestamp for countdown date/time
@@ -16,53 +21,72 @@ const calculateTimeUntil = (countdown) => {
   return timeUntil
 }
 
-const convertSecondsToDays = (seconds) => {
-  // define number of seconds in a minute/hour/day
-  const oneMin = 60;
-  const oneHour = oneMin * 60;
-  const oneDay = oneHour * 24;
-
-  // convert number of seconds to number of whole days, hours, minutes and seconds
-  const days = Math.floor(seconds / oneDay);
-  const hours = Math.floor(seconds % oneDay / oneHour);
-  const mins = Math.floor(seconds % oneHour / oneMin);
-  const secs = Math.floor(seconds % oneMin);
-
-  return {days: days, hours: hours, minutes: mins, seconds: secs};
-}
-
 export default function Clock() {
+  const dispatch = useDispatch();
+  const countdown = useSelector(state => state.countdownList.editing);
   const liveCountdown = useSelector(state => state.liveCountdown.countdown);
+  const countdownList = useSelector(state => state.countdownList.list);
 
-  const [secondsRemaining, setSecondsRemaining] = useState(calculateTimeUntil(liveCountdown));
-  
-  let timeRemaining = convertSecondsToDays(secondsRemaining);
+  const [totalSecondsRemaining, setTotalSecondsRemaining] = useState();
 
-  const startclock = () => {
-    setSecondsRemaining(calculateTimeUntil(liveCountdown));
-    timeRemaining = convertSecondsToDays(secondsRemaining);
+  // count down one second
+  const tickSecond = () => {
+    setTotalSecondsRemaining(totalSecondsRemaining => totalSecondsRemaining - 1);
   }
-
   
+  // initiate the clock and start counting down each second
   useEffect(() => {
-    const myClock = setInterval(startclock, 1000);
+    setTotalSecondsRemaining(calculateTimeUntil(liveCountdown));
+    const myClock = setInterval(tickSecond, 1000);
     return () => {
       clearInterval(myClock);
     }
   }, [liveCountdown])
 
+
+  // delete the countdown
+  const handleDeleteCountdown = async () => {
+    const deletedId = await apiRequest.deleteCountdown(countdown.id);
+    if (deletedId) {
+      dispatch(deleteCountdown(deletedId));     
+      // if deleting only countdown, set liveCountdown to empty object
+      // if deleting current live countdown, change to first in list
+      if(countdownList.length === 1) {
+        dispatch(removeLiveCountdown())
+      } else if (liveCountdown.id == countdown.id) {
+        dispatch(setLiveCountdown(countdownList[0]));
+      }
+    }
+  }
+
+  // redirect to edit countdown
+  const handleEditCountdown = () => {
+    dispatch(setOverlayView('editCountdown'))
+  }
+
   
-
-
-  return (
-    <div className="clock-wrapper">
-      <h1>DAYS UNTIL {liveCountdown.name.toUpperCase()}</h1>
-      <div className="clock">
-        <ClockCard value={'days'} clock={timeRemaining} />
-        <ClockCard value={'hours'} clock={timeRemaining} />
-        <ClockCard value={'minutes'} clock={timeRemaining} />
-        <ClockCard value={'seconds'} clock={timeRemaining} />
+  if (totalSecondsRemaining >= 0) {
+    return (
+      <div className="clock-wrapper">
+        <h1>DAYS UNTIL {liveCountdown.name.toUpperCase()}</h1>
+        <div className="clock">
+          <ClockCard type={'days'} totalSeconds={totalSecondsRemaining} />
+          <ClockCard type={'hours'} totalSeconds={totalSecondsRemaining} />
+          <ClockCard type={'minutes'} totalSeconds={totalSecondsRemaining} />
+          <ClockCard type={'seconds'} totalSeconds={totalSecondsRemaining} />
+        </div>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className="clock-wrapper">
+        <h1>{liveCountdown.name.toUpperCase()} COUNTDOWN COMPLETE</h1>
+        <div>
+          <button className="secondary" onClick={handleEditCountdown}>EDIT</button>
+          <button className="primary" onClick={handleDeleteCountdown}>DELETE</button>
+      </div>
+      </div>
+    )
+  }
+  
 }

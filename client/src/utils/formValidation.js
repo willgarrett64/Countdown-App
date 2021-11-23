@@ -2,7 +2,7 @@
 const getNow = () => {
   const now = new Date();
 
-  const date = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+  const date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
   const time = `${now.getHours()}:${now.getMinutes()}`
 
   return {date, time}
@@ -47,4 +47,4 @@ const countdownIsValid = (countdown) => {
   return countdownValid;
 }
 
-module.exports = {countdownIsValid}
+module.exports = {countdownIsValid, checkDateInFuture}

@@ -11,19 +11,33 @@
   z-index: 10;
 }
 
-
-/*#region edit countdown overlay*/
-#edit-countdown-overlay {
+.overlay-card {
   position: relative;
   height: fit-content;
   padding: 60px 40px;
   background-color: rgb(47, 36, 57);
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
+
+.overlay-card h2 {
+  letter-spacing: 0.4rem;
+  font-size: 1.3rem;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.overlay-card p {
+  margin-bottom: 15px;
+}
+
+/*#region prompt to edit or delete an expired countdown*/
+#edit-or-delete-prompt-overlay {
+  padding-bottom: 40px; /*correct excessive padding on this overlay*/
+}
+/*#region edit countdown overlay*/
+
+
+/*#region edit countdown overlay*/
 
 #edit-countdown-overlay h2 {
   letter-spacing: 0.4rem;

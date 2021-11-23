@@ -97,7 +97,7 @@ export default function CountdownForm({type}) {
   }
   
   return (
-    <div id="edit-countdown-overlay">
+    <div id="edit-countdown-overlay" className="overlay-card flex column">
       <img src={closeIcon} className="closeIcon" onClick={close} alt="close icon" />
       <h2><strong>{type.toUpperCase()}</strong> COUNTDOWN</h2>
       <form id="countdown-form" className="flex column">

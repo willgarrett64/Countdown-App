@@ -10,6 +10,7 @@ import editIcon from '../../images/icon-edit.svg';
 
 // utils
 import { apiRequest } from '../../utils/apiRequests';
+import { checkDateInFuture } from '../../utils/formValidation';
 
 
 export default function CountdownCard({countdown}) {  
@@ -29,7 +30,12 @@ export default function CountdownCard({countdown}) {
     
     const newLiveCountdown = countdownList.find(countdown => countdown.id == id.slice(10));
 
-    dispatch(setLiveCountdown(newLiveCountdown));
+    if (!checkDateInFuture(newLiveCountdown.date, newLiveCountdown.time)) {
+      dispatch(setOverlayView('editOrDeletePrompt'))
+      dispatch(setEditCountdown(newLiveCountdown))
+    } else {
+      dispatch(setLiveCountdown(newLiveCountdown));
+    }
   }
 
   const handleDeleteCountdown = async (e) => {
