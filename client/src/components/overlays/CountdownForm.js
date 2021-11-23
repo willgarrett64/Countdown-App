@@ -17,22 +17,29 @@ import { countdownIsValid } from '../../utils/formValidation';
 
 export default function CountdownForm({type}) {
   const dispatch = useDispatch();
-  const countdown = useSelector(state => state.countdownList.editing);
+  const countdown = useSelector(state => state.countdownList.editing); //countdown if editing
   const liveCountdown = useSelector(state => state.liveCountdown.countdown);
   const countdownList = useSelector(state => state.countdownList.list);
   
-  const [name, setName] = useState(countdown.name);
-  const [date, setDate] = useState(countdown.date);
-  const [time, setTime] = useState(countdown.time);
+  // state of input fields
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
 
+  // pre-fill the input fields with current countdown date if editing an existing countdown
   useEffect(() => {
     if (type === 'edit') {
+      setName(countdown.name);
+      setDate(countdown.date);
+      setTime(countdown.time);
+
       document.getElementById('countdown-form-name').value = countdown.name;
       document.getElementById('countdown-form-date').value = countdown.date;
       document.getElementById('countdown-form-time').value = countdown.time;
     }
   }, [])
 
+  // function to close the overlay
   const close = () => {
     dispatch(closeOverlay());
   }
@@ -46,10 +53,12 @@ export default function CountdownForm({type}) {
     if (countdownIsValid(newCountdownObject)) {
       switch (type) {
         case 'edit':
+          // if editing, the countdown id needs to be attached to the object
+          newCountdownObject.id = countdown.id;
+          
           const res = await apiRequest.updateCountdown(newCountdownObject);
           if (res) {
             dispatch(editCountdown(newCountdownObject));  
-            console.log('Countdown updated successfully');
             // CURRENTLY AN ONCLICK ISSUE - clicking the edit button on the CountdownCard also fires the changeCountdown onclick event, so sets the liveCountdown to the countdown being edited, meaning liveCountdown.id always == res.id
             // if countdown being updated was set as liveCountdown, update liveCountdown
             if(liveCountdown.id == res.id) {
@@ -71,6 +80,7 @@ export default function CountdownForm({type}) {
     }
   }
 
+  // function to delete a countdown (only used in the edit countdown overlay)
   const handleDeleteCountdown = async () => {
     const deletedId = await apiRequest.deleteCountdown(countdown.id);
     if (deletedId) {
