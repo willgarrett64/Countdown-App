@@ -4,7 +4,7 @@ const express = require('express');
 const db = require('../database/db')
 
 //middleware
-const {verifyToken} = require('../utils/verification');
+const {checkCountdown, verifyToken} = require('../utils/verification');
 
 
 const countdownsRouter = express.Router();
@@ -54,8 +54,6 @@ countdownsRouter.get('/mycountdowns', verifyToken, (req, res, next) => {
     res.status(200).json({
         "message":"success",
         "data":rows,
-        "username": req.username
-
     })
   });
 })
@@ -78,7 +76,7 @@ countdownsRouter.get('/:id', (req, res, next) => {
 })
 
 // create new countdown
-countdownsRouter.post('/', verifyToken, (req, res, next) => {
+countdownsRouter.post('/', verifyToken, checkCountdown, (req, res, next) => {
   const userId = req.userId;
   const countdown = req.body;
   
@@ -132,7 +130,7 @@ countdownsRouter.delete('/', verifyToken, (req, res, next) => {
 })
 
 // edit countdown by ID
-countdownsRouter.put('/', verifyToken, (req, res, next) => {
+countdownsRouter.put('/', verifyToken, checkCountdown, (req, res, next) => {
   const userId = req.userId;
   const updatedCountdown = req.body;
   

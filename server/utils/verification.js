@@ -2,6 +2,9 @@ const md5 = require('md5'); //md5 to hash passwords
 const jwt = require('jsonwebtoken');
 const db = require('../database/db');
 
+// this probably shouldn't be imported from client side files
+const countdownIsValid = require('../../client/src/utils/formValidation');
+
 // check if user with entered username already exists - used when creating a new account
 const checkSignUpDetails = (req, res, next) => {
   const username = req.body.username;
@@ -33,6 +36,18 @@ const checkSignUpDetails = (req, res, next) => {
   }
 }
 
+
+const checkCountdown = (req, res, next) => {
+  const countdown = req.body;
+
+  if (!countdownIsValid(countdown)) {
+    res.status(400).json({"error":"Can't create countdown in the past"});
+  } else if (!countdown.name || !countdown.date || !countdown.time) {
+    res.status(400).json({"error":"Please fill in countdown name, date and time"});
+  } else {
+    next()
+  }
+}
 
 // check if the username and password combination matches an existing user account - used when signing in
 const verifyUserCredentials = (req, res, next) => {
@@ -79,4 +94,4 @@ const verifyToken = (req, res, next) => {
   }
 }
 
-module.exports = {checkSignUpDetails, verifyUserCredentials, verifyToken}
+module.exports = {checkSignUpDetails, checkCountdown, verifyUserCredentials, verifyToken}
