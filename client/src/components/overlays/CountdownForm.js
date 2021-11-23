@@ -7,9 +7,9 @@ import deleteIcon from '../../images/icon-delete.svg'
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { addCountdown, deleteCountdown, editCountdown } from '../../redux/features/countdownListSlice';
+import { addCountdown, editCountdown } from '../../redux/features/countdownListSlice';
 import { closeOverlay, setOverlayView } from '../../redux/features/overlayViewSlice';
-import { removeLiveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 // utils
 import { apiRequest } from '../../utils/apiRequests';
@@ -18,8 +18,6 @@ import { countdownIsValid } from '../../utils/formValidation';
 export default function CountdownForm({type}) {
   const dispatch = useDispatch();
   const countdown = useSelector(state => state.countdownList.editing); //countdown if editing
-  const liveCountdown = useSelector(state => state.liveCountdown.countdown);
-  const countdownList = useSelector(state => state.countdownList.list);
   
   // state of input fields
   const [name, setName] = useState("");
