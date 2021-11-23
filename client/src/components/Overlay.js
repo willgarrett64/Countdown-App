@@ -2,7 +2,7 @@
 import CountdownForm from './overlays/CountdownForm';
 import AccountCreated from './overlays/AccountCreated';
 import EditOrDeletePrompt from './overlays/EditOrDeletePrompt';
-
+import ConfirmDeletePrompt from './overlays/ConfirmDeletePrompt';
 
 // redux
 import { useSelector } from 'react-redux';
@@ -21,6 +21,8 @@ export default function Overlay() {
         ? <AccountCreated />
         : overlayView === 'editOrDeletePrompt'
         ? <EditOrDeletePrompt />
+        : overlayView === 'confirmDeletePrompt'
+        ? <ConfirmDeletePrompt />
         : null
       }
     </div>

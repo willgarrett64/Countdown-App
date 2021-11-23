@@ -8,7 +8,7 @@ import deleteIcon from '../../images/icon-delete.svg'
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { addCountdown, deleteCountdown, editCountdown } from '../../redux/features/countdownListSlice';
-import { closeOverlay } from '../../redux/features/overlayViewSlice';
+import { closeOverlay, setOverlayView } from '../../redux/features/overlayViewSlice';
 import { removeLiveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 // utils
@@ -58,18 +58,13 @@ export default function CountdownForm({type}) {
           
           const res = await apiRequest.updateCountdown(newCountdownObject);
           if (res) {
-            dispatch(editCountdown(newCountdownObject));  
-            // CURRENTLY AN ONCLICK ISSUE - clicking the edit button on the CountdownCard also fires the changeCountdown onclick event, so sets the liveCountdown to the countdown being edited, meaning liveCountdown.id always == res.id
-            // if countdown being updated was set as liveCountdown, update liveCountdown
-            if(liveCountdown.id == res.id) {
-              dispatch(setLiveCountdown(newCountdownObject));
-            }
+            dispatch(editCountdown(newCountdownObject)); 
+            dispatch(setLiveCountdown(newCountdownObject));
             close();
           }
           break;
         case 'create':
           const newCountdownResponse = await apiRequest.createNewCountdown(newCountdownObject);
-
           dispatch(addCountdown(newCountdownResponse));
           dispatch(setLiveCountdown(newCountdownResponse));
           close();
@@ -82,18 +77,7 @@ export default function CountdownForm({type}) {
 
   // function to delete a countdown (only used in the edit countdown overlay)
   const handleDeleteCountdown = async () => {
-    const deletedId = await apiRequest.deleteCountdown(countdown.id);
-    if (deletedId) {
-      dispatch(deleteCountdown(deletedId));     
-      // if deleting only countdown, set liveCountdown to empty object
-      // if deleting current live countdown, change to first in list
-      if(countdownList.length === 1) {
-        dispatch(removeLiveCountdown())
-      } else if (liveCountdown.id == countdown.id) {
-        dispatch(setLiveCountdown(countdownList[0]));
-      }
-      close();
-    }
+    dispatch(setOverlayView('confirmDeletePrompt'))
   }
   
   return (

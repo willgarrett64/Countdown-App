@@ -26,15 +26,15 @@
   margin-bottom: 30px;
 }
 
-.overlay-card p {
+.overlay-card h4 {
+  font-weight: normal;
   margin-bottom: 15px;
 }
 
-/*#region prompt to edit or delete an expired countdown*/
-#edit-or-delete-prompt-overlay {
-  padding-bottom: 40px; /*correct excessive padding on this overlay*/
+.prompt {
+  border-radius: 8px;
+  padding: 40px 20px 20px 20px;
 }
-/*#region edit countdown overlay*/
 
 
 /*#region edit countdown overlay*/
@@ -73,7 +73,6 @@
   cursor: pointer;
   text-decoration: underline;
 }
-
 /*#endregion edit countdown overlay*/
 
 

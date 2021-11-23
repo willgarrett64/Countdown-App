@@ -46,17 +46,7 @@ export default function Clock() {
 
   // delete the countdown
   const handleDeleteCountdown = async () => {
-    const deletedId = await apiRequest.deleteCountdown(countdown.id);
-    if (deletedId) {
-      dispatch(deleteCountdown(deletedId));     
-      // if deleting only countdown, set liveCountdown to empty object
-      // if deleting current live countdown, change to first in list
-      if(countdownList.length === 1) {
-        dispatch(removeLiveCountdown())
-      } else if (liveCountdown.id == countdown.id) {
-        dispatch(setLiveCountdown(countdownList[0]));
-      }
-    }
+    dispatch(setOverlayView('confirmDeletePrompt'))
   }
 
   // redirect to edit countdown

@@ -30,35 +30,17 @@ export default function CountdownCard({countdown}) {
     
     const newLiveCountdown = countdownList.find(countdown => countdown.id == id.slice(10));
 
+    dispatch(setEditCountdown(newLiveCountdown))
+
     if (!checkDateInFuture(newLiveCountdown.date, newLiveCountdown.time)) {
       dispatch(setOverlayView('editOrDeletePrompt'))
-      dispatch(setEditCountdown(newLiveCountdown))
     } else {
       dispatch(setLiveCountdown(newLiveCountdown));
     }
   }
 
   const handleDeleteCountdown = async (e) => {
-    let id;
-    let target = e.target;
-    id = target.id;
-    while (id.slice(0, 9) != 'countdown') {
-      target = target.parentNode;
-      id = target.id;
-    }
-    id = id.slice(10);
-
-    const deletedId = await apiRequest.deleteCountdown(id);
-    if (deletedId) {
-      dispatch(deleteCountdown(deletedId));  
-      // if deleting only countdown, set liveCountdown to empty object
-      // if deleting current live countdown, change to first in list
-      if (countdownList.length === 1) {
-        dispatch(removeLiveCountdown())
-      } else if (liveCountdown.id == id) {
-        dispatch(setLiveCountdown(countdownList[0]));
-      }
-    }
+    dispatch(setOverlayView('confirmDeletePrompt'))
   }
 
   const reorderDate = (date) => {
