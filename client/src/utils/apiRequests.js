@@ -40,6 +40,19 @@ const signIn = async (username, password) => {
   }
 }
 
+// reissue the JWT - return true if successful
+// const reissueToken = async () => {
+//   try {
+//     const response = await fetch(apiUrl+'/users/reissuetoken');
+//       if (response.status === 200) {
+//         console.log('Token reissued successfully');
+//         return true;
+//       }
+//     } catch (err) {
+//       console.log(err);
+//     }
+// }
+
 // sign the user out (and clear token) - return true if successful
 const signOut = async () => {
   try {
@@ -115,6 +128,7 @@ const updateCountdown = async (updatedCountdownObject) => {
 
 const apiRequest = {
   signIn, 
+  reissueToken,
   signOut,
   signUp,
   getUserData, 

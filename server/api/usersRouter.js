@@ -40,10 +40,21 @@ usersRouter.post("/signin", verifyUserCredentials, (req, res, next) => {
   // Issue token
   const payload = { username: req.username, userId: req.userId };
   const token = jwt.sign(payload, secret, {
-    expiresIn: '1h'
+    expiresIn: '4h'
   });
   res.cookie('token', token, { httpOnly: true }).sendStatus(200);
 });
+
+
+// reissue token
+// usersRouter.get("/reissuetoken", verifyToken, (req, res, next) => {
+//   // Issue token
+//   const payload = { username: req.username, userId: req.userId };
+//   const token = jwt.sign(payload, secret, {
+//     expiresIn: '4h'
+//   });
+//   res.cookie('token', token, { httpOnly: true }).sendStatus(200);
+// });
 
 // sign out and clear token
 usersRouter.get("/signout", (req, res, next) => {
