@@ -33,7 +33,10 @@ const signIn = async (username, password) => {
     const response = await fetch(apiUrl+'/users/signin', {method: 'POST', headers, body});
     if (response.status === 200) {
       console.log('Signed in successfully');
-      return true;
+      return 'ok';
+    } else {
+      const jsonResponse = await response.json();
+      return(jsonResponse);
     }
   } catch (err) {
     console.log(err);
@@ -59,14 +62,17 @@ const signOut = async () => {
   const response = await fetch(apiUrl+'/users/signout');
     if (response.status === 200) {
       console.log('Signed out succesfully');
-      return true;
+      return 'ok';
+    } else {
+      const jsonResponse = await response.json();
+      return(jsonResponse);
     }
   } catch (err) {
     console.log(err);
   }
 }
 
-// create a new user account - return true if successful
+// create a new user account - return ok if successful
 const signUp = async (username, password) => {
   const headers = {"Content-Type": "application/json"};
   const body = JSON.stringify({username, password});
@@ -74,10 +80,10 @@ const signUp = async (username, password) => {
     const response = await fetch(apiUrl+'/users/signup', {method: 'POST', headers, body});
     if (response.status === 201) {
       console.log('New account created succesfully');
-      return true;
+      return 'ok';
     } else {
       const jsonResponse = await response.json();
-      alert(jsonResponse.error);
+      return(jsonResponse);
     }
   } catch (err) {
     console.log(err);

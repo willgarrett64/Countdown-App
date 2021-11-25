@@ -9,6 +9,7 @@ import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 // utils
 import { apiRequest } from '../../utils/apiRequests';
+import { handleError, setErrorTooltip } from '../../utils/errorHandling';
 
 
 export default function SignIn() {
@@ -17,20 +18,32 @@ export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // error message elements 
+  const usernameError = document.getElementById('username-error');
+  const passwordError = document.getElementById('password-error');
+
 
   const handleSignIn = async e => {
     e.preventDefault();
 
-    //CURRENTLY FORM VALIDATION NOT COMPLETE
+    // reset any error messages on attempt to submit new form data
+    usernameError.innerText = '';
+    passwordError.innerText = '';
+
+    let errors = false;
     if (!username) {
-      alert('Please enter a username');
-      return
-    } else if (!password) {
-      alert('Please enter a password');
-      return
-    } else {
-      const signInOk = await apiRequest.signIn(username, password); 
-      if (signInOk) {
+      setErrorTooltip('Please enter a username', usernameError);
+      errors = true;
+    } 
+    if (!password) {
+      // handle blank password
+      setErrorTooltip('Please enter a password', passwordError);
+      errors = true;
+    } 
+
+    if (!errors) {
+      const response = await apiRequest.signIn(username, password); 
+      if (response === 'ok') {
         const userData = await apiRequest.getUserData();
         const countdowns = await apiRequest.getCountdowns('myCountdowns');
 
@@ -40,6 +53,8 @@ export default function SignIn() {
           dispatch(setLiveCountdown(countdowns[0]));
         }
         dispatch(setSidebarView('selectCountdown'));
+      } else {
+        handleError(response);
       }
     }
   }
@@ -57,10 +72,12 @@ export default function SignIn() {
       <div className="input-label-pair">
         <label htmlFor="username-signin">USERNAME</label>
         <input id="username-signin" required onChange={e => setUsername(e.target.value)} />
+        <span id="username-error" className="error-message"></span>
       </div>
       <div className="input-label-pair">
         <label htmlFor="password-signin">PASSWORD</label>
         <input id="password-signin" type="password" required onChange={e => setPassword(e.target.value)} />
+        <span id="password-error" className="error-message"></span>
       </div>
 
       <button className="primary" onClick={handleSignIn}>SIGN IN</button>

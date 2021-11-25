@@ -13,8 +13,8 @@ export default function SignOut() {
   const user = useSelector(state => state.authenticate.user)
 
   const handleSignOut = async () => {
-    const signOutOk = await apiRequest.signOut(); 
-    if (signOutOk) {
+    const signOutRes = await apiRequest.signOut(); 
+    if (signOutRes === 'ok') {
       dispatch(signOut());      
       dispatch(resetCountdownList());
       dispatch(removeLiveCountdown());

@@ -2,6 +2,9 @@ const md5 = require('md5'); //md5 to hash passwords
 const jwt = require('jsonwebtoken');
 const db = require('../database/db');
 
+//utils 
+const {errorJson} = require('./jsonResponses')
+
 // this probably shouldn't be imported from client side files
 const {countdownIsValid} = require('../../client/src/utils/formValidation');
 
@@ -12,13 +15,13 @@ const checkSignUpDetails = (req, res, next) => {
 
   // check if username and passwords were entered and are valid lengths (4-30 char)
   if (!username) {
-    res.status(400).json({"error": 'No username entered'});
-  } else if (username.length < 4 || username.length > 30) {
-    res.status(400).json({"error": 'Please enter a username between 4 and 30 characters long'})
+    res.status(400).json(errorJson('No username entered', 'username-error'));
+  } else if (username.length < 4 || username.length > 20) {
+    res.status(400).json(errorJson('Username must be between 4 and 20 characters', 'username-error'))
   } else if (!password) {
-    res.status(400).json({"error": 'No password entered'});
+    res.status(400).json(errorJson('No password entered', 'password-error'));
   } else if (password.length < 4 || password.length > 30) {
-    res.status(400).json({"error": 'Please enter a password between 4 and 30 characters long'})
+    res.status(400).json(errorJson('Password must be between 4 and 30 characters', 'password-error'))
   } 
   // check if an existing account already has that username
   else {
@@ -26,9 +29,9 @@ const checkSignUpDetails = (req, res, next) => {
     const params = [req.body.username];
     db.get(sql, params, (err, row) => {
       if (err) {
-        res.status(400).json({"error": err.message});
+        res.status(400).json(errorJson(err.message));
       } else if (row) {
-        res.status(400).json({"error": 'Username already exists'});
+        res.status(400).json(errorJson('Username already exists', 'username-error'));
       } else {
         next();
       }
@@ -36,23 +39,41 @@ const checkSignUpDetails = (req, res, next) => {
   }
 }
 
-
+// check a submitted countdown (new or edited) meets all the requirements
 const checkCountdown = (req, res, next) => {
   const countdown = req.body;
 
   if (!countdownIsValid(countdown)) {
-    console.log('Hey 1');
-    res.status(400).json({"error":"Can't create countdown in the past"});
+    res.status(400).json(errorJson("Can't create countdown in the past"));
   } else if (!countdown.name || !countdown.date || !countdown.time) {
-    console.log('Hey 2');
-    res.status(400).json({"error":"Please fill in countdown name, date and time"});
+    res.status(400).json(errorJson("Please fill in countdown name, date and time"));
   } else {
     next()
   }
 }
 
-// check if the username and password combination matches an existing user account - used when signing in
-const verifyUserCredentials = (req, res, next) => {
+// check if username exists - used when signing in
+const verifyUsername = (req, res, next) => {
+  const data = {
+    username: req.body.username,
+  }
+
+  const query = "select * from users where username = ?"
+  const params =[data.username];
+
+  db.get(query, params, (err, row) => {
+    if (err) {
+      res.status(400).json(errorJson(err.message));
+    } else if (!row) {
+      res.status(401).json(errorJson('Username not found', 'username-error'));
+    } else {
+      next();
+    }
+  })
+}
+
+// check if password matches username - used when signing in
+const verifyPassword = (req, res, next) => {
   const data = {
     username: req.body.username,
     password : md5(req.body.password)
@@ -63,9 +84,9 @@ const verifyUserCredentials = (req, res, next) => {
 
   db.get(query, params, (err, row) => {
     if (err) {
-      res.status(400).json({"error": err.message});
+      res.status(400).json(errorJson(err.message));
     } else if (!row) {
-      res.status(401).json({"error": 'Incorrect email or password'});
+      res.status(401).json(errorJson('Incorrect password', 'password-error'));
     } else {
       req.username = data.username;
       req.userId = row.id;
@@ -96,4 +117,4 @@ const verifyToken = (req, res, next) => {
   }
 }
 
-module.exports = {checkSignUpDetails, checkCountdown, verifyUserCredentials, verifyToken}
+module.exports = {checkSignUpDetails, checkCountdown, verifyUsername, verifyPassword, verifyToken}
