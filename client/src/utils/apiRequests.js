@@ -128,7 +128,7 @@ const updateCountdown = async (updatedCountdownObject) => {
 
 const apiRequest = {
   signIn, 
-  reissueToken,
+  // reissueToken,
   signOut,
   signUp,
   getUserData, 

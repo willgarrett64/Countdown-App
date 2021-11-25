@@ -6,6 +6,7 @@ import '../styles/main.css'
 
 // redux
 import { useSelector } from "react-redux";
+import LandingPage from "./sidebars/LandingPage";
 
 export default function Main () {
   const liveCountdown = useSelector(state => state.liveCountdown.countdown);
@@ -18,7 +19,7 @@ export default function Main () {
         {
           //if not signed in and haven't continued as guest, render the landing page otherwise render the clock (unless there is no live countdown to display)
           !signedIn && sidebarView !== 'selectCountdown' 
-          ? <h1>LANDING PAGE</h1> 
+          ? <LandingPage /> 
           : liveCountdown 
           ? <Clock /> 
           : <h2>CREATE YOUR FIRST COUNTDOWN TO START THE CLOCK</h2>
