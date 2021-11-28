@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# Countdown app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web-based app giving users the opportunity to create and manage multiple countdown events, allowing users to switch between them with ease and display personalised countdown clocks.
 
-## Available Scripts
+## Functionality
 
-In the project directory, you can run:
+### Viewing countdown timer
 
-### `npm start`
+The main function of the app is to view countdown timers which will tick down second by second until the date and time is reached. This can be viewed in the following video:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[![countdown video preview](./demo-images/countdown-video-preview.jpg)](https://www.loom.com/share/3c5bf264537247148f5655e0af6fc9bf)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+(_Eventually a flip motion design will be added to the countdown cards_)
 
-### `npm test`
+### Signing up and signing in
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Users can create new accounts which is done with a username and password (at the moment no email is used). Then, with a valid username and password, a user can sign in which will give them access to their personalised countdowns.
 
-### `npm run build`
+![Sign in screen](./demo-images/signin-demo.jpg "Sign in screen")
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Sign up sceen](./demo-images/signup-demo.jpg "Sign up screen")
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Creating a new countdown
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Signed in users can create a new countdown, giving it a name, date and time. I will add a tool tip to advise the user that if no time is needed (for example for whole day events) then they should set the time as 00:00.
 
-### `npm run eject`
+![Create new countdown](./demo-images/create-countdown-demo.jpg "Creating a new countdown")
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Selecting and viewing your countdowns
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+After creating countdowns, these will be displayed in the sidebar. By clicking on the card it will display the timer in the main clock area.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![Select and view countdowns](./demo-images/select-countdown-demo.jpg "Selecting and viewing your countdowns")
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Editing and deleting countdowns
 
-## Learn More
+Countdowns can be edited by clicking on the pencil icon on the countdown cards. The name, date and time can all be updated.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Countdowns can also be deleted by either clicking the bin icon on the countdown card, or when editing a countdown there is a delete button.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Guest users
 
-### Code Splitting
+Users who don't wish to create an account have access to a limited range of countdowns that can be selected and viewed. These can't be edited or deleted.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+I am considering giving guest users the option to create a single personalised countdown, however with no account this will be lost at the end of the session.
 
-### Analyzing the Bundle Size
+![Guest user sceen](./demo-images/guest-user-demo.jpg "Guest user screen")
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Development Progress
 
-### Making a Progressive Web App
+This app is currently still in development, however the majority of front and back end functionality has been completed and successfully tested.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Notes from the developer
 
-### Advanced Configuration
+This is my first attempt at building a fully functional, full-stack app that will be deployed to the web.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+I have learnt a great deal, including how to effectively allow users to create new accounts as well as issuing JSON Web Tokens on a successful sign in attempt and use these to control access.
 
-### Deployment
+Many of these methods and technologies I have used before, however this is the first time I alone have created every aspect of a single app, from the UI, through to the API and database.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Inspiration for the app
 
-### `npm run build` fails to minify
+The initial designs for this app came from the [Launch Countdown Timer Frontend Mentor challenge](https://www.frontendmentor.io/challenges/launch-countdown-timer-N0XkGfyz-). However, as I was keen to take on more complex challenges I decided to use my creativity to evolve the site into something more substantial.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+So, rather than a simple, single-page app that displays a single countdown timer, I evolved the designs so that the app contained greater functionality such as creating multiple personalised countdowns
+
+To be able to save these countdowns accross sessions, a working backend was needed, which was perfect as I had been planning on create a full-stack app for a while.
+
+### Areas identified for improvement
+
+As this started out as a practice project, there are areas that we developed not necessarily following best practices - my belief is that whilst learning, it's better to spend the day writing bad code that works rather than spend the day reading about how to write the perfect code. However, as the project evolved, I identified the areas I need to improve on and learn more about.
+
+There are a number of designs tweaks to be made as well as making the UI fully responsive for all screen sizes. I would also like to design an attractive landing page so that new users can learn about what the app does.
+
+In addition to this, the handling of HTTP errors could be improved, both on the front and back end. This is something I plan to study more of so that I can use best practices later.
+
+Throughout, there are areas that will need refactoring with the focus on removing unnecessary repeated code and implementing more elegant solutions. I have already identified further React components to create and slight changes to the Redux slices.
+
+## Tech stack
+
+- React
+- Redux
+- Node.js
+- SQLite
