@@ -1,5 +1,10 @@
 import {useState} from 'react';
 
+// components
+import FormInput from '../forms/FormInput'
+import Form from '../forms/Form'
+import Button from '../forms/Button'
+
 // redux
 import { useDispatch } from 'react-redux';
 import { setSidebarView } from '../../redux/features/sidebarViewSlice';
@@ -25,6 +30,10 @@ export default function SignIn() {
 
   const handleSignIn = async e => {
     e.preventDefault();
+
+    // error message elements 
+    const usernameError = document.getElementById('username-error');
+    const passwordError = document.getElementById('password-error');
 
     // reset any error messages on attempt to submit new form data
     usernameError.innerText = '';
@@ -69,19 +78,42 @@ export default function SignIn() {
   return (
     <div className="content">
       <h2>Sign in to your account to access <strong>full features</strong></h2>
-      <div className="input-label-pair">
-        <label htmlFor="username-signin">USERNAME</label>
-        <input id="username-signin" required onChange={e => setUsername(e.target.value)} />
-        <span id="username-error" className="error-message"></span>
-      </div>
-      <div className="input-label-pair">
-        <label htmlFor="password-signin">PASSWORD</label>
-        <input id="password-signin" type="password" required onChange={e => setPassword(e.target.value)} />
-        <span id="password-error" className="error-message"></span>
-      </div>
+      <Form 
+        inputs={[
+          {
+            id: "username",
+            onChange: e => setUsername(e.target.value),
+            required: true,
+            label: "USERNAME"
+          },
+          {
+            id: "password",
+            onChange: e => setPassword(e.target.value),
+            required: true,
+            type: "password",
+            label: "PASSWORD"
+          }
+        ]}
 
-      <button className="primary" onClick={handleSignIn}>SIGN IN</button>
-      <button className="secondary" onClick={() => dispatch(setSidebarView('signUp'))}>SIGN UP</button>
+        buttons={{
+          className: "flex column",
+          buttons: [
+            {
+              classes: "primary",
+              text: "SIGN IN",
+              onClick: handleSignIn
+            },
+            {
+              classes: "secondary",
+              text: "SIGN UP",
+              onClick: () => dispatch(setSidebarView('signUp'))
+            }
+          ]}
+        }
+
+        id="sign-in-form"
+        className="sidebar-form flex column"
+      />
       <p className="guest-btn" onClick={handleContAsGuest} >CONTINUE AS GUEST</p>
     </div>
   )

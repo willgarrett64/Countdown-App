@@ -1,6 +1,9 @@
 // react hooks
 import { useState, useEffect } from 'react';
 
+// components
+import Form from '../forms/Form';
+
 // images
 import closeIcon from '../../images/close-icon.svg'
 import deleteIcon from '../../images/icon-delete.svg'
@@ -31,9 +34,9 @@ export default function CountdownForm({type}) {
       setDate(countdown.date);
       setTime(countdown.time);
 
-      document.getElementById('countdown-form-name').value = countdown.name;
-      document.getElementById('countdown-form-date').value = countdown.date;
-      document.getElementById('countdown-form-time').value = countdown.time;
+      document.getElementById('countdown-name').value = countdown.name;
+      document.getElementById('countdown-date').value = countdown.date;
+      document.getElementById('countdown-time').value = countdown.time;
     }
   }, [])
 
@@ -82,31 +85,63 @@ export default function CountdownForm({type}) {
     <div id="edit-countdown-overlay" className="overlay-card flex column">
       <img src={closeIcon} className="closeIcon" onClick={close} alt="close icon" />
       <h2><strong>{type.toUpperCase()}</strong> COUNTDOWN</h2>
-      <form id="countdown-form" className="flex column">
-        <div className="input-label-pair">
-          <label htmlFor="countdown-form-name">COUNTDOWN NAME</label>
-          <input onChange={e => setName(e.target.value)}className="rounded" id="countdown-form-name" />
-          <span id="countdown-name-error" className="error-message"></span>
-        </div>
-        <div className="input-label-pair">
-          <label htmlFor="countdown-form-date">COUNTDOWN DATE</label>
-          <input onChange={e => setDate(e.target.value)}className="rounded" id="countdown-form-date" type="date" />
-          <span id="countdown-date-error" className="error-message"></span>
-        </div>
-        <div className="input-label-pair">
-          <label htmlFor="countdown-form-time">COUNTDOWN TIME</label>
-          <input onChange={e => setTime(e.target.value)}className="rounded" id="countdown-form-time" type="time" />
-          <span id="countdown-time-error" className="error-message"></span>
-        </div>
-        <div>
-          <button className="secondary" onClick={close} >CANCEL</button>
-          <button type="submit" className="primary" onClick={handleSubmit}>SAVE</button>
-        </div>
-        {type === 'edit' && (<div className="deleteIcon" onClick={handleDeleteCountdown}>
-          <img src={deleteIcon} />
-          <p>delete</p>
-        </div>)}
-      </form>
+      
+      <Form 
+        inputs={[
+          {
+            label: "COUNTDOWN NAME",
+            id: 'countdown-name',
+            inputClasses: 'rounded',
+            required: true,
+            onChange: e => setName(e.target.value)
+          },
+          {
+            label: "COUNTDOWN DATE",
+            id: 'countdown-date',
+            inputClasses: 'rounded',
+            required: true,
+            onChange: e => setDate(e.target.value),
+            type: 'date'
+          },
+          {
+            label: "COUNTDOWN TIME",
+            id: 'countdown-time',
+            inputClasses: 'rounded',
+            required: true,
+            onChange: e => setTime(e.target.value),
+            type: 'time'
+          },
+        ]}
+
+        buttons={{
+          className: 'flex row',
+          buttons: [
+            {
+              text: 'CANCEL',
+              classes: 'secondary',
+              onClick: close
+            },
+            {
+              text: 'SAVE',
+              classes: 'primary',
+              onClick: handleSubmit
+            }
+          ]
+        }}
+
+        id="countdown-form"
+        className="flex column"
+      />
+      {
+        type === 'edit' && (
+          <div 
+            className="deleteIcon" 
+            onClick={handleDeleteCountdown}
+          >
+            <img src={deleteIcon} />
+            <p>delete</p>
+          </div>
+        )}
     </div>
   )
 }

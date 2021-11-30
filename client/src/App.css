@@ -35,8 +35,8 @@
 
 
 
-/*#region input bars, labels and buttons*/
-.input-label-pair {
+/*#region forms - inputs, labels, errors and buttons*/
+.form-field {
   display: flex;
   flex-direction: column;
   margin: 20px 0px;
