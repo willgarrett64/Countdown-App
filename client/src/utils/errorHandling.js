@@ -2,7 +2,7 @@ const setErrorTooltip = (message, element) => {
   element.innerText = '* ' + message
 }
 
-const handleError = (errorResponse) => {
+const handleNetworkError = (errorResponse) => {
   if (errorResponse.ref) {
     const errorElement = document.getElementById(errorResponse.ref);
     setErrorTooltip(errorResponse.error, errorElement)
@@ -11,4 +11,4 @@ const handleError = (errorResponse) => {
   }
 }
 
-module.exports = {setErrorTooltip, handleError}
+module.exports = {setErrorTooltip, handleNetworkError}

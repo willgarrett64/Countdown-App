@@ -9,7 +9,7 @@ import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
 
 // utils
 import { apiRequest } from '../../utils/apiRequests';
-import { handleError, setErrorTooltip } from '../../utils/errorHandling';
+import { handleNetworkError, setErrorTooltip } from '../../utils/errorHandling';
 
 
 export default function SignIn() {
@@ -54,7 +54,7 @@ export default function SignIn() {
         }
         dispatch(setSidebarView('selectCountdown'));
       } else {
-        handleError(response);
+        handleNetworkError(response);
       }
     }
   }

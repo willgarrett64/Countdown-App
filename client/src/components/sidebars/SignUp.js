@@ -7,7 +7,7 @@ import { setSidebarView } from '../../redux/features/sidebarViewSlice';
 
 // utils
 import { apiRequest } from '../../utils/apiRequests';
-import { setErrorTooltip, handleError } from '../../utils/errorHandling';
+import { setErrorTooltip, handleNetworkError } from '../../utils/errorHandling';
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -59,7 +59,7 @@ export default function SignUp() {
         setOverlayView('accountCreated');
         dispatch(setOverlayView('accountCreated'));
       } else {
-        handleError(response)
+        handleNetworkError(response)
       }
     }
   }

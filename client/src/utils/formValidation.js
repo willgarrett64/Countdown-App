@@ -1,3 +1,5 @@
+const { setErrorTooltip } = require("./errorHandling");
+
 // get current date and time
 const getNow = () => {
   const now = new Date();
@@ -15,6 +17,7 @@ const checkDateInFuture = (date, time) => {
   const nowUnix = Date.parse(now.date + ' ' + now.time);
   const inputUnix = Date.parse(date + ' ' + time);
 
+
   if (inputUnix <= nowUnix) {
     return false
   } else {
@@ -22,29 +25,48 @@ const checkDateInFuture = (date, time) => {
   }
 }
 
+
 // form validation for countdowns (add / edit)
 const countdownIsValid = (countdown) => {
+  const {name, date, time} = countdown;
+  
+  // error message elements
+  const nameError = document.getElementById('countdown-name-error');
+  const dateError = document.getElementById('countdown-date-error');
+  const timeError = document.getElementById('countdown-time-error');
+
+  // reset error messages each time form is submitted
+  nameError.innerText = '';
+  dateError.innerText = '';
+  timeError.innerText = '';
+
+  const dateRegEx = /^\d{4}-\d{2}-\d{2}$/;
+  const timeRegEx = /^\d{2}:\d{2}/;
+
   let countdownValid = false;
 
-  const {name, date, time} = countdown;
 
-  // ensure all fields are filled in
-  if (!name || ! date || !time) {
-    alert('Please fill in countdown name, date and time')
-  }
-  // ensure countdown name is valid length
-  else if (countdown.name.length > 35) {
-    alert('Countdown name max length: 35 characters')
-  }
-  // ensure date/time aren't in the past
-  else if (!checkDateInFuture(date, time)) {
-    alert('Can\'t create countdown in the past');
-  }
+  // verify all fields aren't blank
+  if (!name) setErrorTooltip('Please enter a countdown name', nameError);
+  if (!date) setErrorTooltip('Please enter a countdown date', dateError);
+  if (!time) setErrorTooltip('Please enter a countdown time', timeError);
+
+  // verify countdown name is valid length
+  else if (countdown.name.length > 35) setErrorTooltip('Countdown name can\'t exceed 35 characters', nameError);
+
+  // verify date/time aren't in the past
+  else if (!checkDateInFuture(date, time)) setErrorTooltip('Can\'t create countdown in the past', dateError);
+
+  // verify date and time are in correct format
+  else if (!countdown.date.match(dateRegEx)) setErrorTooltip('Date format incorrect', dateError);
+  else if (!countdown.time.match(timeRegEx)) setErrorTooltip('Time format incorrect', timeError);
+
   // if passed all tests, set countdownValid to true
   else {
     countdownValid = true;
   }
   return countdownValid;
 }
+
 
 module.exports = {countdownIsValid, checkDateInFuture}

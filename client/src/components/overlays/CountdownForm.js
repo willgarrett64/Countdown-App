@@ -46,12 +46,12 @@ export default function CountdownForm({type}) {
     e.preventDefault();
 
     const newCountdownObject = {name, date, time};
-
+    
     // verify all data is valid
     if (countdownIsValid(newCountdownObject)) {
       switch (type) {
         case 'edit':
-          // if editing, the countdown id needs to be attached to the object
+          // if editing existing countdown, the id needs to be attached to the object
           newCountdownObject.id = countdown.id;
           
           const res = await apiRequest.updateCountdown(newCountdownObject);
@@ -86,14 +86,17 @@ export default function CountdownForm({type}) {
         <div className="input-label-pair">
           <label htmlFor="countdown-form-name">COUNTDOWN NAME</label>
           <input onChange={e => setName(e.target.value)}className="rounded" id="countdown-form-name" />
+          <span id="countdown-name-error" className="error-message"></span>
         </div>
         <div className="input-label-pair">
           <label htmlFor="countdown-form-date">COUNTDOWN DATE</label>
           <input onChange={e => setDate(e.target.value)}className="rounded" id="countdown-form-date" type="date" />
+          <span id="countdown-date-error" className="error-message"></span>
         </div>
         <div className="input-label-pair">
           <label htmlFor="countdown-form-time">COUNTDOWN TIME</label>
           <input onChange={e => setTime(e.target.value)}className="rounded" id="countdown-form-time" type="time" />
+          <span id="countdown-time-error" className="error-message"></span>
         </div>
         <div>
           <button className="secondary" onClick={close} >CANCEL</button>
