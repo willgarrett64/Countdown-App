@@ -1,13 +1,16 @@
+//#region IMPORTS
 // react hooks
 import { useEffect } from 'react';
 
 // images
-import successIcon from '../../images/icon-success.svg';
-import closeIcon from '../../images/close-icon.svg';
+import successIcon from '../../../images/icon-success.svg';
+import closeIcon from '../../../images/close-icon.svg';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { closeOverlay } from '../../redux/features/overlayViewSlice';
+import { closeOverlay } from '../../../redux/features/overlayViewSlice';
+//#endregion IMPORTS
+
 
 export default function AccountCreated() {
   const dispatch = useDispatch();

@@ -1,12 +1,15 @@
+//#region IMPORTS
 // componenets
 import Clock from "./clock/Clock";
+import LandingPage from "./landingPage/LandingPage";
 
 // styles
-import '../styles/main.css'
+import './Main.css'
 
 // redux
 import { useSelector } from "react-redux";
-import LandingPage from "./sidebars/LandingPage";
+//#endregion IMPORTS
+
 
 export default function Main () {
   const liveCountdown = useSelector(state => state.liveCountdown.countdown);

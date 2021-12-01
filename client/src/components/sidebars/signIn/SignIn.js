@@ -1,20 +1,22 @@
+//#region IMPORTS
 import {useState} from 'react';
 
 // components
-import FormInput from '../forms/FormInput'
-import Form from '../forms/Form'
-import Button from '../forms/Button'
+import FormInput from '../../forms/FormInput'
+import Form from '../../forms/Form'
+import Button from '../../forms/Button'
 
 // redux
 import { useDispatch } from 'react-redux';
-import { setSidebarView } from '../../redux/features/sidebarViewSlice';
-import { signIn } from '../../redux/features/authenticateSlice';
-import { setCountdownList } from '../../redux/features/countdownListSlice';
-import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+import { setSidebarView } from '../../../redux/features/sidebarViewSlice';
+import { signIn } from '../../../redux/features/authenticateSlice';
+import { setCountdownList } from '../../../redux/features/countdownListSlice';
+import { setLiveCountdown } from '../../../redux/features/liveCountdownSlice';
 
 // utils
-import { apiRequest } from '../../utils/apiRequests';
-import { handleNetworkError, setErrorTooltip } from '../../utils/errorHandling';
+import { apiRequest } from '../../../utils/apiRequests';
+import { handleNetworkError, setErrorTooltip } from '../../../utils/errorHandling';
+//#endregion IMPORTS
 
 
 export default function SignIn() {

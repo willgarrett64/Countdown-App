@@ -1,22 +1,25 @@
+//#region IMPORTS
 // react hooks
 import { useState, useEffect } from 'react';
 
 // components
-import Form from '../forms/Form';
+import Form from '../../forms/Form';
 
 // images
-import closeIcon from '../../images/close-icon.svg'
-import deleteIcon from '../../images/icon-delete.svg'
+import closeIcon from '../../../images/close-icon.svg'
+import deleteIcon from '../../../images/icon-delete.svg'
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { addCountdown, editCountdown } from '../../redux/features/countdownListSlice';
-import { closeOverlay, setOverlayView } from '../../redux/features/overlayViewSlice';
-import { setLiveCountdown } from '../../redux/features/liveCountdownSlice';
+import { addCountdown, editCountdown } from '../../../redux/features/countdownListSlice';
+import { closeOverlay, setOverlayView } from '../../../redux/features/overlayViewSlice';
+import { setLiveCountdown } from '../../../redux/features/liveCountdownSlice';
 
 // utils
-import { apiRequest } from '../../utils/apiRequests';
-import { countdownIsValid } from '../../utils/formValidation';
+import { apiRequest } from '../../../utils/apiRequests';
+import { countdownIsValid } from '../../../utils/formValidation';
+//#endregion IMPORTS
+
 
 export default function CountdownForm({type}) {
   const dispatch = useDispatch();

@@ -1,12 +1,12 @@
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { resetCountdownList } from '../redux/features/countdownListSlice';
-import { removeLiveCountdown } from '../redux/features/liveCountdownSlice';
-import { setSidebarView } from '../redux/features/sidebarViewSlice';
-import { signOut } from '../redux/features/authenticateSlice';
+import { resetCountdownList } from '../../redux/features/countdownListSlice';
+import { removeLiveCountdown } from '../../redux/features/liveCountdownSlice';
+import { setSidebarView } from '../../redux/features/sidebarViewSlice';
+import { signOut } from '../../redux/features/authenticateSlice';
 
 // utils 
-import { apiRequest } from '../utils/apiRequests';
+import { apiRequest } from '../../utils/apiRequests';
 
 export default function SignOut() {
   const dispatch = useDispatch()

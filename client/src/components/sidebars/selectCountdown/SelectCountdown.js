@@ -1,13 +1,16 @@
+//#region IMPORTS
 //components
 import AddNewCountdownCard from "./AddNewCountdownCard";
 import CountdownCard from "./CountdownCard";
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setSidebarView } from "../../redux/features/sidebarViewSlice";
+import { setSidebarView } from "../../../redux/features/sidebarViewSlice";
 
 // images
-import dblLeftChevron from '../../images/icon-dbl-left.svg'
+import dblLeftChevron from '../../../images/icon-dbl-left.svg'
+//#endregion IMPORTS
+
 
 export default function SelectCountdown({toggleSidebarOpen}) {
   const countdownList = useSelector((state) => state.countdownList.list);

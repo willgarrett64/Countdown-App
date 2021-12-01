@@ -1,8 +1,9 @@
+//#region IMPORTS
 // components
-import Sidebar from './components/Sidebar';
-import Main from './components/Main';
-import Overlay from './components/Overlay';
-import SignOut from './components/SignOut';
+import Sidebar from './components/sidebars/Sidebar';
+import Main from './components/main/Main';
+import Overlay from './components/overlays/Overlay';
+import SignOut from './components/signOut/SignOut';
 
 // images
 import dblRightChevron from './images/icon-dbl-right.svg'
@@ -12,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 // styles
 import './App.css';
-import './styles/overlay.css'
+//#endregion IMPORTS
 
 
 function App() {

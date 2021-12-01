@@ -1,6 +1,9 @@
+//#region IMPORTS
 // redux
 import { useDispatch } from "react-redux";
-import { setOverlayView } from "../../redux/features/overlayViewSlice";
+import { setOverlayView } from "../../../redux/features/overlayViewSlice";
+//#endregion IMPORTS
+
 
 export default function AddNewCountdownCard({toggleOverlayHidden}) {
   const dispatch = useDispatch()

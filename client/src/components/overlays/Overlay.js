@@ -1,11 +1,17 @@
+//#region IMPORTS
 // components
-import CountdownForm from './overlays/CountdownForm';
-import AccountCreated from './overlays/AccountCreated';
-import EditOrDeletePrompt from './overlays/EditOrDeletePrompt';
-import ConfirmDeletePrompt from './overlays/ConfirmDeletePrompt';
+import CountdownForm from './countdownForm/CountdownForm';
+import AccountCreated from './accountCreated/AccountCreated';
+import CountdownCompletePrompt from './prompts/CountdownComplete';
+import ConfirmDeletePrompt from './prompts/ConfirmDeletePrompt';
 
 // redux
 import { useSelector } from 'react-redux';
+
+// styles
+import './Overlay.css'
+//#endregion IMPORTS
+
 
 export default function Overlay() {
   const overlayView = useSelector((state) => state.overlayView.value);
@@ -20,7 +26,7 @@ export default function Overlay() {
         : overlayView === 'accountCreated'
         ? <AccountCreated />
         : overlayView === 'editOrDeletePrompt'
-        ? <EditOrDeletePrompt />
+        ? <CountdownCompletePrompt />
         : overlayView === 'confirmDeletePrompt'
         ? <ConfirmDeletePrompt />
         : null

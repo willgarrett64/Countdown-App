@@ -1,21 +1,21 @@
+//#region IMPORTS
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { removeLiveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
-import { deleteCountdown, setEditCountdown } from '../../redux/features/countdownListSlice';
-import { setOverlayView } from '../../redux/features/overlayViewSlice';
+import { setLiveCountdown } from '../../../redux/features/liveCountdownSlice';
+import { setEditCountdown } from '../../../redux/features/countdownListSlice';
+import { setOverlayView } from '../../../redux/features/overlayViewSlice';
 
 // images
-import deleteIcon from '../../images/icon-delete.svg';
-import editIcon from '../../images/icon-edit.svg';
+import deleteIcon from '../../../images/icon-delete.svg';
+import editIcon from '../../../images/icon-edit.svg';
 
 // utils
-import { apiRequest } from '../../utils/apiRequests';
-import { checkDateInFuture } from '../../utils/formValidation';
+import { checkDateInFuture } from '../../../utils/formValidation';
+//#endregion IMPORTS
 
 
 export default function CountdownCard({countdown}) {  
   const dispatch = useDispatch();
-  const liveCountdown = useSelector(state => state.liveCountdown.countdown)
   const countdownList = useSelector(state => state.countdownList.list);
   const signedIn = useSelector(state => state.authenticate.signedIn)
 

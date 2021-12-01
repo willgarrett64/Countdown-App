@@ -1,14 +1,17 @@
+//#region IMPORTS
 // images
-import closeIcon from '../../images/close-icon.svg'
+import closeIcon from '../../../images/close-icon.svg'
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteCountdown } from '../../redux/features/countdownListSlice';
-import { removeLiveCountdown, setLiveCountdown } from '../../redux/features/liveCountdownSlice';
-import { closeOverlay, setOverlayView } from '../../redux/features/overlayViewSlice';
+import { deleteCountdown } from '../../../redux/features/countdownListSlice';
+import { removeLiveCountdown, setLiveCountdown } from '../../../redux/features/liveCountdownSlice';
+import { closeOverlay } from '../../../redux/features/overlayViewSlice';
 
 // utils
-import { apiRequest } from '../../utils/apiRequests'; 
+import { apiRequest } from '../../../utils/apiRequests'; 
+//#endregion IMPORTS
+
 
 export default function ConfirmDeletePrompt() {
   const dispatch = useDispatch();

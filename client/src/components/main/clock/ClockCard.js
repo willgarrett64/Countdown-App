@@ -1,8 +1,7 @@
-// styles
-import '../../styles/clock.css'
-
+//#region IMPORTS
 // utils
-import { convertSeconds } from '../../utils/clockFunctions'
+import { convertSeconds } from '../../../utils/clockFunctions'
+//#endregion IMPORTS
 
 
 export default function ClockCard({type, totalSeconds}) {

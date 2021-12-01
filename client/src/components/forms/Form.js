@@ -1,5 +1,7 @@
+//#region IMPORTS
 import FormInput from "./FormInput"
 import Button from "./Button"
+//#endregion IMPORTS
 
 export default function Form({inputs, buttons, id, className}) {
   return (

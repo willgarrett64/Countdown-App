@@ -1,16 +1,19 @@
+//#region IMPORTS
 import {useState} from 'react';
 
 // components
-import Form from '../forms/Form';
+import Form from '../../forms/Form';
 
 // redux
 import { useDispatch } from 'react-redux';
-import { setOverlayView } from '../../redux/features/overlayViewSlice';
-import { setSidebarView } from '../../redux/features/sidebarViewSlice';
+import { setOverlayView } from '../../../redux/features/overlayViewSlice';
+import { setSidebarView } from '../../../redux/features/sidebarViewSlice';
 
 // utils
-import { apiRequest } from '../../utils/apiRequests';
-import { setErrorTooltip, handleNetworkError } from '../../utils/errorHandling';
+import { apiRequest } from '../../../utils/apiRequests';
+import { setErrorTooltip, handleNetworkError } from '../../../utils/errorHandling';
+//#endregion IMPORTS
+
 
 export default function SignUp() {
   const dispatch = useDispatch();

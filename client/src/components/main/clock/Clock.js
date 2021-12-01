@@ -1,3 +1,7 @@
+//#region IMPORTS
+// styles
+import './Clock.css'
+
 // components 
 import ClockCard from "./ClockCard";
 
@@ -6,10 +10,12 @@ import { useState, useEffect } from 'react';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setOverlayView } from '../../redux/features/overlayViewSlice';
+import { setOverlayView } from '../../../redux/features/overlayViewSlice';
 
 // utils
-import { calculateSecondsUntil } from "../../utils/clockFunctions";
+import { calculateSecondsUntil } from "../../../utils/clockFunctions";
+//#endregion IMPORTS
+
 
 export default function Clock() {
   const dispatch = useDispatch();

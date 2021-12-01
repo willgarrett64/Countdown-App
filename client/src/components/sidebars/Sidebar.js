@@ -1,23 +1,25 @@
+//#region IMPORTS
 // react hooks
 import { useEffect } from "react";
 
 // components
-import SignIn from "./sidebars/SignIn";
-import SignUp from "./sidebars/SignUp";
-import SelectCountdown from "./sidebars/SelectCountdown";
+import SignIn from "./signIn/SignIn";
+import SignUp from "./signUp/SignUp";
+import SelectCountdown from "./selectCountdown/SelectCountdown";
 
 // styles
-import '../styles/sidebar.css'
+import './Sidebar.css'
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { setSidebarView } from '../redux/features/sidebarViewSlice';
-import { signIn } from '../redux/features/authenticateSlice';
-import { setCountdownList } from '../redux/features/countdownListSlice';
-import { setLiveCountdown } from "../redux/features/liveCountdownSlice";
+import { setSidebarView } from '../../redux/features/sidebarViewSlice';
+import { signIn } from '../../redux/features/authenticateSlice';
+import { setCountdownList } from '../../redux/features/countdownListSlice';
+import { setLiveCountdown } from "../../redux/features/liveCountdownSlice";
 
 // utils
-import { apiRequest } from "../utils/apiRequests";
+import { apiRequest } from "../../utils/apiRequests";
+//#endregion IMPORTS
 
 
 export default function Sidebar({toggleSidebarOpen}) {

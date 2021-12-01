@@ -1,12 +1,14 @@
+//#region IMPORTS
 // images
-import closeIcon from '../../images/close-icon.svg'
+import closeIcon from '../../../images/close-icon.svg'
 
 // redux
 import { useDispatch } from 'react-redux';
-import { closeOverlay, setOverlayView } from '../../redux/features/overlayViewSlice';
- 
+import { closeOverlay, setOverlayView } from '../../../redux/features/overlayViewSlice';
+//#endregion IMPORTS
 
-export default function EditOrDeletePrompt() {
+
+export default function CountdownCompletePrompt() {
   const dispatch = useDispatch();
 
   // close the overlay
