@@ -2,9 +2,7 @@
 import {useState} from 'react';
 
 // components
-import FormInput from '../../forms/FormInput'
 import Form from '../../forms/Form'
-import Button from '../../forms/Button'
 
 // redux
 import { useDispatch } from 'react-redux';
@@ -25,14 +23,8 @@ export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  // error message elements 
-  const usernameError = document.getElementById('username-error');
-  const passwordError = document.getElementById('password-error');
-
-
   const handleSignIn = async e => {
     e.preventDefault();
-
     // error message elements 
     const usernameError = document.getElementById('username-error');
     const passwordError = document.getElementById('password-error');
@@ -52,6 +44,7 @@ export default function SignIn() {
       errors = true;
     } 
 
+    // if no validation errors, continue to make sign in request
     if (!errors) {
       const response = await apiRequest.signIn(username, password); 
       if (response === 'ok') {

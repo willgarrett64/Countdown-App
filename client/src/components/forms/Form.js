@@ -8,6 +8,7 @@ export default function Form({inputs, buttons, id, className}) {
     <form id={id} className={className}>
       {inputs && inputs.map(input => {
         return <FormInput
+          key={input.id}
           id={input.id}
           label={input.label}
           type={input.type}
@@ -21,6 +22,7 @@ export default function Form({inputs, buttons, id, className}) {
         <div className={buttons.className} id={buttons.id}>
           {buttons.buttons.map(button => {
             return <Button
+              key={button.id}
               text={button.text}
               onClick={button.onClick}
               classes={button.classes}
