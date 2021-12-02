@@ -1,4 +1,7 @@
 //#region IMPORTS
+// components
+import Button from '../../forms/Button';
+
 // images
 import closeIcon from '../../../images/close-icon.svg'
 
@@ -30,11 +33,19 @@ export default function CountdownCompletePrompt() {
     <div id="edit-or-delete-prompt-overlay" className="prompt overlay-card flex column">
       <img src={closeIcon} className="closeIcon" onClick={close} alt="close icon" />
       <h2>COUNTDOWN<strong> COMPLETE</strong></h2>
-      <h4>This countdown has expired so can no longer be selected</h4> 
+      <h4>This countdown has now expired so can no longer be selected</h4> 
       <h4>Please either delete it or edit the date and time</h4>
       <div>
-        <button className="secondary" onClick={handleEditCountdown}>EDIT</button>
-        <button className="primary" onClick={handleDeleteCountdown}>DELETE</button>
+        <Button 
+          classes='secondary'
+          onClick={handleEditCountdown}
+          text="EDIT"
+        />
+        <Button 
+          classes='primary'
+          onClick={handleDeleteCountdown}
+          text="DELETE"
+        />
       </div>
     </div>
   )

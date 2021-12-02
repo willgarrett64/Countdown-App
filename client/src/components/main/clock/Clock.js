@@ -4,6 +4,7 @@ import './Clock.css'
 
 // components 
 import ClockCard from "./ClockCard";
+import Button from '../../forms/Button';
 
 // react hooks
 import { useState, useEffect } from 'react';
@@ -66,9 +67,17 @@ export default function Clock() {
       <div className="clock-wrapper">
         <h1>{liveCountdown.name.toUpperCase()} COUNTDOWN COMPLETE</h1>
         <div>
-          <button className="secondary" onClick={handleEditCountdown}>EDIT</button>
-          <button className="primary" onClick={handleDeleteCountdown}>DELETE</button>
-      </div>
+          <Button 
+            classes='secondary'
+            onClick={handleEditCountdown}
+            text="EDIT"
+          />
+          <Button 
+            classes='primary'
+            onClick={handleDeleteCountdown}
+            text="DELETE"
+          />
+        </div>
       </div>
     )
   }
