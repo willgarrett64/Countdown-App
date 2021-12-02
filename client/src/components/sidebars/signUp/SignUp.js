@@ -12,6 +12,7 @@ import { setSidebarView } from '../../../redux/features/sidebarViewSlice';
 // utils
 import { apiRequest } from '../../../utils/apiRequests';
 import { setErrorTooltip, handleNetworkError } from '../../../utils/errorHandling';
+import { userIsValid } from '../../../utils/userValidation';
 //#endregion IMPORTS
 
 
@@ -20,45 +21,13 @@ export default function SignUp() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [veryifyPassword, setVerifyPassword] = useState('');
-
-  // error message elements 
-  const usernameError = document.getElementById('username-error');
-  const passwordError = document.getElementById('password-error');
-  const verifyPasswordError = document.getElementById('verify-password-error');
-
+  const [verifyPassword, setVerifyPassword] = useState('');
 
   const handleSubmit =  async e => {
     e.preventDefault();
 
-    // reset any error messages on attempt to submit new form data
-    usernameError.innerText = '';
-    passwordError.innerText = '';
-    verifyPasswordError.innerText = '';
-
-    let errors = false;
-    if (!username) {
-      setErrorTooltip('Please enter a username', usernameError);
-      errors = true;
-    } else if (username.length < 4 || username.length > 20) {
-      setErrorTooltip('Must be between 4 and 20 characters', usernameError);
-      errors = true;
-    } 
-    
-    if (!password) {
-      // handle blank password
-      setErrorTooltip('Please enter a password', passwordError);
-      errors = true;
-    } else if (password.length < 4 || password.length > 30) {
-      setErrorTooltip('Must be between 4 and 30 characters', passwordError);
-      errors = true;
-    } else if (password != veryifyPassword) {
-      // handle mis-matching passwords
-      setErrorTooltip('Passwords don\'t match', verifyPasswordError);
-      errors = true;
-    } 
-    
-    if (!errors) {
+    // if no validation errors, continue to make sign up request
+    if (userIsValid(username, password, verifyPassword)) {
       const response = await apiRequest.signUp(username, password);
       if (response === 'ok') {
         dispatch(setSidebarView('signIn'));
@@ -67,6 +36,9 @@ export default function SignUp() {
       } else {
         handleNetworkError(response)
       }
+    } else {
+      // NEED TO PROPERLY HANDLE THIS ISSUE IF USER IS NOT VALID, BUT NOT CAUGHT IN userIsValid FUNCTION
+      console.log('Error in userIsValid');
     }
   }
 

@@ -25,7 +25,7 @@ export default function Overlay() {
         ? <CountdownForm type="create" />
         : overlayView === 'accountCreated'
         ? <AccountCreated />
-        : overlayView === 'editOrDeletePrompt'
+        : overlayView === 'countdownCompletePrompt'
         ? <CountdownCompletePrompt />
         : overlayView === 'confirmDeletePrompt'
         ? <ConfirmDeletePrompt />

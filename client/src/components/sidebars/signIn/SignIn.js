@@ -14,6 +14,7 @@ import { setLiveCountdown } from '../../../redux/features/liveCountdownSlice';
 // utils
 import { apiRequest } from '../../../utils/apiRequests';
 import { handleNetworkError, setErrorTooltip } from '../../../utils/errorHandling';
+import { userIsValid } from '../../../utils/userValidation';
 //#endregion IMPORTS
 
 
@@ -25,27 +26,9 @@ export default function SignIn() {
 
   const handleSignIn = async e => {
     e.preventDefault();
-    // error message elements 
-    const usernameError = document.getElementById('username-error');
-    const passwordError = document.getElementById('password-error');
-
-    // reset any error messages on attempt to submit new form data
-    usernameError.innerText = '';
-    passwordError.innerText = '';
-
-    let errors = false;
-    if (!username) {
-      setErrorTooltip('Please enter a username', usernameError);
-      errors = true;
-    } 
-    if (!password) {
-      // handle blank password
-      setErrorTooltip('Please enter a password', passwordError);
-      errors = true;
-    } 
 
     // if no validation errors, continue to make sign in request
-    if (!errors) {
+    if (userIsValid(username, password)) {
       const response = await apiRequest.signIn(username, password); 
       if (response === 'ok') {
         const userData = await apiRequest.getUserData();
@@ -60,6 +43,9 @@ export default function SignIn() {
       } else {
         handleNetworkError(response);
       }
+    } else {
+      // NEED TO PROPERLY HANDLE THIS ISSUE IF USER IS NOT VALID, BUT NOT CAUGHT IN userIsValid FUNCTION
+      console.log('Error in userIsValid');
     }
   }
 

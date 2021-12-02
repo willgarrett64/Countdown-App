@@ -10,7 +10,7 @@ import deleteIcon from '../../../images/icon-delete.svg';
 import editIcon from '../../../images/icon-edit.svg';
 
 // utils
-import { checkDateInFuture } from '../../../utils/formValidation';
+import { checkDateInFuture } from '../../../utils/countdownValidation';
 //#endregion IMPORTS
 
 
@@ -33,7 +33,7 @@ export default function CountdownCard({countdown}) {
     dispatch(setEditCountdown(newLiveCountdown))
 
     if (!checkDateInFuture(newLiveCountdown.date, newLiveCountdown.time)) {
-      dispatch(setOverlayView('editOrDeletePrompt'))
+      dispatch(setOverlayView('countdownCompletePrompt'))
     } else {
       dispatch(setLiveCountdown(newLiveCountdown));
     }

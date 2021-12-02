@@ -17,7 +17,7 @@ import { setLiveCountdown } from '../../../redux/features/liveCountdownSlice';
 
 // utils
 import { apiRequest } from '../../../utils/apiRequests';
-import { countdownIsValid } from '../../../utils/formValidation';
+import { countdownIsValid } from '../../../utils/countdownValidation';
 //#endregion IMPORTS
 
 

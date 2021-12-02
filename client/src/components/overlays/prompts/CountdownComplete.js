@@ -30,7 +30,7 @@ export default function CountdownCompletePrompt() {
     <div id="edit-or-delete-prompt-overlay" className="prompt overlay-card flex column">
       <img src={closeIcon} className="closeIcon" onClick={close} alt="close icon" />
       <h2>COUNTDOWN<strong> COMPLETE</strong></h2>
-      <h4>This countdown has already expired, so can no longer be selected</h4> 
+      <h4>This countdown has expired so can no longer be selected</h4> 
       <h4>Please either delete it or edit the date and time</h4>
       <div>
         <button className="secondary" onClick={handleEditCountdown}>EDIT</button>

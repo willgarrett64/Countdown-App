@@ -40,26 +40,26 @@ const countdownIsValid = (countdown) => {
   dateError.innerText = '';
   timeError.innerText = '';
 
+  // define regular expressions for forate of date and time 
+  // NOTE: THIS NEEDS TO BE FIXED: E.G. 2022-00-00 IS AN ACCEPTED DATE, AND 99:99 IS ACCEPTED TIME 
   const dateRegEx = /^\d{4}-\d{2}-\d{2}$/;
   const timeRegEx = /^\d{2}:\d{2}/;
 
   let countdownValid = false;
 
-
-  // verify all fields aren't blank
+  // verify countdown name is filled in and correct length
   if (!name) setErrorTooltip('Please enter a countdown name', nameError);
-  if (!date) setErrorTooltip('Please enter a countdown date', dateError);
-  if (!time) setErrorTooltip('Please enter a countdown time', timeError);
-
-  // verify countdown name is valid length
   else if (countdown.name.length > 35) setErrorTooltip('Countdown name can\'t exceed 35 characters', nameError);
 
-  // verify date/time aren't in the past
-  else if (!checkDateInFuture(date, time)) setErrorTooltip('Can\'t create countdown in the past', dateError);
-
-  // verify date and time are in correct format
+  // verify countdown date and time are filled in and follow correct format.
+  if (!date) setErrorTooltip('Please enter a countdown date', dateError);
   else if (!countdown.date.match(dateRegEx)) setErrorTooltip('Date format incorrect', dateError);
+
+  if (!time) setErrorTooltip('Please enter a countdown time', timeError);
   else if (!countdown.time.match(timeRegEx)) setErrorTooltip('Time format incorrect', timeError);
+
+  // verify date/time aren't in the past
+  if (!checkDateInFuture(date, time)) setErrorTooltip('Can\'t create countdown in the past', dateError);
 
   // if passed all tests, set countdownValid to true
   else {
@@ -67,6 +67,7 @@ const countdownIsValid = (countdown) => {
   }
   return countdownValid;
 }
+
 
 
 module.exports = {countdownIsValid, checkDateInFuture}
