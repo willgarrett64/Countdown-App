@@ -23,8 +23,11 @@ export default function SelectCountdown({toggleSidebarOpen}) {
       
       <div id="countdown-list">
         {countdownList.map(countdown => <CountdownCard countdown={countdown} key={countdown.id} />)}
-        {signedIn && <AddNewCountdownCard />}
-        {!signedIn && <p className="back-to-signIn" onClick={() => dispatch(setSidebarView('signIn'))}><strong>SIGN IN</strong> FOR MORE FEATURES</p>}
+        {
+          signedIn 
+          ? <AddNewCountdownCard /> 
+          : <p className="back-to-signIn" onClick={() => dispatch(setSidebarView('signIn'))}><strong>SIGN IN</strong> FOR MORE FEATURES</p>
+        }
       </div>
       <img src={dblLeftChevron} id="close-sidebar-btn" className="open-close-btn" onClick={toggleSidebarOpen} alt="close sidebar icon" />
     </div>

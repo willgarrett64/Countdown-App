@@ -86,6 +86,7 @@ export default function SignUp() {
         id="sign-up-form"
         className="sidebar-form flex column"
       />
+      <div className="data-warning"><strong>Important</strong>: Please note that this app is currently in development so we recommend you don't use commonly used passwords as we can't guarantee it will be secure</div>
     </div>
   )
 }

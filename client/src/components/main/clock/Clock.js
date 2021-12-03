@@ -18,9 +18,8 @@ import { calculateSecondsUntil } from "../../../utils/clockFunctions";
 //#endregion IMPORTS
 
 
-export default function Clock() {
+export default function Clock({countdown}) {
   const dispatch = useDispatch();
-  const liveCountdown = useSelector(state => state.liveCountdown.countdown);
 
   const [totalSecondsRemaining, setTotalSecondsRemaining] = useState();
 
@@ -31,12 +30,12 @@ export default function Clock() {
   
   // initiate the clock and start counting down each second
   useEffect(() => {
-    setTotalSecondsRemaining(calculateSecondsUntil(liveCountdown));
+    setTotalSecondsRemaining(calculateSecondsUntil(countdown));
     const myClock = setInterval(tickSecond, 1000);
     return () => {
       clearInterval(myClock);
     }
-  }, [liveCountdown])
+  }, [countdown])
 
 
   // delete the countdown
@@ -53,7 +52,7 @@ export default function Clock() {
   if (totalSecondsRemaining >= 0) {
     return (
       <div className="clock-wrapper">
-        <h1>DAYS UNTIL {liveCountdown.name.toUpperCase()}</h1>
+        <h1>DAYS UNTIL {countdown.name.toUpperCase()}</h1>
         <div className="clock">
           <ClockCard type={'days'} totalSeconds={totalSecondsRemaining} />
           <ClockCard type={'hours'} totalSeconds={totalSecondsRemaining} />
@@ -65,7 +64,7 @@ export default function Clock() {
   } else {
     return (
       <div className="clock-wrapper">
-        <h1>{liveCountdown.name.toUpperCase()} COUNTDOWN COMPLETE</h1>
+        <h1>{countdown.name.toUpperCase()} COUNTDOWN COMPLETE</h1>
         <div>
           <Button 
             classes='secondary'

@@ -1,7 +1,7 @@
 aside {
   width: 0vw;
   height: 100vh;
-  padding-top: 100px;
+  padding-top: 10vh;
   padding-bottom: 30px;
   background-color: rgb(47, 36, 57);
   position: relative;
@@ -69,6 +69,14 @@ aside h2 {
   text-decoration: underline;
 }
 /*#endregion continue as guest button*/
+
+
+/*#region sign up section*/
+.data-warning {
+  font-size: 0.8rem;
+  margin-top: 50px;
+}
+/*#endregion sign up section*/
 
 
 /*#region select countdown sidebar*/

@@ -24,7 +24,7 @@ export default function Main () {
           !signedIn && sidebarView !== 'selectCountdown' 
           ? <LandingPage /> 
           : liveCountdown 
-          ? <Clock /> 
+          ? <Clock countdown={liveCountdown} /> 
           : <h2>CREATE YOUR FIRST COUNTDOWN TO START THE CLOCK</h2>
         }
       </div>
